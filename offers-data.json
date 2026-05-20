@@ -1,0 +1,1021 @@
+{
+  "currencies": [
+    {
+      "id": "coins",
+      "n": "Coins",
+      "e": "💰",
+      "c": "#f59e0b",
+      "v": 1,
+      "locked": true
+    },
+    {
+      "id": "clear",
+      "n": "Clear Booster",
+      "e": "✨",
+      "c": "#60a5fa",
+      "v": 180
+    },
+    {
+      "id": "magnet",
+      "n": "Magnet Booster",
+      "e": "🧲",
+      "c": "#a78bfa",
+      "v": 180
+    },
+    {
+      "id": "shuffel",
+      "n": "Shuffel Booster",
+      "e": "🔀",
+      "c": "#34d399",
+      "v": 180
+    },
+    {
+      "id": "endless_lives",
+      "n": "Endless Lives (timed)",
+      "e": "♾️",
+      "c": "#f472b6",
+      "v": 0.3
+    },
+    {
+      "id": "slot",
+      "n": "1 Slot",
+      "e": "🎰",
+      "c": "#fb923c",
+      "v": 270
+    },
+    {
+      "id": "lives_refill",
+      "n": "Lives Refill",
+      "e": "❤️",
+      "c": "#f87171",
+      "v": 270
+    }
+  ],
+  "offers": [
+    {
+      "name": "asdasdasd",
+      "badge": "",
+      "segment": "",
+      "location": "",
+      "notes": "",
+      "price": "65.99",
+      "pricingType": "-1",
+      "addPct": "",
+      "purchaseLimit": "1",
+      "startLevel": "",
+      "isFreeOffer": false,
+      "duration": "",
+      "trigger": "",
+      "type": "endless",
+      "tierCount": 6,
+      "contents": [
+        {
+          "cid": "coins",
+          "amt": ""
+        },
+        {
+          "cid": "coins",
+          "amt": ""
+        }
+      ],
+      "crossCost": "",
+      "personalHook": "",
+      "personalNote": "",
+      "piggyCapacity": "",
+      "piggyRate": "",
+      "piggyTrigger": "When Full",
+      "tiers": [
+        {
+          "id": "idmpe4y9evf2zn",
+          "name": "Tier 1",
+          "isFree": false,
+          "price": "",
+          "badge": "",
+          "contents": []
+        },
+        {
+          "id": "idmpe4y9evjwru",
+          "name": "Tier 2",
+          "isFree": false,
+          "price": "",
+          "badge": "",
+          "contents": []
+        },
+        {
+          "id": "idmpe4y9evbisb",
+          "name": "Tier 3",
+          "isFree": false,
+          "price": "",
+          "badge": "",
+          "contents": []
+        },
+        {
+          "id": "idmpe4y9ev1wyr",
+          "name": "Tier 4",
+          "isFree": true,
+          "price": "",
+          "badge": "",
+          "contents": []
+        },
+        {
+          "id": "idmpe4y9evrnci",
+          "name": "Tier 5",
+          "isFree": false,
+          "price": "",
+          "badge": "",
+          "contents": []
+        },
+        {
+          "id": "idmpe4y9evend9",
+          "name": "Tier 6",
+          "isFree": true,
+          "price": "",
+          "badge": "",
+          "contents": []
+        },
+        {
+          "id": "idmpe50c0t0604",
+          "name": "Tier 7",
+          "isFree": true,
+          "price": "",
+          "badge": "",
+          "contents": []
+        }
+      ],
+      "id": "idmpe51ylydrld",
+      "ts": 1779286184566
+    },
+    {
+      "type": "buy_all",
+      "name": "asdasd",
+      "badge": "",
+      "segment": "",
+      "location": "",
+      "notes": "",
+      "price": "",
+      "pricingType": "-1",
+      "addPct": "",
+      "purchaseLimit": "",
+      "startLevel": "",
+      "duration": "",
+      "trigger": "",
+      "isFreeOffer": false,
+      "crossCost": "",
+      "id": "idmpe525hfjabm",
+      "ts": 1779286193475
+    },
+    {
+      "type": "endless",
+      "name": "1123123",
+      "badge": "",
+      "segment": "",
+      "location": "",
+      "notes": "",
+      "price": "",
+      "pricingType": "-1",
+      "addPct": "",
+      "purchaseLimit": "",
+      "startLevel": "",
+      "duration": "",
+      "trigger": "",
+      "tierCount": 6,
+      "tiers": [
+        {
+          "id": "idmpe52bw1b3pz",
+          "name": "Tier 1",
+          "isFree": false,
+          "price": "",
+          "badge": "",
+          "contents": []
+        },
+        {
+          "id": "idmpe52bw1vhnk",
+          "name": "Tier 2",
+          "isFree": false,
+          "price": "",
+          "badge": "",
+          "contents": []
+        },
+        {
+          "id": "idmpe52bw1ju33",
+          "name": "Tier 3",
+          "isFree": false,
+          "price": "",
+          "badge": "",
+          "contents": []
+        },
+        {
+          "id": "idmpe52bw10r7j",
+          "name": "Tier 4",
+          "isFree": false,
+          "price": "",
+          "badge": "",
+          "contents": []
+        },
+        {
+          "id": "idmpe52bw1qws9",
+          "name": "Tier 5",
+          "isFree": false,
+          "price": "",
+          "badge": "",
+          "contents": []
+        },
+        {
+          "id": "idmpe52bw1zgby",
+          "name": "Tier 6",
+          "isFree": false,
+          "price": "",
+          "badge": "",
+          "contents": []
+        }
+      ],
+      "id": "idmpe52djhbjew",
+      "ts": 1779286203917
+    }
+  ],
+  "priceSlope": [
+    {
+      "price": 0.99,
+      "cpd": 502.51
+    },
+    {
+      "price": 1.99,
+      "cpd": 502.51
+    },
+    {
+      "price": 2.99,
+      "cpd": 527.17
+    },
+    {
+      "price": 3.99,
+      "cpd": 551.82
+    },
+    {
+      "price": 4.99,
+      "cpd": 576.47
+    },
+    {
+      "price": 5.99,
+      "cpd": 601.13
+    },
+    {
+      "price": 6.99,
+      "cpd": 625.78
+    },
+    {
+      "price": 7.99,
+      "cpd": 625.78
+    },
+    {
+      "price": 8.99,
+      "cpd": 632.67
+    },
+    {
+      "price": 9.99,
+      "cpd": 639.56
+    },
+    {
+      "price": 10.99,
+      "cpd": 646.45
+    },
+    {
+      "price": 11.99,
+      "cpd": 653.34
+    },
+    {
+      "price": 12.99,
+      "cpd": 660.22
+    },
+    {
+      "price": 13.99,
+      "cpd": 667.11
+    },
+    {
+      "price": 14.99,
+      "cpd": 667.11
+    },
+    {
+      "price": 15.99,
+      "cpd": 679
+    },
+    {
+      "price": 16.99,
+      "cpd": 690.9
+    },
+    {
+      "price": 17.99,
+      "cpd": 702.79
+    },
+    {
+      "price": 18.99,
+      "cpd": 714.68
+    },
+    {
+      "price": 19.99,
+      "cpd": 726.58
+    },
+    {
+      "price": 20.99,
+      "cpd": 738.47
+    },
+    {
+      "price": 21.99,
+      "cpd": 750.36
+    },
+    {
+      "price": 22.99,
+      "cpd": 762.25
+    },
+    {
+      "price": 23.99,
+      "cpd": 774.15
+    },
+    {
+      "price": 24.99,
+      "cpd": 786.04
+    },
+    {
+      "price": 25.99,
+      "cpd": 797.93
+    },
+    {
+      "price": 26.99,
+      "cpd": 809.83
+    },
+    {
+      "price": 27.99,
+      "cpd": 821.72
+    },
+    {
+      "price": 28.99,
+      "cpd": 833.61
+    },
+    {
+      "price": 29.99,
+      "cpd": 833.61
+    },
+    {
+      "price": 30.99,
+      "cpd": 836.76
+    },
+    {
+      "price": 31.99,
+      "cpd": 839.91
+    },
+    {
+      "price": 32.99,
+      "cpd": 843.07
+    },
+    {
+      "price": 33.99,
+      "cpd": 846.22
+    },
+    {
+      "price": 34.99,
+      "cpd": 849.37
+    },
+    {
+      "price": 35.99,
+      "cpd": 852.52
+    },
+    {
+      "price": 36.99,
+      "cpd": 855.67
+    },
+    {
+      "price": 37.99,
+      "cpd": 858.83
+    },
+    {
+      "price": 38.99,
+      "cpd": 861.98
+    },
+    {
+      "price": 39.99,
+      "cpd": 865.13
+    },
+    {
+      "price": 40.99,
+      "cpd": 868.28
+    },
+    {
+      "price": 41.99,
+      "cpd": 871.43
+    },
+    {
+      "price": 42.99,
+      "cpd": 874.59
+    },
+    {
+      "price": 43.99,
+      "cpd": 877.74
+    },
+    {
+      "price": 44.99,
+      "cpd": 880.89
+    },
+    {
+      "price": 45.99,
+      "cpd": 884.04
+    },
+    {
+      "price": 46.99,
+      "cpd": 887.19
+    },
+    {
+      "price": 47.99,
+      "cpd": 890.34
+    },
+    {
+      "price": 48.99,
+      "cpd": 893.5
+    },
+    {
+      "price": 49.99,
+      "cpd": 896.65
+    },
+    {
+      "price": 50.99,
+      "cpd": 899.8
+    },
+    {
+      "price": 51.99,
+      "cpd": 902.95
+    },
+    {
+      "price": 52.99,
+      "cpd": 906.1
+    },
+    {
+      "price": 53.99,
+      "cpd": 909.26
+    },
+    {
+      "price": 54.99,
+      "cpd": 909.26
+    },
+    {
+      "price": 55.99,
+      "cpd": 911.32
+    },
+    {
+      "price": 56.99,
+      "cpd": 913.39
+    },
+    {
+      "price": 57.99,
+      "cpd": 915.45
+    },
+    {
+      "price": 58.99,
+      "cpd": 917.51
+    },
+    {
+      "price": 59.99,
+      "cpd": 919.58
+    },
+    {
+      "price": 60.99,
+      "cpd": 921.64
+    },
+    {
+      "price": 61.99,
+      "cpd": 923.71
+    },
+    {
+      "price": 62.99,
+      "cpd": 925.77
+    },
+    {
+      "price": 63.99,
+      "cpd": 927.84
+    },
+    {
+      "price": 64.99,
+      "cpd": 929.9
+    },
+    {
+      "price": 65.99,
+      "cpd": 931.97
+    },
+    {
+      "price": 66.99,
+      "cpd": 934.03
+    },
+    {
+      "price": 67.99,
+      "cpd": 936.1
+    },
+    {
+      "price": 68.99,
+      "cpd": 938.16
+    },
+    {
+      "price": 69.99,
+      "cpd": 940.23
+    },
+    {
+      "price": 70.99,
+      "cpd": 942.29
+    },
+    {
+      "price": 71.99,
+      "cpd": 944.35
+    },
+    {
+      "price": 72.99,
+      "cpd": 946.42
+    },
+    {
+      "price": 73.99,
+      "cpd": 948.48
+    },
+    {
+      "price": 74.99,
+      "cpd": 950.55
+    },
+    {
+      "price": 75.99,
+      "cpd": 952.61
+    },
+    {
+      "price": 76.99,
+      "cpd": 954.68
+    },
+    {
+      "price": 77.99,
+      "cpd": 956.74
+    },
+    {
+      "price": 78.99,
+      "cpd": 958.81
+    },
+    {
+      "price": 79.99,
+      "cpd": 960.87
+    },
+    {
+      "price": 80.99,
+      "cpd": 962.94
+    },
+    {
+      "price": 81.99,
+      "cpd": 965
+    },
+    {
+      "price": 82.99,
+      "cpd": 967.07
+    },
+    {
+      "price": 83.99,
+      "cpd": 969.13
+    },
+    {
+      "price": 84.99,
+      "cpd": 971.2
+    },
+    {
+      "price": 85.99,
+      "cpd": 973.26
+    },
+    {
+      "price": 86.99,
+      "cpd": 975.32
+    },
+    {
+      "price": 87.99,
+      "cpd": 977.39
+    },
+    {
+      "price": 88.99,
+      "cpd": 979.45
+    },
+    {
+      "price": 89.99,
+      "cpd": 981.52
+    },
+    {
+      "price": 90.99,
+      "cpd": 983.58
+    },
+    {
+      "price": 91.99,
+      "cpd": 985.65
+    },
+    {
+      "price": 92.99,
+      "cpd": 987.71
+    },
+    {
+      "price": 93.99,
+      "cpd": 989.78
+    },
+    {
+      "price": 94.99,
+      "cpd": 991.84
+    },
+    {
+      "price": 95.99,
+      "cpd": 993.91
+    },
+    {
+      "price": 96.99,
+      "cpd": 995.97
+    },
+    {
+      "price": 97.99,
+      "cpd": 998.04
+    },
+    {
+      "price": 98.99,
+      "cpd": 1000.1
+    },
+    {
+      "price": 99.99,
+      "cpd": 1000.1
+    }
+  ],
+  "customTypes": [],
+  "customSegs": [],
+  "typeTemplates": {
+    "buy_all": {
+      "layout": "popup",
+      "struct": {
+        "showCTA": true,
+        "ctaStyle": "rounded"
+      },
+      "bg1": "#0a1628",
+      "bg2": "#0d3b5e",
+      "accent": "#fbbf24",
+      "canvasBoxes": [
+        {
+          "label": "Pick One Title",
+          "x": 5,
+          "y": 1,
+          "w": 90,
+          "h": 10,
+          "color": "#818cf8",
+          "id": "idmpe4v555rjpb"
+        },
+        {
+          "label": "Tier 1 (small)",
+          "x": 2,
+          "y": 13,
+          "w": 30,
+          "h": 58,
+          "color": "#34d399",
+          "id": "idmpe4v555g2wi"
+        },
+        {
+          "label": "Tier 2 (featured)",
+          "x": 34,
+          "y": 9,
+          "w": 32,
+          "h": 64,
+          "color": "#fbbf24",
+          "id": "idmpe4v5556umo"
+        },
+        {
+          "label": "Tier 3",
+          "x": 68,
+          "y": 13,
+          "w": 30,
+          "h": 58,
+          "color": "#818cf8",
+          "id": "idmpe4v5551awo"
+        },
+        {
+          "label": "Buy All CTA",
+          "x": 5,
+          "y": 80,
+          "w": 90,
+          "h": 13,
+          "color": "#4ade80",
+          "id": "idmpe4v5554y1o"
+        }
+      ]
+    },
+    "undefined": {
+      "struct": {}
+    },
+    "endless": {
+      "struct": {
+        "showBadge": false,
+        "showTimer": true,
+        "tierHeight": "xl",
+        "showTierNum": true,
+        "showArrows": true,
+        "showCoinTotal": false,
+        "showSegment": false,
+        "showContents": true
+      },
+      "tierLayout": "snaking",
+      "bg1": "#fafafa",
+      "bg2": "#312e81",
+      "accent": "#818cf8",
+      "gridCols": 2,
+      "canvasBoxes": [
+        {
+          "label": "Offer Title / Timer",
+          "x": 5,
+          "y": 1,
+          "w": 90,
+          "h": 9,
+          "color": "#818cf8",
+          "id": "idmpe4paiw8pxc"
+        },
+        {
+          "label": "Tier 1",
+          "x": 2,
+          "y": 12,
+          "w": 45,
+          "h": 20,
+          "color": "#34d399",
+          "id": "idmpe4paiwouj2"
+        },
+        {
+          "label": "Tier 2",
+          "x": 52,
+          "y": 12,
+          "w": 46,
+          "h": 20,
+          "color": "#34d399",
+          "id": "idmpe4paiwjeul"
+        },
+        {
+          "label": "Tier 3",
+          "x": 2,
+          "y": 34,
+          "w": 45,
+          "h": 20,
+          "color": "#60a5fa",
+          "id": "idmpe4paiwr9ro"
+        },
+        {
+          "label": "Tier 4",
+          "x": 52,
+          "y": 34,
+          "w": 46,
+          "h": 20,
+          "color": "#60a5fa",
+          "id": "idmpe4paiwnfyq"
+        },
+        {
+          "label": "Tier 5",
+          "x": 2,
+          "y": 56,
+          "w": 45,
+          "h": 20,
+          "color": "#fbbf24",
+          "id": "idmpe4paiwqvxp"
+        },
+        {
+          "label": "Tier 6 (featured)",
+          "x": 52,
+          "y": 56,
+          "w": 46,
+          "h": 20,
+          "color": "#fbbf24",
+          "id": "idmpe4paiwjz91"
+        }
+      ],
+      "badgePresets": []
+    },
+    "double": {
+      "struct": {
+        "showCTA": false,
+        "showTimer": true
+      },
+      "layout": "banner"
+    },
+    "personal": {
+      "struct": {}
+    },
+    "starter": {
+      "struct": {
+        "showCTA": false
+      },
+      "layout": "popup"
+    },
+    "piggy": {
+      "struct": {}
+    },
+    "timed": {
+      "struct": {}
+    },
+    "season": {
+      "struct": {},
+      "layout": "popup",
+      "bg1": "#fef3c7",
+      "bg2": "#fce7f3",
+      "accent": "#f59e0b",
+      "canvasBoxes": [
+        {
+          "label": "Season Pass Title",
+          "x": 5,
+          "y": 1,
+          "w": 90,
+          "h": 10,
+          "color": "#f59e0b",
+          "id": "idmpe4oyl995ao"
+        },
+        {
+          "label": "Progress Bar",
+          "x": 5,
+          "y": 12,
+          "w": 90,
+          "h": 7,
+          "color": "#818cf8",
+          "id": "idmpe4oyl9qpd3"
+        },
+        {
+          "label": "Free Track 1",
+          "x": 2,
+          "y": 21,
+          "w": 46,
+          "h": 22,
+          "color": "#34d399",
+          "id": "idmpe4oyl91309"
+        },
+        {
+          "label": "Paid Track 1",
+          "x": 52,
+          "y": 21,
+          "w": 46,
+          "h": 22,
+          "color": "#fbbf24",
+          "id": "idmpe4oyl9t1am"
+        },
+        {
+          "label": "Free Track 2",
+          "x": 2,
+          "y": 45,
+          "w": 46,
+          "h": 22,
+          "color": "#34d399",
+          "id": "idmpe4oyl91zln"
+        },
+        {
+          "label": "Paid Track 2",
+          "x": 52,
+          "y": 45,
+          "w": 46,
+          "h": 22,
+          "color": "#fbbf24",
+          "id": "idmpe4oyl9s8bh"
+        },
+        {
+          "label": "Premium Unlock (full)",
+          "x": 2,
+          "y": 69,
+          "w": 96,
+          "h": 24,
+          "color": "#ef4444",
+          "id": "idmpe4oyl9r21h"
+        }
+      ]
+    },
+    "milestone": {
+      "struct": {}
+    },
+    "rolling": {
+      "struct": {
+        "showTimer": false,
+        "showSegment": true,
+        "showContents": false,
+        "showArrows": true,
+        "showTierNum": true,
+        "showCoinTotal": true,
+        "tierHeight": "sm"
+      },
+      "badgePresets": [],
+      "tierLayout": "grid"
+    },
+    "regular": {
+      "struct": {}
+    }
+  },
+  "shop": {
+    "enabled": {
+      "special": true,
+      "bundles": true,
+      "coinPacks": true,
+      "removeAds": true
+    },
+    "specialOfferIds": [
+      "idmpe51ylydrld"
+    ],
+    "bundles": [
+      {
+        "id": "b1",
+        "name": "Small Bundle",
+        "icon": "💰",
+        "qty": 2000,
+        "bonusPct": 25,
+        "duration": "2H",
+        "price": 9.99,
+        "badge": "FIRST TIME BONUS +25% MORE"
+      },
+      {
+        "id": "b2",
+        "name": "Big Bundle",
+        "icon": "💰",
+        "qty": 5000,
+        "bonusPct": 13,
+        "duration": "4H",
+        "price": 20.99,
+        "badge": "FIRST TIME BONUS +25% MORE"
+      },
+      {
+        "id": "b3",
+        "name": "Giant Bundle",
+        "icon": "💰",
+        "qty": 12000,
+        "bonusPct": 25,
+        "duration": "6H",
+        "price": 35.99,
+        "badge": "BEST OFFER"
+      }
+    ],
+    "coinPacks": [
+      {
+        "id": "c2",
+        "tier": 2,
+        "icon": "$$",
+        "qty": 1,
+        "bonusPct": 50,
+        "price": 8.49,
+        "badge": ""
+      },
+      {
+        "id": "c3",
+        "tier": 3,
+        "icon": "$$$",
+        "qty": 10000,
+        "bonusPct": 50,
+        "price": 15.99,
+        "badge": "POPULAR"
+      },
+      {
+        "id": "c4",
+        "tier": 4,
+        "icon": "$",
+        "qty": 25000,
+        "bonusPct": 50,
+        "price": 30.99,
+        "badge": ""
+      },
+      {
+        "id": "c5",
+        "tier": 5,
+        "icon": "$$",
+        "qty": 50000,
+        "bonusPct": 50,
+        "price": 54.99,
+        "badge": ""
+      },
+      {
+        "id": "c6",
+        "tier": 6,
+        "icon": "$$$",
+        "qty": 100000,
+        "bonusPct": 50,
+        "price": 104.99,
+        "badge": ""
+      },
+      {
+        "id": "c1779277285852",
+        "tier": 6,
+        "icon": "$",
+        "qty": 1000,
+        "bonusPct": 50,
+        "price": 1.99,
+        "badge": ""
+      }
+    ],
+    "removeAds": [
+      {
+        "id": "ra1",
+        "name": "Remove Ads",
+        "icon": "ADS",
+        "price": 9.49,
+        "badge": ""
+      },
+      {
+        "id": "ra2",
+        "name": "No Ads Bundle",
+        "icon": "$$",
+        "qty": 15000,
+        "price": 12.99,
+        "badge": ""
+      }
+    ]
+  },
+  "customLocations": [],
+  "customTriggers": [],
+  "customPricingTypes": [],
+  "hiddenTypes": [],
+  "hiddenSegs": [],
+  "hiddenLocations": [],
+  "hiddenTriggers": []
+}
