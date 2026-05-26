@@ -635,14 +635,32 @@
       "cpd": 1000.1
     }
   ],
-  "customTypes": [],
+  "customTypes": [
+    {
+      "k": "custom_1779711550428",
+      "n": "New Type",
+      "i": "⭐",
+      "c": "#6366f1",
+      "d": "Custom type",
+      "hasTiers": false
+    },
+    {
+      "k": "custom_1779779531887",
+      "n": "New Type",
+      "i": "⭐",
+      "c": "#6366f1",
+      "d": "Custom type",
+      "hasTiers": false
+    }
+  ],
   "customSegs": [],
   "typeTemplates": {
     "buy_all": {
       "layout": "popup",
       "struct": {
         "showCTA": true,
-        "ctaStyle": "rounded"
+        "ctaStyle": "rounded",
+        "ctaText": "asasd"
       },
       "bg1": "#0a1628",
       "bg2": "#0d3b5e",
@@ -655,7 +673,8 @@
           "w": 90,
           "h": 10,
           "color": "#818cf8",
-          "id": "idmpe4v555rjpb"
+          "id": "idmpe4v555rjpb",
+          "isTierSlot": false
         },
         {
           "label": "Tier 1 (small)",
@@ -664,7 +683,8 @@
           "w": 30,
           "h": 58,
           "color": "#34d399",
-          "id": "idmpe4v555g2wi"
+          "id": "idmpe4v555g2wi",
+          "isTierSlot": true
         },
         {
           "label": "Tier 2 (featured)",
@@ -673,7 +693,8 @@
           "w": 32,
           "h": 64,
           "color": "#fbbf24",
-          "id": "idmpe4v5556umo"
+          "id": "idmpe4v5556umo",
+          "isTierSlot": true
         },
         {
           "label": "Tier 3",
@@ -682,7 +703,8 @@
           "w": 30,
           "h": 58,
           "color": "#818cf8",
-          "id": "idmpe4v5551awo"
+          "id": "idmpe4v5551awo",
+          "isTierSlot": true
         },
         {
           "label": "Buy All CTA",
@@ -691,9 +713,11 @@
           "w": 90,
           "h": 13,
           "color": "#4ade80",
-          "id": "idmpe4v5554y1o"
+          "id": "idmpe4v5554y1o",
+          "isTierSlot": true
         }
-      ]
+      ],
+      "badgePresets": []
     },
     "undefined": {
       "struct": {}
@@ -710,7 +734,7 @@
         "showContents": true
       },
       "tierLayout": "snaking",
-      "bg1": "#fafafa",
+      "bg1": "#1a1a2e",
       "bg2": "#312e81",
       "accent": "#818cf8",
       "gridCols": 2,
@@ -722,7 +746,8 @@
           "w": 90,
           "h": 9,
           "color": "#818cf8",
-          "id": "idmpe4paiw8pxc"
+          "id": "idmpe7rwyobkpk",
+          "isTierSlot": false
         },
         {
           "label": "Tier 1",
@@ -731,7 +756,8 @@
           "w": 45,
           "h": 20,
           "color": "#34d399",
-          "id": "idmpe4paiwouj2"
+          "id": "idmpe7rwyoj16b",
+          "isTierSlot": true
         },
         {
           "label": "Tier 2",
@@ -740,7 +766,8 @@
           "w": 46,
           "h": 20,
           "color": "#34d399",
-          "id": "idmpe4paiwjeul"
+          "id": "idmpe7rwyovkiz",
+          "isTierSlot": true
         },
         {
           "label": "Tier 3",
@@ -749,7 +776,8 @@
           "w": 45,
           "h": 20,
           "color": "#60a5fa",
-          "id": "idmpe4paiwr9ro"
+          "id": "idmpe7rwyoq6bj",
+          "isTierSlot": true
         },
         {
           "label": "Tier 4",
@@ -758,7 +786,8 @@
           "w": 46,
           "h": 20,
           "color": "#60a5fa",
-          "id": "idmpe4paiwnfyq"
+          "id": "idmpe7rwyo1a4q",
+          "isTierSlot": true
         },
         {
           "label": "Tier 5",
@@ -767,7 +796,8 @@
           "w": 45,
           "h": 20,
           "color": "#fbbf24",
-          "id": "idmpe4paiwqvxp"
+          "id": "idmpe7rwyoymk4",
+          "isTierSlot": true
         },
         {
           "label": "Tier 6 (featured)",
@@ -776,7 +806,8 @@
           "w": 46,
           "h": 20,
           "color": "#fbbf24",
-          "id": "idmpe4paiwjz91"
+          "id": "idmpe7rwyoo1gc",
+          "isTierSlot": true
         }
       ],
       "badgePresets": []
@@ -804,79 +835,158 @@
       "struct": {}
     },
     "season": {
-      "struct": {},
+      "struct": {
+        "showCTA": false,
+        "ctaStyle": "pill"
+      },
       "layout": "popup",
-      "bg1": "#fef3c7",
-      "bg2": "#fce7f3",
-      "accent": "#f59e0b",
+      "bg1": "#1a1a2e",
+      "bg2": "#0f172a",
+      "accent": "#eab308",
       "canvasBoxes": [
         {
           "label": "Season Pass Title",
           "x": 5,
           "y": 1,
           "w": 90,
-          "h": 10,
-          "color": "#f59e0b",
-          "id": "idmpe4oyl995ao"
+          "h": 9,
+          "isTierSlot": false,
+          "color": "#eab308",
+          "id": "idmpl7drfb255p"
         },
         {
           "label": "Progress Bar",
+          "x": 5,
+          "y": 11,
+          "w": 90,
+          "h": 7,
+          "isTierSlot": false,
+          "color": "#818cf8",
+          "id": "idmpl7drfbdc1k"
+        },
+        {
+          "label": "Free Reward 1",
+          "x": 2,
+          "y": 20,
+          "w": 46,
+          "h": 22,
+          "isTierSlot": false,
+          "color": "#34d399",
+          "id": "idmpl7drfbbwhs"
+        },
+        {
+          "label": "Paid Reward 1 🔒",
+          "x": 52,
+          "y": 20,
+          "w": 46,
+          "h": 22,
+          "isTierSlot": false,
+          "color": "#eab308",
+          "id": "idmpl7drfbbdmu"
+        },
+        {
+          "label": "Free Reward 2",
+          "x": 2,
+          "y": 44,
+          "w": 46,
+          "h": 22,
+          "isTierSlot": false,
+          "color": "#34d399",
+          "id": "idmpl7drfbekxc"
+        },
+        {
+          "label": "Paid Reward 2 🔒",
+          "x": 52,
+          "y": 44,
+          "w": 46,
+          "h": 22,
+          "isTierSlot": false,
+          "color": "#eab308",
+          "id": "idmpl7drfbipxf"
+        },
+        {
+          "label": "Unlock All Premium →",
+          "x": 2,
+          "y": 68,
+          "w": 96,
+          "h": 24,
+          "isTierSlot": false,
+          "color": "#ef4444",
+          "id": "idmpl7drfbcf4u"
+        }
+      ]
+    },
+    "milestone": {
+      "struct": {},
+      "bg1": "#fce7f3",
+      "bg2": "#f0fdf4",
+      "accent": "#10b981",
+      "canvasBoxes": [
+        {
+          "label": "Savings Title",
+          "x": 5,
+          "y": 1,
+          "w": 90,
+          "h": 10,
+          "color": "#ec4899",
+          "id": "idmpl6bd3006qg"
+        },
+        {
+          "label": "Progress Bar (0/10)",
           "x": 5,
           "y": 12,
           "w": 90,
           "h": 7,
           "color": "#818cf8",
-          "id": "idmpe4oyl9qpd3"
+          "id": "idmpl6bd30tzp8"
         },
         {
-          "label": "Free Track 1",
+          "label": "Free Item 1",
           "x": 2,
           "y": 21,
           "w": 46,
           "h": 22,
           "color": "#34d399",
-          "id": "idmpe4oyl91309"
+          "id": "idmpl6bd306ua3"
         },
         {
-          "label": "Paid Track 1",
+          "label": "Free Item 2",
           "x": 52,
           "y": 21,
           "w": 46,
           "h": 22,
-          "color": "#fbbf24",
-          "id": "idmpe4oyl9t1am"
+          "color": "#34d399",
+          "id": "idmpl6bd308iv3"
         },
         {
-          "label": "Free Track 2",
+          "label": "Free Item 3",
           "x": 2,
           "y": 45,
           "w": 46,
           "h": 22,
           "color": "#34d399",
-          "id": "idmpe4oyl91zln"
+          "id": "idmpl6bd301guw"
         },
         {
-          "label": "Paid Track 2",
+          "label": "Free Item 4 (locked)",
           "x": 52,
           "y": 45,
           "w": 46,
           "h": 22,
-          "color": "#fbbf24",
-          "id": "idmpe4oyl9s8bh"
+          "color": "#94a3b8",
+          "id": "idmpl6bd30g4jp"
         },
         {
-          "label": "Premium Unlock (full)",
+          "label": "Paid Unlock (full row)",
           "x": 2,
           "y": 69,
           "w": 96,
           "h": 24,
-          "color": "#ef4444",
-          "id": "idmpe4oyl9r21h"
+          "color": "#f59e0b",
+          "id": "idmpl6bd30hgu3"
         }
-      ]
-    },
-    "milestone": {
-      "struct": {}
+      ],
+      "layout": "popup"
     },
     "rolling": {
       "struct": {
@@ -892,6 +1002,198 @@
       "tierLayout": "grid"
     },
     "regular": {
+      "struct": {}
+    },
+    "custom_1779711550428": {
+      "struct": {
+        "showCTA": true
+      }
+    },
+    "lives_refill": {
+      "bg1": "#1a0a14",
+      "bg2": "#3b0b27",
+      "accent": "#ec4899",
+      "canvasBoxes": [
+        {
+          "label": "Refill your lives!",
+          "x": 5,
+          "y": 1,
+          "w": 90,
+          "h": 9,
+          "isTierSlot": false,
+          "color": "#ec4899",
+          "id": "idmpl7d2aoxk54"
+        },
+        {
+          "label": "Quick Refill",
+          "x": 2,
+          "y": 12,
+          "w": 30,
+          "h": 56,
+          "isTierSlot": true,
+          "color": "#f472b6",
+          "id": "idmpl7d2ao5g0c"
+        },
+        {
+          "label": "Value Pack ★",
+          "x": 33,
+          "y": 8,
+          "w": 34,
+          "h": 63,
+          "isTierSlot": true,
+          "color": "#fbbf24",
+          "id": "idmpl7d2aoebry"
+        },
+        {
+          "label": "Full Refill",
+          "x": 68,
+          "y": 12,
+          "w": 30,
+          "h": 56,
+          "isTierSlot": true,
+          "color": "#a78bfa",
+          "id": "idmpl7d2aov9qx"
+        },
+        {
+          "label": "Timer / Session end",
+          "x": 20,
+          "y": 88,
+          "w": 60,
+          "h": 8,
+          "isTierSlot": false,
+          "color": "#475569",
+          "id": "idmpl7d2aomfya"
+        }
+      ],
+      "struct": {}
+    },
+    "play_on": {
+      "bg1": "#1a0a0a",
+      "bg2": "#2d0808",
+      "accent": "#ef4444",
+      "canvasBoxes": [
+        {
+          "label": "Continue playing?",
+          "x": 5,
+          "y": 1,
+          "w": 90,
+          "h": 8,
+          "isTierSlot": false,
+          "color": "#ef4444",
+          "id": "idmpl7d2mok07d"
+        },
+        {
+          "label": "Lives counter / timer",
+          "x": 25,
+          "y": 10,
+          "w": 50,
+          "h": 9,
+          "isTierSlot": false,
+          "color": "#f97316",
+          "id": "idmpl7d2mor8w3"
+        },
+        {
+          "label": "Basic Continue",
+          "x": 2,
+          "y": 21,
+          "w": 45,
+          "h": 52,
+          "isTierSlot": true,
+          "color": "#60a5fa",
+          "id": "idmpl7d2mopwvo"
+        },
+        {
+          "label": "Premium Continue ★",
+          "x": 52,
+          "y": 21,
+          "w": 46,
+          "h": 52,
+          "isTierSlot": true,
+          "color": "#fbbf24",
+          "id": "idmpl7d2molyzi"
+        },
+        {
+          "label": "Watch Ad (free)",
+          "x": 5,
+          "y": 77,
+          "w": 42,
+          "h": 9,
+          "isTierSlot": false,
+          "color": "#475569",
+          "id": "idmpl7d2mo9pym"
+        },
+        {
+          "label": "No thanks",
+          "x": 53,
+          "y": 77,
+          "w": 42,
+          "h": 9,
+          "isTierSlot": false,
+          "color": "#374151",
+          "id": "idmpl7d2mogqdg"
+        }
+      ],
+      "struct": {}
+    },
+    "ooc": {
+      "bg1": "#0d1b2a",
+      "bg2": "#1a2e44",
+      "accent": "#f59e0b",
+      "canvasBoxes": [
+        {
+          "label": "You ran out of coins!",
+          "x": 5,
+          "y": 1,
+          "w": 90,
+          "h": 9,
+          "isTierSlot": false,
+          "color": "#f59e0b",
+          "id": "idmpl7d4td2q5r"
+        },
+        {
+          "label": "Small Pack",
+          "x": 2,
+          "y": 11,
+          "w": 30,
+          "h": 57,
+          "isTierSlot": true,
+          "color": "#60a5fa",
+          "id": "idmpl7d4tda8s0"
+        },
+        {
+          "label": "Best Value ★",
+          "x": 33,
+          "y": 7,
+          "w": 34,
+          "h": 65,
+          "isTierSlot": true,
+          "color": "#fbbf24",
+          "id": "idmpl7d4tdx5gs"
+        },
+        {
+          "label": "Big Pack",
+          "x": 68,
+          "y": 11,
+          "w": 30,
+          "h": 57,
+          "isTierSlot": true,
+          "color": "#818cf8",
+          "id": "idmpl7d4tdoawy"
+        },
+        {
+          "label": "No thanks (close)",
+          "x": 30,
+          "y": 88,
+          "w": 40,
+          "h": 8,
+          "isTierSlot": false,
+          "color": "#475569",
+          "id": "idmpl7d4tdw4zd"
+        }
+      ],
+      "struct": {}
+    },
+    "custom_1779779531887": {
       "struct": {}
     }
   },
@@ -942,7 +1244,7 @@
         "id": "c2",
         "tier": 2,
         "icon": "$$",
-        "qty": 1,
+        "qty": 12121,
         "bonusPct": 50,
         "price": 8.49,
         "badge": ""
@@ -989,7 +1291,7 @@
         "icon": "$",
         "qty": 1000,
         "bonusPct": 50,
-        "price": 1.99,
+        "price": 7.99,
         "badge": ""
       }
     ],
