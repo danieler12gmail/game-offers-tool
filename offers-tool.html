@@ -1,0 +1,1106 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Offers Tool</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231e1b4b'/%3E%3Crect x='1' y='1' width='30' height='30' rx='7' fill='url(%23g)'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234338ca'/%3E%3Cstop offset='1' stop-color='%230f3460'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='16' y='22' font-family='Arial Black,sans-serif' font-size='18' font-weight='900' fill='%23fbbf24' text-anchor='middle'%3E$%3C/text%3E%3Ccircle cx='24' cy='9' r='4' fill='%2310b981'/%3E%3Ctext x='24' y='12' font-family='Arial,sans-serif' font-size='6' font-weight='700' fill='white' text-anchor='middle'%3E%2B%3C/text%3E%3C/svg%3E">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<style>
+:root{color-scheme:light;--bg:#f1f5f9;--surface:#ffffff;--border:#e2e8f0;--text:#1e293b;--text2:#64748b;--accent:#6366f1;--success:#10b981;--warn:#f59e0b;--danger:#ef4444}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.topbar{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 100%);padding:0 20px;display:flex;align-items:center;gap:2px;overflow-x:auto;flex-shrink:0;position:sticky;top:0;z-index:50}
+.topbar-logo{color:white;font-weight:800;font-size:15px;white-space:nowrap;padding:0 16px 0 0;border-right:1px solid rgba(255,255,255,.2);margin-right:8px}
+.nb{background:none;border:none;color:rgba(255,255,255,.65);padding:14px 14px;cursor:pointer;font-size:13px;white-space:nowrap;border-bottom:3px solid transparent;transition:all .15s;font-weight:500}
+.nb:hover{color:white}.nb.active{color:white;border-bottom-color:#818cf8}
+.panel{display:none;padding:24px;max-width:1500px;margin:0 auto}.panel.active{display:block}
+@keyframes savePop{0%{opacity:0;transform:scale(.7) translateY(3px)}15%{opacity:1;transform:scale(1.1) translateY(0)}30%{transform:scale(1)}75%{opacity:1}100%{opacity:0}}
+.save-pop{animation:savePop 1.8s forwards;display:inline-block;font-size:10px;color:#34d399;font-weight:700;margin-left:8px;pointer-events:none}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+.card-title{font-size:14px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.btn{padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--accent);color:white}.btn-primary:hover{background:#4f46e5}
+.btn-ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}.btn-ghost:hover{background:#eef2ff}
+.btn-secondary{background:var(--bg);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{background:var(--border)}
+.btn-danger{background:#fee2e2;color:#dc2626}.btn-danger:hover{background:#fecaca}
+.btn-sm{padding:5px 12px;font-size:12px;border-radius:6px}.btn-xs{padding:3px 8px;font-size:11px;border-radius:5px}
+.fg{margin-bottom:14px}
+.flabel{display:block;font-size:11px;font-weight:700;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em}
+.fi,.fs,.fta{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-size:13px;transition:border-color .15s;font-family:inherit}
+.fi:focus,.fs:focus,.fta:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+.fta{resize:vertical;min-height:70px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.frow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.frow4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px}
+.hint{font-size:11px;color:var(--text2);margin-top:4px}
+.seg-NP{background:#fce7f3;color:#be185d;border:1px solid #fbcfe8}
+.seg-Payers{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe}
+.seg-5-10{background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd}
+.seg-10plus{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0}
+.seg-Dormant30{background:#fef3c7;color:#92400e;border:1px solid #fde68a}
+.seg-All{background:#fefce8;color:#713f12;border:1px solid #fef08a}
+.seg-badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;display:inline-block}
+.offer-card{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%);border-radius:16px;padding:20px;color:white;position:relative;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.offer-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.2)}
+.offer-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 75% 15%,rgba(99,102,241,.4) 0%,transparent 60%);pointer-events:none}
+.offer-card-type{font-size:11px;font-weight:700;opacity:.7;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.offer-card-name{font-size:18px;font-weight:800;margin-bottom:8px;line-height:1.2}
+.offer-card-price{font-size:24px;font-weight:900;color:#fbbf24;margin-bottom:8px}
+.offer-card-contents{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.currency-pill{background:rgba(255,255,255,.12);padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;display:inline-flex;align-items:center;gap:3px}
+.offer-badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#f59e0b,#ef4444);padding:3px 9px;border-radius:20px;font-size:10px;font-weight:800;text-transform:uppercase}
+.offer-seg-tag{position:absolute;bottom:10px;right:12px;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:700}
+.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.tier-row{background:#f8faff;border:1.5px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}
+.tier-row.free-tier{border-color:#10b981;background:#f0fdf4}
+.tier-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.tier-num{width:26px;height:26px;border-radius:50%;background:var(--accent);color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tier-num.free{background:#10b981}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:24px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
+.stat-val{font-size:26px;font-weight:800;color:var(--accent)}.stat-lbl{font-size:12px;color:var(--text2);margin-top:3px}
+.wizard-header{display:flex;align-items:stretch;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px}
+.wstep{flex:1;padding:10px 6px;text-align:center;font-size:11px;color:var(--text2);border-right:1px solid var(--border)}
+.wstep:last-child{border-right:none}.wstep.done{background:#f0fdf4;color:#15803d}.wstep.active{background:#eef2ff;color:var(--accent);font-weight:700}
+.wstep-num{width:20px;height:20px;border-radius:50%;background:var(--border);display:inline-flex;align-items:center;justify-content:center;font-size:10px;margin-bottom:3px}
+.wstep.done .wstep-num{background:#10b981;color:white}.wstep.active .wstep-num{background:var(--accent);color:white}
+.cmp-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border)}
+.cmp-table{border-collapse:collapse;font-size:12px;width:100%}
+.cmp-table th{background:#f1f5f9;padding:8px 10px;text-align:left;white-space:nowrap;border:1px solid var(--border);font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--text2);font-weight:700;position:sticky;top:0}
+.cmp-table td{padding:7px 10px;border:1px solid var(--border);white-space:nowrap;font-size:12px}
+.cmp-table tr:hover td{background:#f8f9ff}
+.num{font-variant-numeric:tabular-nums;font-family:'SF Mono',Monaco,Consolas,monospace}
+.toggle-wrap{display:flex;align-items:center;gap:8px;cursor:pointer}
+.toggle-switch{position:relative;width:38px;height:20px;flex-shrink:0}
+.toggle-switch input{opacity:0;width:0;height:0}
+.tslider{position:absolute;inset:0;background:#cbd5e1;border-radius:20px;cursor:pointer;transition:.25s}
+.tslider::before{content:'';position:absolute;height:14px;width:14px;left:3px;bottom:3px;background:white;border-radius:50%;transition:.25s}
+.toggle-switch input:checked+.tslider{background:var(--accent)}
+.toggle-switch input:checked+.tslider::before{transform:translateX(18px)}
+.budget-bar{background:#e2e8f0;border-radius:4px;height:6px;margin-top:6px;overflow:hidden}
+.budget-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#10b981,#6366f1);transition:width .3s}
+.tbadge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700}
+.detail-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.detail-modal{background:var(--surface);border-radius:16px;max-width:900px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 25px 60px rgba(0,0,0,.3)}
+.detail-header{background:linear-gradient(135deg,#1e1b4b,#312e81);color:white;padding:24px;border-radius:16px 16px 0 0}
+.detail-body{padding:24px}
+.slot-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.section-h{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.chart-wrap{position:relative;height:280px}
+.empty{text-align:center;padding:60px 20px;color:var(--text2)}
+.empty-icon{font-size:48px;margin-bottom:12px}
+.tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:#eef2ff;color:var(--accent);font-weight:600;margin:2px}
+.info-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px;font-size:12px;color:#1d4ed8;margin-bottom:14px}
+.warn-box{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:12px;color:#92400e;margin-bottom:14px}
+.success-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px;font-size:12px;color:#15803d;margin-bottom:14px}
+.divider{height:1px;background:var(--border);margin:16px 0}
+.page-title{font-size:20px;font-weight:800}.page-sub{font-size:13px;color:var(--text2);margin-top:3px}
+.prow{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-logo">🎮 Offers Tool</div>
+  <button class="nb" onclick="nav('dashboard')">📊 Dashboard</button>
+  <button class="nb" onclick="nav('create')">➕ Create</button>
+  <button class="nb" onclick="nav('library')">📚 Library</button>
+  <button class="nb" onclick="nav('compare')">🔢 Compare</button>
+  <button class="nb" onclick="nav('slope')">📈 Price Slope</button>
+  <button class="nb" onclick="nav('shop')">🛍️ Shop</button>
+  <button class="nb active" onclick="nav('settings')">⚙️ Settings</button>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:2px;padding-left:10px;border-left:1px solid rgba(255,255,255,.15);flex-shrink:0">
+    <button id="undo-btn" onclick="undo()" title="Undo (Ctrl+Z) · 3 steps" style="background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; color: rgba(255, 255, 255, 0.85); padding: 8px 10px; cursor: pointer; font-size: 16px; border-radius: 6px; transition: 0.15s;">↩</button>
+    <button id="redo-btn" onclick="redo()" title="Redo (Ctrl+Shift+Z)" style="background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; color: rgba(255, 255, 255, 0.25); padding: 8px 10px; cursor: pointer; font-size: 16px; border-radius: 6px; transition: 0.15s;" disabled="">↪</button>
+    <div style="width:1px;height:20px;background:rgba(255,255,255,.15);margin:0 4px"></div>
+    <button onclick="showGitPanel()" title="GitHub sync" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;padding:6px 12px;cursor:pointer;font-size:12px;font-weight:700;border-radius:8px;display:flex;align-items:center;gap:5px;white-space:nowrap">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="white"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+      <span id="git-btn-label">danieler12gmail</span>
+    </button>
+    <span id="git-push-badge" style="display:none;font-size:9px;background:#10b981;color:white;padding:1px 5px;border-radius:8px;margin-left:-4px">✓ pushed</span>
+  </div>
+</div>
+<!-- Git Panel Dropdown -->
+<div id="git-panel" style="display: flex; position: fixed; top: 48px; right: 0px; width: 340px; background: var(--surface); border-top-color: ; border-top-style: ; border-top-width: ; border-right-color: ; border-right-style: ; border-right-width: ; border-bottom-color: ; border-bottom-style: ; border-bottom-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-left-width: medium; border-left-style: none; border-left-color: currentcolor; border-radius: 0px 0px 0px 12px; box-shadow: rgba(0, 0, 0, 0.15) -4px 8px 24px; z-index: 200; padding: 18px; flex-direction: column; gap: 10px;">
+  <div style="display:flex;align-items:center;gap:8px">
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" style="color:var(--text)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+    <span style="font-weight:700;font-size:14px">GitHub Sync</span>
+    <button onclick="showGitPanel()" style="margin-left:auto;background:none;border:none;font-size:18px;cursor:pointer;color:var(--text2);line-height:1">✕</button>
+  </div>
+  <div style="font-size:11px;color:var(--text2);line-height:1.4">Saves <b>offers-tool.html</b> + <b>offers-data.json</b> to a GitHub repo on every push. <a href="https://github.com/settings/tokens/new?scopes=repo&amp;description=Game+Offers+Tool" target="_blank" style="color:var(--accent)">Create a PAT token ↗</a></div>
+  <div style="display:flex;gap:6px">
+    <input id="gh-token" type="password" placeholder="ghp_… Personal Access Token" class="fi" style="flex:1;font-size:12px">
+    <button class="btn btn-sm btn-ghost" onclick="ghVerifyToken()" style="white-space:nowrap">Verify</button>
+  </div>
+  <div style="display:flex;gap:6px">
+    <input id="gh-repo" placeholder="repo-name (e.g. game-offers-tool)" class="fi" style="flex:1;font-size:12px">
+    <button class="btn btn-sm btn-secondary" onclick="ghCreateRepo()" style="white-space:nowrap" title="Create new repo on GitHub">Create</button>
+  </div>
+  <div id="gh-status" style="font-size: 12px; min-height: 16px; line-height: 1.4; color: var(--text2);">⏳ Pushing…</div>
+  <div style="border-top:1px solid var(--border);padding-top:10px;display:flex;gap:8px;align-items:center">
+    <button class="btn btn-primary" style="flex:1" onclick="ghPush()">⬆ Push to GitHub</button>
+  </div>
+  <div id="git-last-push" style="font-size:10px;color:var(--text2);text-align:center;min-height:14px"></div>
+</div>
+<div id="panel-dashboard" class="panel">
+<div class="prow"><div><div class="page-title">📊 Dashboard</div><div class="page-sub">All your game offer intelligence in one place</div></div><button class="btn btn-primary" onclick="nav('create')">➕ New Offer</button></div>
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-val">3</div><div class="stat-lbl">Total Offers</div></div>
+  <div class="stat-card"><div class="stat-val">2</div><div class="stat-lbl">Types Used</div></div>
+  <div class="stat-card"><div class="stat-val">♾️ 2</div><div class="stat-lbl">Most Built (Endless)</div></div>
+  <div class="stat-card"><div class="stat-val">1</div><div class="stat-lbl">Segments Targeted</div></div>
+</div>
+
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px"><div style="font-size:14px;font-weight:700">Recent Offers</div><button class="btn btn-sm btn-secondary" onclick="nav('library')">View All →</button></div>
+<div class="lib-grid"><div class="offer-card" onclick="showDetail('idmpe52djhbjew')">
+    
+    <div class="offer-card-type">♾️ Endless</div>
+    <div class="offer-card-name">1123123</div>
+    <div class="offer-card-price">—</div>
+    <div class="offer-card-contents"><span class="currency-pill">T: Tier 1 —</span><span class="currency-pill">T: Tier 2 —</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end">
+      <span style="font-size:11px;opacity:.7">0 coins/$</span>
+      
+    </div>
+  </div><div class="offer-card" onclick="showDetail('idmpe525hfjabm')">
+    
+    <div class="offer-card-type">🛒 Buy All</div>
+    <div class="offer-card-name">asdasd</div>
+    <div class="offer-card-price">—</div>
+    <div class="offer-card-contents"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end">
+      <span style="font-size:11px;opacity:.7">0 coins/$</span>
+      
+    </div>
+  </div><div class="offer-card" onclick="showDetail('idmpe51ylydrld')">
+    
+    <div class="offer-card-type">♾️ Endless</div>
+    <div class="offer-card-name">asdasdasd</div>
+    <div class="offer-card-price">$65.99</div>
+    <div class="offer-card-contents"><span class="currency-pill">T: Tier 1 —</span><span class="currency-pill">T: Tier 2 —</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end">
+      <span style="font-size:11px;opacity:.7">0 coins/$</span>
+      
+    </div>
+  </div></div></div>
+<div id="panel-create" class="panel"></div>
+<div id="panel-library" class="panel"></div>
+<div id="panel-compare" class="panel"></div>
+<div id="panel-currencies" class="panel"></div>
+<div id="panel-slope" class="panel"></div>
+<div id="panel-shop" class="panel"></div>
+<div id="panel-settings" class="panel active">
+<div class="prow"><div><div class="page-title">⚙️ Settings</div><div class="page-sub">Currencies, types, segments, locations — click ✕ to hide any item, ↩ to restore</div></div>
+<button class="btn btn-primary" onclick="save();showToast('All settings saved!')">💾 Save All</button></div>
+<div class="card" style="margin-bottom:20px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div><div class="card-title" style="margin-bottom:2px">💱 Currencies</div><div style="font-size:11px;color:var(--text2)">Coin value = how many base coins each unit equals</div></div>
+    <button class="btn btn-xs btn-primary" onclick="addCur()">＋ Add</button>
+  </div>
+  <table style="width:100%;border-collapse:collapse">
+  <thead><tr style="border-bottom:2px solid var(--border)"><th style="padding:8px 6px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text2)">Icon</th><th style="padding:8px 6px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text2)">Name</th><th style="padding:8px 6px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text2)">Color</th><th style="padding:8px 6px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text2)">Coin Value / Unit</th><th style="padding:8px 6px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text2)"></th></tr></thead>
+  <tbody><tr style="border-bottom:1px solid var(--border)">
+    <td style="padding:6px"><div style="display:flex;flex-direction:column;align-items:center;gap:1px" ondragover="event.preventDefault()" ondrop="handleIconPasteDrop(event,'currency',0,'e')"><input class="fi" style="width:48px;font-size:14px;text-align:center;padding:2px" value="💰" oninput="updCur(0,'e',this.value)" onpaste="handleIconPasteEvent(event,'currency',0,'e')"><span style="font-size:7px;color:var(--text2);opacity:.5;pointer-events:none">paste img</span></div></td>
+    <td style="padding:6px 8px"><input class="fi" value="Coins" readonly="" oninput="updCur(0,'n',this.value)" style="font-size:12px"></td>
+    <td style="padding:6px 8px"><input type="color" value="#f59e0b" style="height:30px;width:48px;border:none;border-radius:6px;cursor:pointer;padding:2px" onchange="updCur(0,'c',this.value)"></td>
+    <td style="padding:6px 8px;text-align:right"><input class="fi" type="number" step="0.01" min="0" style="width:100px;text-align:right;font-size:14px;font-weight:700" value="1" readonly="" oninput="updCur(0,'v',parseFloat(this.value)||0)"></td>
+    <td style="padding:6px 8px;text-align:right"><span style="font-size:11px;color:var(--text2)">Base</span></td>
+  </tr><tr style="border-bottom:1px solid var(--border)">
+    <td style="padding:6px"><div style="display:flex;flex-direction:column;align-items:center;gap:1px" ondragover="event.preventDefault()" ondrop="handleIconPasteDrop(event,'currency',1,'e')"><input class="fi" style="width:48px;font-size:14px;text-align:center;padding:2px" value="✨" oninput="updCur(1,'e',this.value)" onpaste="handleIconPasteEvent(event,'currency',1,'e')"><span style="font-size:7px;color:var(--text2);opacity:.5;pointer-events:none">paste img</span></div></td>
+    <td style="padding:6px 8px"><input class="fi" value="Clear Booster" oninput="updCur(1,'n',this.value)" style="font-size:12px"></td>
+    <td style="padding:6px 8px"><input type="color" value="#60a5fa" style="height:30px;width:48px;border:none;border-radius:6px;cursor:pointer;padding:2px" onchange="updCur(1,'c',this.value)"></td>
+    <td style="padding:6px 8px;text-align:right"><input class="fi" type="number" step="0.01" min="0" style="width:100px;text-align:right;font-size:14px;font-weight:700" value="180" oninput="updCur(1,'v',parseFloat(this.value)||0)"></td>
+    <td style="padding:6px 8px;text-align:right"><button class="btn btn-xs btn-danger" onclick="delCur(1)">✕</button></td>
+  </tr><tr style="border-bottom:1px solid var(--border)">
+    <td style="padding:6px"><div style="display:flex;flex-direction:column;align-items:center;gap:1px" ondragover="event.preventDefault()" ondrop="handleIconPasteDrop(event,'currency',2,'e')"><input class="fi" style="width:48px;font-size:14px;text-align:center;padding:2px" value="🧲" oninput="updCur(2,'e',this.value)" onpaste="handleIconPasteEvent(event,'currency',2,'e')"><span style="font-size:7px;color:var(--text2);opacity:.5;pointer-events:none">paste img</span></div></td>
+    <td style="padding:6px 8px"><input class="fi" value="Magnet Booster" oninput="updCur(2,'n',this.value)" style="font-size:12px"></td>
+    <td style="padding:6px 8px"><input type="color" value="#a78bfa" style="height:30px;width:48px;border:none;border-radius:6px;cursor:pointer;padding:2px" onchange="updCur(2,'c',this.value)"></td>
+    <td style="padding:6px 8px;text-align:right"><input class="fi" type="number" step="0.01" min="0" style="width:100px;text-align:right;font-size:14px;font-weight:700" value="180" oninput="updCur(2,'v',parseFloat(this.value)||0)"></td>
+    <td style="padding:6px 8px;text-align:right"><button class="btn btn-xs btn-danger" onclick="delCur(2)">✕</button></td>
+  </tr><tr style="border-bottom:1px solid var(--border)">
+    <td style="padding:6px"><div style="display:flex;flex-direction:column;align-items:center;gap:1px" ondragover="event.preventDefault()" ondrop="handleIconPasteDrop(event,'currency',3,'e')"><input class="fi" style="width:48px;font-size:14px;text-align:center;padding:2px" value="🔀" oninput="updCur(3,'e',this.value)" onpaste="handleIconPasteEvent(event,'currency',3,'e')"><span style="font-size:7px;color:var(--text2);opacity:.5;pointer-events:none">paste img</span></div></td>
+    <td style="padding:6px 8px"><input class="fi" value="Shuffel Booster" oninput="updCur(3,'n',this.value)" style="font-size:12px"></td>
+    <td style="padding:6px 8px"><input type="color" value="#34d399" style="height:30px;width:48px;border:none;border-radius:6px;cursor:pointer;padding:2px" onchange="updCur(3,'c',this.value)"></td>
+    <td style="padding:6px 8px;text-align:right"><input class="fi" type="number" step="0.01" min="0" style="width:100px;text-align:right;font-size:14px;font-weight:700" value="180" oninput="updCur(3,'v',parseFloat(this.value)||0)"></td>
+    <td style="padding:6px 8px;text-align:right"><button class="btn btn-xs btn-danger" onclick="delCur(3)">✕</button></td>
+  </tr><tr style="border-bottom:1px solid var(--border)">
+    <td style="padding:6px"><div style="display:flex;flex-direction:column;align-items:center;gap:1px" ondragover="event.preventDefault()" ondrop="handleIconPasteDrop(event,'currency',4,'e')"><input class="fi" style="width:48px;font-size:14px;text-align:center;padding:2px" value="♾️" oninput="updCur(4,'e',this.value)" onpaste="handleIconPasteEvent(event,'currency',4,'e')"><span style="font-size:7px;color:var(--text2);opacity:.5;pointer-events:none">paste img</span></div></td>
+    <td style="padding:6px 8px"><input class="fi" value="Endless Lives (timed)" oninput="updCur(4,'n',this.value)" style="font-size:12px"></td>
+    <td style="padding:6px 8px"><input type="color" value="#f472b6" style="height:30px;width:48px;border:none;border-radius:6px;cursor:pointer;padding:2px" onchange="updCur(4,'c',this.value)"></td>
+    <td style="padding:6px 8px;text-align:right"><input class="fi" type="number" step="0.01" min="0" style="width:100px;text-align:right;font-size:14px;font-weight:700" value="0.3" oninput="updCur(4,'v',parseFloat(this.value)||0)"></td>
+    <td style="padding:6px 8px;text-align:right"><button class="btn btn-xs btn-danger" onclick="delCur(4)">✕</button></td>
+  </tr><tr style="border-bottom:1px solid var(--border)">
+    <td style="padding:6px"><div style="display:flex;flex-direction:column;align-items:center;gap:1px" ondragover="event.preventDefault()" ondrop="handleIconPasteDrop(event,'currency',5,'e')"><input class="fi" style="width:48px;font-size:14px;text-align:center;padding:2px" value="🎰" oninput="updCur(5,'e',this.value)" onpaste="handleIconPasteEvent(event,'currency',5,'e')"><span style="font-size:7px;color:var(--text2);opacity:.5;pointer-events:none">paste img</span></div></td>
+    <td style="padding:6px 8px"><input class="fi" value="1 Slot" oninput="updCur(5,'n',this.value)" style="font-size:12px"></td>
+    <td style="padding:6px 8px"><input type="color" value="#fb923c" style="height:30px;width:48px;border:none;border-radius:6px;cursor:pointer;padding:2px" onchange="updCur(5,'c',this.value)"></td>
+    <td style="padding:6px 8px;text-align:right"><input class="fi" type="number" step="0.01" min="0" style="width:100px;text-align:right;font-size:14px;font-weight:700" value="270" oninput="updCur(5,'v',parseFloat(this.value)||0)"></td>
+    <td style="padding:6px 8px;text-align:right"><button class="btn btn-xs btn-danger" onclick="delCur(5)">✕</button></td>
+  </tr><tr style="border-bottom:1px solid var(--border)">
+    <td style="padding:6px"><div style="display:flex;flex-direction:column;align-items:center;gap:1px" ondragover="event.preventDefault()" ondrop="handleIconPasteDrop(event,'currency',6,'e')"><input class="fi" style="width:48px;font-size:14px;text-align:center;padding:2px" value="❤️" oninput="updCur(6,'e',this.value)" onpaste="handleIconPasteEvent(event,'currency',6,'e')"><span style="font-size:7px;color:var(--text2);opacity:.5;pointer-events:none">paste img</span></div></td>
+    <td style="padding:6px 8px"><input class="fi" value="Lives Refill" oninput="updCur(6,'n',this.value)" style="font-size:12px"></td>
+    <td style="padding:6px 8px"><input type="color" value="#f87171" style="height:30px;width:48px;border:none;border-radius:6px;cursor:pointer;padding:2px" onchange="updCur(6,'c',this.value)"></td>
+    <td style="padding:6px 8px;text-align:right"><input class="fi" type="number" step="0.01" min="0" style="width:100px;text-align:right;font-size:14px;font-weight:700" value="270" oninput="updCur(6,'v',parseFloat(this.value)||0)"></td>
+    <td style="padding:6px 8px;text-align:right"><button class="btn btn-xs btn-danger" onclick="delCur(6)">✕</button></td>
+  </tr></tbody>
+  </table>
+  <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:10px">
+    <button class="btn btn-sm btn-secondary" onclick="if(confirm('Reset to defaults?')){ST.currencies=JSON.parse(JSON.stringify(DEFAULT_CURRENCIES));save();renderSettings();}">↺ Defaults</button>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+  <div class="card">
+    <div class="card-title">🎯 Segments <button class="btn btn-xs btn-ghost" style="margin-left:auto" onclick="ST.customSegs.push({k:'seg_'+Date.now(),n:'New Segment',bg:'#eef2ff',cls:'seg-All'});save();renderSettings()">＋ Add Custom</button></div>
+    <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span class="seg-badge seg-NP" style="font-size:11px">NP/Dormant</span>
+      <span style="font-size:10px;color:var(--text2);flex:1">NP</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenSegs)ST.hiddenSegs=[];ST.hiddenSegs.push('NP');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span class="seg-badge seg-Payers" style="font-size:11px">Payers</span>
+      <span style="font-size:10px;color:var(--text2);flex:1">Payers</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenSegs)ST.hiddenSegs=[];ST.hiddenSegs.push('Payers');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span class="seg-badge seg-5-10" style="font-size:11px">5-10 Purchases</span>
+      <span style="font-size:10px;color:var(--text2);flex:1">5-10</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenSegs)ST.hiddenSegs=[];ST.hiddenSegs.push('5-10');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span class="seg-badge seg-10plus" style="font-size:11px">10+ Purchases</span>
+      <span style="font-size:10px;color:var(--text2);flex:1">10+</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenSegs)ST.hiddenSegs=[];ST.hiddenSegs.push('10+');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span class="seg-badge seg-Dormant30" style="font-size:11px">Dormant 30+</span>
+      <span style="font-size:10px;color:var(--text2);flex:1">Dormant30</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenSegs)ST.hiddenSegs=[];ST.hiddenSegs.push('Dormant30');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span class="seg-badge seg-All" style="font-size:11px">All Users</span>
+      <span style="font-size:10px;color:var(--text2);flex:1">All</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenSegs)ST.hiddenSegs=[];ST.hiddenSegs.push('All');save();renderSettings()">✕</button>
+    </div></div>
+    
+    
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px">
+  <div class="card">
+    <div class="card-title">📍 Locations <button class="btn btn-xs btn-ghost" style="margin-left:auto" onclick="ST.customLocations.push('New Location');save();renderSettings()">＋ Add</button></div>
+    <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">Shop</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenLocations)ST.hiddenLocations=[];ST.hiddenLocations.push('Shop');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">Try Again</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenLocations)ST.hiddenLocations=[];ST.hiddenLocations.push('Try Again');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">Revive</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenLocations)ST.hiddenLocations=[];ST.hiddenLocations.push('Revive');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">In Game</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenLocations)ST.hiddenLocations=[];ST.hiddenLocations.push('In Game');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">Home Screen</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenLocations)ST.hiddenLocations=[];ST.hiddenLocations.push('Home Screen');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">Post Level</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenLocations)ST.hiddenLocations=[];ST.hiddenLocations.push('Post Level');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">Win Screen</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenLocations)ST.hiddenLocations=[];ST.hiddenLocations.push('Win Screen');save();renderSettings()">✕</button>
+    </div></div>
+    
+    
+  </div>
+  <div class="card">
+    <div class="card-title">⚡ Triggers <button class="btn btn-xs btn-ghost" style="margin-left:auto" onclick="ST.customTriggers.push('New Trigger');save();renderSettings()">＋ Add</button></div>
+    <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">App Open</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenTriggers)ST.hiddenTriggers=[];ST.hiddenTriggers.push('App Open');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">Level Start</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenTriggers)ST.hiddenTriggers=[];ST.hiddenTriggers.push('Level Start');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">Level Fail</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenTriggers)ST.hiddenTriggers=[];ST.hiddenTriggers.push('Level Fail');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">Level Win</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenTriggers)ST.hiddenTriggers=[];ST.hiddenTriggers.push('Level Win');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">Shop Open</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenTriggers)ST.hiddenTriggers=[];ST.hiddenTriggers.push('Shop Open');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">Day 1</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenTriggers)ST.hiddenTriggers=[];ST.hiddenTriggers.push('Day 1');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">Day 3</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenTriggers)ST.hiddenTriggers=[];ST.hiddenTriggers.push('Day 3');save();renderSettings()">✕</button>
+    </div><div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border)">
+      <span style="flex:1;font-size:13px;color:var(--text2)">Day 7</span>
+      <button class="btn btn-xs btn-danger" title="Hide" onclick="if(!ST.hiddenTriggers)ST.hiddenTriggers=[];ST.hiddenTriggers.push('Day 7');save();renderSettings()">✕</button>
+    </div></div>
+    
+    
+  </div>
+  <div class="card">
+    <div class="card-title">💲 Pricing Types <button class="btn btn-xs btn-ghost" style="margin-left:auto" onclick="ST.customPricingTypes.push({lbl:'+4',desc:'Custom level'});save();renderSettings()">＋ Add</button></div>
+    <div style="padding:5px 8px;font-size:12px;color:var(--text2);border-bottom:1px solid var(--border)"><b>-1</b> — Below comfort zone (loss leader)</div><div style="padding:5px 8px;font-size:12px;color:var(--text2);border-bottom:1px solid var(--border)"><b>0</b> — At player comfort zone</div><div style="padding:5px 8px;font-size:12px;color:var(--text2);border-bottom:1px solid var(--border)"><b>+1</b> — One step above comfort</div><div style="padding:5px 8px;font-size:12px;color:var(--text2);border-bottom:1px solid var(--border)"><b>+2</b> — Two steps above comfort</div><div style="padding:5px 8px;font-size:12px;color:var(--text2);border-bottom:1px solid var(--border)"><b>+3</b> — Premium / whale tier</div>
+    <div class="hint" style="margin-top:6px">No custom pricing types</div>
+  </div>
+</div>
+
+<div class="card">
+  <div style="display:flex;align-items:center;margin-bottom:14px">
+    <div>
+      <div class="card-title" style="margin-bottom:0">🎮 Offer Types</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:2px">Click to design · Open type → 🙈 Hide or 🗑 Delete (custom) · ↩ Restore hidden</div>
+    </div>
+    <button class="btn btn-sm btn-primary" style="margin-left:auto" onclick="ST.customTypes.push({k:'custom_'+Date.now(),n:'New Type',i:'⭐',c:'#6366f1',d:'Custom type',hasTiers:false});save();renderSettings()">＋ Add Type</button>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:14px">
+    <button onclick="setActiveType('ooc')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:26px">🪙</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Out of Coins</span>
+        <div style="width:100%;height:3px;border-radius:3px;background:linear-gradient(90deg,#0d1b2a,#f59e0b)"></div>
+        <span style="font-size:9px;color:var(--accent)">5 boxes</span>
+      </button><button onclick="setActiveType('play_on')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:26px">▶️</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Play On</span>
+        <div style="width:100%;height:3px;border-radius:3px;background:linear-gradient(90deg,#1a0a0a,#ef4444)"></div>
+        <span style="font-size:9px;color:var(--accent)">6 boxes</span>
+      </button><button onclick="setActiveType('lives_refill')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:26px">❤️</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Lives Refill</span>
+        <div style="width:100%;height:3px;border-radius:3px;background:linear-gradient(90deg,#1a0a14,#ec4899)"></div>
+        <span style="font-size:9px;color:var(--accent)">5 boxes</span>
+      </button><button onclick="setActiveType('regular')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:26px">💰</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Coin Pack</span>
+        
+        
+      </button><button onclick="setActiveType('shop_bundle')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:10px;font-weight:700">🛍️</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Shop Bundle</span>
+        
+        
+      </button><button onclick="setActiveType('starter')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:26px">🎁</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Starter Pack</span>
+        
+        
+      </button><button onclick="setActiveType('buy_all')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:26px">🛒</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Buy All</span>
+        <div style="width:100%;height:3px;border-radius:3px;background:linear-gradient(90deg,#0a1628,#fbbf24)"></div>
+        <span style="font-size:9px;color:var(--accent)">5 boxes</span>
+      </button><button onclick="setActiveType('double')" style="border:2px solid var(--accent);border-radius:12px;padding:10px 8px;cursor:pointer;background:#eef2ff;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:10px;font-weight:700">2️⃣</span>
+        <span style="font-size:11px;font-weight:700;color:var(--accent);text-align:center;line-height:1.2">1+1 Double</span>
+        
+        
+      </button><button onclick="setActiveType('endless')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:26px">♾️</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Endless</span>
+        <div style="width:100%;height:3px;border-radius:3px;background:linear-gradient(90deg,#1a1a2e,#818cf8)"></div>
+        <span style="font-size:9px;color:var(--accent)">7 boxes</span>
+      </button><button onclick="setActiveType('rolling')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:26px">🔄</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Rolling</span>
+        
+        
+      </button><button onclick="setActiveType('piggy')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:26px">🐷</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Piggy Bank</span>
+        
+        
+      </button><button onclick="setActiveType('season')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:26px">🏆</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Season Pass</span>
+        <div style="width:100%;height:3px;border-radius:3px;background:linear-gradient(90deg,#1a1a2e,#eab308)"></div>
+        <span style="font-size:9px;color:var(--accent)">7 boxes</span>
+      </button><button onclick="setActiveType('milestone')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:26px">🎯</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Milestone</span>
+        <div style="width:100%;height:3px;border-radius:3px;background:linear-gradient(90deg,#fce7f3,#10b981)"></div>
+        <span style="font-size:9px;color:var(--accent)">7 boxes</span>
+      </button><button onclick="setActiveType('personal')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:26px">👤</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Personal</span>
+        
+        
+      </button><button onclick="setActiveType('timed')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        
+        <span style="font-size:26px">⏰</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">Timed Flash</span>
+        
+        
+      </button><button onclick="setActiveType('custom_1779711550428')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        <span style="position:absolute;top:4px;right:4px;font-size:8px;background:#6366f1;color:white;padding:1px 5px;border-radius:8px">custom</span>
+        <span style="font-size:26px">⭐</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">New Type</span>
+        
+        
+      </button><button onclick="setActiveType('custom_1779779531887')" style="border:2px solid var(--border);border-radius:12px;padding:10px 8px;cursor:pointer;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;transition:all .15s">
+        <span style="position:absolute;top:4px;right:4px;font-size:8px;background:#6366f1;color:white;padding:1px 5px;border-radius:8px">custom</span>
+        <span style="font-size:26px">⭐</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);text-align:center;line-height:1.2">New Type</span>
+        
+        
+      </button>
+  </div>
+  
+  <div id="type-designer-panel" style="border:2px solid var(--accent);border-radius:16px;margin-top:14px;overflow:hidden">
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#1e1b4b,#0f3460);padding:14px 18px;display:flex;align-items:center;gap:10px">
+      <span style="font-size:26px">2️⃣</span>
+      <div>
+        <span style="font-size:15px;font-weight:700;color:white">1+1 Double</span>
+        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:1px">Tier-based · Built-in</div>
+      </div>
+      <div style="display:flex;gap:6px;margin-left:auto">
+        <button class="btn btn-xs" style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2)" title="Reset colors and boxes to screenshot template" onclick="applyCanvasTemplate('double')">↺ Template</button>
+        <button class="btn btn-xs" style="background:rgba(239,68,68,.2);color:#fca5a5;border:1px solid rgba(239,68,68,.3)" onclick="if(confirm('Hide this built-in type? You can restore it later in Settings.')){if(!ST.hiddenTypes)ST.hiddenTypes=[];ST.hiddenTypes.push('double');activeTypeKey=null;save();renderSettings();}">🙈 Hide</button>
+        <button onclick="activeTypeKey=null;renderSettings()" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:8px;color:white;padding:5px 10px;cursor:pointer;font-size:13px">✕ Close</button>
+      </div>
+    </div>
+
+    <!-- Body: 3-col = Controls | Struct | Canvas Editor -->
+    <div style="display:grid;grid-template-columns:200px 200px 1fr;gap:0;min-height:480px">
+
+      <!-- Col 1: Colors + Layout + Tier settings -->
+      <div style="padding:14px;border-right:1px solid var(--border);overflow-y:auto;max-height:560px">
+        <div style="font-size:10px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Colors</div>
+        <div style="display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
+              <span style="font-size:8px;color:var(--text2);font-weight:700">Start</span>
+              <input type="color" value="#1e1b4b" style="width:38px;height:30px;border:none;border-radius:6px;cursor:pointer;padding:1px" onchange="setTmpl('double','bg1',this.value);setActiveType('double')">
+            </div><div style="display:flex;flex-direction:column;align-items:center;gap:2px">
+              <span style="font-size:8px;color:var(--text2);font-weight:700">End</span>
+              <input type="color" value="#0f3460" style="width:38px;height:30px;border:none;border-radius:6px;cursor:pointer;padding:1px" onchange="setTmpl('double','bg2',this.value);setActiveType('double')">
+            </div><div style="display:flex;flex-direction:column;align-items:center;gap:2px">
+              <span style="font-size:8px;color:var(--text2);font-weight:700">Accent</span>
+              <input type="color" value="#f59e0b" style="width:38px;height:30px;border:none;border-radius:6px;cursor:pointer;padding:1px" onchange="setTmpl('double','accent',this.value);setActiveType('double')">
+            </div>
+        </div>
+        <div style="height:8px;border-radius:6px;background:linear-gradient(90deg,#1e1b4b,#0f3460);border:2px solid #f59e0b;margin-bottom:12px"></div>
+
+        <div style="font-size:10px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Layout Style</div>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:12px">
+          <label style="display:flex;align-items:center;gap:7px;border:1.5px solid var(--accent);border-radius:8px;padding:6px 10px;cursor:pointer;background:#eef2ff">
+            <input type="radio" name="layout-double" value="snaking" checked="" style="display:none" onchange="setTmpl('double','tierLayout','snaking');setActiveType('double')">
+            <span style="font-size:14px">🐍</span><span style="font-size:12px;font-weight:600">Snaking</span>
+            <span style="margin-left:auto;color:var(--accent);font-size:11px">✓</span>
+          </label><label style="display:flex;align-items:center;gap:7px;border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;background:transparent">
+            <input type="radio" name="layout-double" value="grid" style="display:none" onchange="setTmpl('double','tierLayout','grid');setActiveType('double')">
+            <span style="font-size:14px">⊞</span><span style="font-size:12px;font-weight:600">Grid</span>
+            
+          </label><label style="display:flex;align-items:center;gap:7px;border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;background:transparent">
+            <input type="radio" name="layout-double" value="list" style="display:none" onchange="setTmpl('double','tierLayout','list');setActiveType('double')">
+            <span style="font-size:14px">☰</span><span style="font-size:12px;font-weight:600">List</span>
+            
+          </label>
+        </div>
+
+        <div style="font-size:10px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Tier Box Size</div>
+        <div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:12px"><label style="display:flex;flex-direction:column;align-items:center;gap:2px;border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;background:transparent">
+      <input type="radio" name="th-double" value="sm" style="display:none" onchange="setStruct('double','tierHeight','sm');setActiveType('double')">
+      <span style="font-size:11px;font-weight:700">Small</span>
+    </label><label style="display:flex;flex-direction:column;align-items:center;gap:2px;border:1.5px solid var(--accent);border-radius:8px;padding:6px 10px;cursor:pointer;background:#eef2ff">
+      <input type="radio" name="th-double" value="md" checked="" style="display:none" onchange="setStruct('double','tierHeight','md');setActiveType('double')">
+      <span style="font-size:11px;font-weight:700">Medium</span>
+    </label><label style="display:flex;flex-direction:column;align-items:center;gap:2px;border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;background:transparent">
+      <input type="radio" name="th-double" value="lg" style="display:none" onchange="setStruct('double','tierHeight','lg');setActiveType('double')">
+      <span style="font-size:11px;font-weight:700">Large</span>
+    </label><label style="display:flex;flex-direction:column;align-items:center;gap:2px;border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;background:transparent">
+      <input type="radio" name="th-double" value="xl" style="display:none" onchange="setStruct('double','tierHeight','xl');setActiveType('double')">
+      <span style="font-size:11px;font-weight:700">X-Large</span>
+    </label></div>
+        <div style="font-size:10px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Grid Columns</div>
+        <input type="number" class="fi" min="2" max="6" value="3" style="width:60px;font-size:13px;text-align:center" oninput="setTmpl('double','gridCols',parseInt(this.value)||3);setActiveType('double')">
+      </div>
+
+      <!-- Col 2: Structure toggles + CTA + Badge presets -->
+      <div style="padding:14px;border-right:1px solid var(--border);overflow-y:auto;max-height:560px">
+        <div style="font-size:10px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Elements</div>
+        <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:12px"><label style="display:flex;align-items:center;gap:7px;padding:6px 10px;border-radius:8px;border:1px solid var(--border);cursor:pointer;background:rgba(16,185,129,.08);transition:background .1s">
+      <input type="checkbox" checked="" onchange="setStruct('double','showBadge',this.checked);setActiveType('double')">
+      <span style="font-size:12px">🏷️ Badge slot</span>
+    </label><label style="display:flex;align-items:center;gap:7px;padding:6px 10px;border-radius:8px;border:1px solid var(--border);cursor:pointer;background:rgba(16,185,129,.08);transition:background .1s">
+      <input type="checkbox" checked="" onchange="setStruct('double','showTimer',this.checked);setActiveType('double')">
+      <span style="font-size:12px">⏱️ Timer</span>
+    </label><label style="display:flex;align-items:center;gap:7px;padding:6px 10px;border-radius:8px;border:1px solid var(--border);cursor:pointer;background:rgba(16,185,129,.08);transition:background .1s">
+      <input type="checkbox" checked="" onchange="setStruct('double','showSegment',this.checked);setActiveType('double')">
+      <span style="font-size:12px">👤 Segment</span>
+    </label><label style="display:flex;align-items:center;gap:7px;padding:6px 10px;border-radius:8px;border:1px solid var(--border);cursor:pointer;background:rgba(16,185,129,.08);transition:background .1s">
+      <input type="checkbox" checked="" onchange="setStruct('double','showContents',this.checked);setActiveType('double')">
+      <span style="font-size:12px">💎 Contents</span>
+    </label><label style="display:flex;align-items:center;gap:7px;padding:6px 10px;border-radius:8px;border:1px solid var(--border);cursor:pointer;background:rgba(16,185,129,.08);transition:background .1s">
+      <input type="checkbox" checked="" onchange="setStruct('double','showArrows',this.checked);setActiveType('double')">
+      <span style="font-size:12px">➡️ Arrows</span>
+    </label><label style="display:flex;align-items:center;gap:7px;padding:6px 10px;border-radius:8px;border:1px solid var(--border);cursor:pointer;background:rgba(16,185,129,.08);transition:background .1s">
+      <input type="checkbox" checked="" onchange="setStruct('double','showTierNum',this.checked);setActiveType('double')">
+      <span style="font-size:12px">🔢 Tier #</span>
+    </label><label style="display:flex;align-items:center;gap:7px;padding:6px 10px;border-radius:8px;border:1px solid var(--border);cursor:pointer;background:rgba(16,185,129,.08);transition:background .1s">
+      <input type="checkbox" checked="" onchange="setStruct('double','showCoinTotal',this.checked);setActiveType('double')">
+      <span style="font-size:12px">🪙 Coin total</span>
+    </label></div>
+
+        
+
+        <div style="font-size:10px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;display:flex;align-items:center">
+          Badge Presets
+          <button class="btn btn-xs btn-ghost" style="margin-left:5px" onclick="if(!ST.typeTemplates['double'].badgePresets)ST.typeTemplates['double'].badgePresets=['HOT DEAL'];else ST.typeTemplates['double'].badgePresets.push('NEW');save();setActiveType('double')">＋</button>
+        </div>
+        <button class="btn btn-xs btn-secondary" style="width:100%" onclick="ST.typeTemplates['double'].badgePresets=['HOT DEAL','BEST VALUE','POPULAR','LIMITED TIME','FIRST TIME'];save();setActiveType('double')">Set defaults</button>
+      </div>
+
+      <!-- Col 3: Canvas box editor -->
+      <div style="background:#0d0d1a;padding:14px;display:flex;flex-direction:column;gap:8px;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em">Design Canvas</div>
+          <button onclick="addCanvasBox('double')" style="margin-left:auto;background:rgba(99,102,241,.25);color:#a5b4fc;border:1px solid rgba(99,102,241,.4);border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer">＋ Add Box</button>
+          
+        </div>
+        <div style="font-size:10px;color:rgba(255,255,255,.25);margin-top:-4px">Drag to move · Drag edges/corners to resize · Click label to rename</div>
+        <!-- Canvas container -->
+        <div id="cvs-double" style="position:relative;flex:1;min-height:320px;background:linear-gradient(135deg,#1e1b4b 0%,#0f3460 100%);border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.08)">
+          
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;pointer-events:none"><span style="font-size:28px">📦</span><span style="font-size:11px;color:rgba(255,255,255,.3);text-align:center">Click "+ Add Box" to place<br>content blocks freely</span></div>
+        </div>
+        
+      </div>
+
+    </div>
+
+    <!-- Live Preview Row -->
+    <div style="border-top:1px solid var(--border);padding:14px 18px;background:var(--bg)">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="font-size:10px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.06em">👁 Live Preview</span>
+        
+        <span style="font-size:10px;color:var(--text2);margin-left:4px">— This is exactly how the offer card will look when created</span>
+      </div>
+      <div style="max-width:520px">
+        <div style="position:relative;border-radius:12px;overflow:hidden"><div style="background:linear-gradient(145deg,#1e1b4b,#0f3460);border-radius:12px;padding:12px;overflow-y:auto;max-height:520px"><div style="display:flex;align-items:stretch;gap:6px;margin-bottom:4px"><div style="flex:1;background:rgba(129,140,248,.1);border:2px solid #818cf8;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-height:90px;position:relative">
+        
+        <div style="background:#818cf822;padding:3px 6px;text-align:center;border-bottom:1px solid #818cf833;flex-shrink:0"><span style="font-size:9px;font-weight:800;color:#818cf8">#1 Starter</span></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:6px"><div style="display:flex;flex-direction:column;align-items:center;gap:1px"><span style="font-size:16px">💰</span><span style="font-size:9px;font-weight:800;color:white">1,500</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:1px"><span style="font-size:16px">✨</span><span style="font-size:9px;font-weight:800;color:white">5</span></div></div>
+        <div style="background:linear-gradient(#818cf8,#4f46e5);color:white;font-size:10px;font-weight:800;text-align:center;padding:5px;flex-shrink:0">$0.99</div>
+      </div><div style="font-size:20px;color:rgba(255,255,255,.3);flex-shrink:0;align-self:center">›</div><div style="flex:1;background:rgba(129,140,248,.1);border:2px solid #818cf8;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-height:90px;position:relative">
+        
+        <div style="background:#818cf822;padding:3px 6px;text-align:center;border-bottom:1px solid #818cf833;flex-shrink:0"><span style="font-size:9px;font-weight:800;color:#818cf8">#2 Bronze</span></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:6px"><div style="display:flex;flex-direction:column;align-items:center;gap:1px"><span style="font-size:16px">💰</span><span style="font-size:9px;font-weight:800;color:white">1,500</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:1px"><span style="font-size:16px">✨</span><span style="font-size:9px;font-weight:800;color:white">5</span></div></div>
+        <div style="background:linear-gradient(#818cf8,#4f46e5);color:white;font-size:10px;font-weight:800;text-align:center;padding:5px;flex-shrink:0">$1.99</div>
+      </div></div><div style="display:flex;justify-content:flex-end;margin-bottom:4px;padding-right:calc(50% - 10px)"><span style="font-size:14px;color:rgba(255,255,255,.3)">↓</span></div><div style="display:flex;align-items:stretch;gap:6px;margin-bottom:4px"><div style="flex:1;background:rgba(129,140,248,.1);border:2px solid #818cf8;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-height:90px;position:relative">
+        
+        <div style="background:#818cf822;padding:3px 6px;text-align:center;border-bottom:1px solid #818cf833;flex-shrink:0"><span style="font-size:9px;font-weight:800;color:#818cf8">#3 Silver</span></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:6px"><div style="display:flex;flex-direction:column;align-items:center;gap:1px"><span style="font-size:16px">💰</span><span style="font-size:9px;font-weight:800;color:white">1,500</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:1px"><span style="font-size:16px">✨</span><span style="font-size:9px;font-weight:800;color:white">5</span></div></div>
+        <div style="background:linear-gradient(#818cf8,#4f46e5);color:white;font-size:10px;font-weight:800;text-align:center;padding:5px;flex-shrink:0">$4.99</div>
+      </div><div style="font-size:20px;color:rgba(255,255,255,.3);flex-shrink:0;align-self:center">‹</div><div style="flex:1;background:rgba(129,140,248,.1);border:2px solid #818cf8;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-height:90px;position:relative">
+        <div style="position:absolute;top:3px;right:3px;background:linear-gradient(135deg,#f59e0b,#ef4444);padding:1px 5px;border-radius:8px;font-size:7px;font-weight:800;color:white">BEST VALUE</div>
+        <div style="background:#818cf822;padding:3px 6px;text-align:center;border-bottom:1px solid #818cf833;flex-shrink:0"><span style="font-size:9px;font-weight:800;color:#818cf8">#4 Gold</span></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:6px"><div style="display:flex;flex-direction:column;align-items:center;gap:1px"><span style="font-size:16px">💰</span><span style="font-size:9px;font-weight:800;color:white">1,500</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:1px"><span style="font-size:16px">✨</span><span style="font-size:9px;font-weight:800;color:white">5</span></div></div>
+        <div style="background:linear-gradient(#818cf8,#4f46e5);color:white;font-size:10px;font-weight:800;text-align:center;padding:5px;flex-shrink:0">$9.99</div>
+      </div></div><div style="display:flex;justify-content:flex-start;margin-bottom:4px;padding-left:calc(50% - 10px)"><span style="font-size:14px;color:rgba(255,255,255,.3)">↓</span></div><div style="display:flex;align-items:stretch;gap:6px;margin-bottom:4px"><div style="flex:1;background:rgba(129,140,248,.1);border:2px solid #818cf8;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-height:90px;position:relative">
+        
+        <div style="background:#818cf822;padding:3px 6px;text-align:center;border-bottom:1px solid #818cf833;flex-shrink:0"><span style="font-size:9px;font-weight:800;color:#818cf8">#5 Platinum</span></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:6px"><div style="display:flex;flex-direction:column;align-items:center;gap:1px"><span style="font-size:16px">💰</span><span style="font-size:9px;font-weight:800;color:white">1,500</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:1px"><span style="font-size:16px">✨</span><span style="font-size:9px;font-weight:800;color:white">5</span></div></div>
+        <div style="background:linear-gradient(#818cf8,#4f46e5);color:white;font-size:10px;font-weight:800;text-align:center;padding:5px;flex-shrink:0">$19.99</div>
+      </div><div style="font-size:20px;color:rgba(255,255,255,.3);flex-shrink:0;align-self:center">›</div><div style="flex:1;background:rgba(129,140,248,.1);border:2px solid #818cf8;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-height:90px;position:relative">
+        
+        <div style="background:#818cf822;padding:3px 6px;text-align:center;border-bottom:1px solid #818cf833;flex-shrink:0"><span style="font-size:9px;font-weight:800;color:#818cf8">#6 Diamond</span></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:6px"><div style="display:flex;flex-direction:column;align-items:center;gap:1px"><span style="font-size:16px">💰</span><span style="font-size:9px;font-weight:800;color:white">1,500</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:1px"><span style="font-size:16px">✨</span><span style="font-size:9px;font-weight:800;color:white">5</span></div></div>
+        <div style="background:linear-gradient(#818cf8,#4f46e5);color:white;font-size:10px;font-weight:800;text-align:center;padding:5px;flex-shrink:0">$49.99</div>
+      </div></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</div></div>
+<div id="detail-root" style="display:none"></div>
+
+<script>
+// ── CONSTANTS ──────────────────────────────────────────────────────────────────
+// ── OFFER TYPE CATEGORIES ──────────────────────────────────────────────────────
+// hasTiers:true  = offer shows multiple price options side-by-side (tier table)
+// hasTiers:false / absent = single price point (pricing block)
+const OFFER_TYPES=[
+  // ── TRIGGERED: shown when player hits a game event ─────────────────────
+  {k:'ooc',        n:'Out of Coins',    i:'🪙',c:'#f59e0b',d:'Triggered when player runs out of coins mid-game',                      hasTiers:true},
+  {k:'play_on',    n:'Play On',         i:'▶️', c:'#ef4444',d:'Continue / extra lives offer at game-over screen',                     hasTiers:true},
+  {k:'lives_refill',n:'Lives Refill',   i:'❤️', c:'#ec4899',d:'Refill offer when player starts a session with depleted lives',        hasTiers:true},
+  // ── SHOP: player-initiated from store ──────────────────────────────────
+  {k:'regular',    n:'Coin Pack',       i:'💰',c:'#6366f1',d:'Single coin / currency pack in the shop'},
+  {k:'shop_bundle',n:'Shop Bundle',     i:'🛍️', c:'#3b82f6',d:'Multi-tier value bundle in the shop (coins + items)',                  hasTiers:true},
+  {k:'starter',    n:'Starter Pack',    i:'🎁',c:'#10b981',d:'One-time first purchase offer for new players'},
+  // ── PICK-ONE / BUY-ALL: multi-option selection layout ──────────────────
+  {k:'buy_all',    n:'Buy All',         i:'🛒',c:'#0ea5e9',d:'Pick one tier OR buy everything at a bundled discount',                 hasTiers:true},
+  {k:'double',     n:'1+1 Double',      i:'2️⃣', c:'#f59e0b',d:'Buy a pack and get a free matching bonus pack',                       hasTiers:true},
+  // ── PROGRESSIVE / LADDER: multi-step sequential unlock ─────────────────
+  {k:'endless',    n:'Endless',         i:'♾️',c:'#8b5cf6',d:'Progressive multi-tier ladder, one purchase unlocks next'},
+  {k:'rolling',    n:'Rolling',         i:'🔄',c:'#84cc16',d:'Cycling sequential tiers — purchase resets after last tier'},
+  // ── LOYALTY / RETENTION: engagement and habit loops ────────────────────
+  {k:'piggy',      n:'Piggy Bank',      i:'🐷',c:'#f97316',d:'Coins accumulate over rolls, player pays to unlock at threshold'},
+  {k:'season',     n:'Season Pass',     i:'🏆',c:'#eab308',d:'Free + paid reward tracks that unlock as player progresses'},
+  {k:'milestone',  n:'Milestone',       i:'🎯',c:'#06b6d4',d:'Triggered by hitting a specific achievement or level'},
+  // ── TARGETED: personalised / AI-driven ─────────────────────────────────
+  {k:'personal',   n:'Personal',        i:'👤',c:'#a855f7',d:'Targeted or AI-personalised offer based on player behaviour'},
+  {k:'timed',      n:'Timed Flash',     i:'⏰',c:'#dc2626',d:'Limited-time flash sale with prominent countdown timer'},
+];
+// ── CANVAS VISUAL TEMPLATES (default box layouts per offer type) ───────────────
+// x,y,w,h = percentage of canvas. isTierSlot:true = this box maps to a tier (price+content).
+// isTierSlot:false = layout/decoration only (title banners, CTAs, timers, art).
+// Applied once when type is first opened in Type Designer; user can override.
+const CANVAS_TEMPLATES={
+
+  // ─── TRIGGERED OFFERS ────────────────────────────────────────────────────────
+
+  // Out of Coins (OOC): 3 tiers side-by-side, center is "best value" anchor
+  // Monetisation principle: Decoy pricing — middle tier drives conversion, bottom anchor makes it look cheap.
+  ooc:{bg1:'#0d1b2a',bg2:'#1a2e44',accent:'#f59e0b',boxes:[
+    {label:'You ran out of coins!',  x:5, y:1, w:90,h:9, isTierSlot:false,color:'#f59e0b'},
+    {label:'Small Pack',             x:2, y:11,w:30,h:57,isTierSlot:true, color:'#60a5fa'},
+    {label:'Best Value ★',           x:33,y:7, w:34,h:65,isTierSlot:true, color:'#fbbf24'},
+    {label:'Big Pack',               x:68,y:11,w:30,h:57,isTierSlot:true, color:'#818cf8'},
+    {label:'No thanks (close)',      x:30,y:88,w:40,h:8, isTierSlot:false,color:'#475569'},
+  ]},
+
+  // Play On / Continue: 2 tiers (basic vs premium continue), urgent design
+  // Monetisation principle: Loss aversion — player just lost progress; urgency drives purchase.
+  play_on:{bg1:'#1a0a0a',bg2:'#2d0808',accent:'#ef4444',boxes:[
+    {label:'Continue playing?',       x:5, y:1, w:90,h:8, isTierSlot:false,color:'#ef4444'},
+    {label:'Lives counter / timer',   x:25,y:10,w:50,h:9, isTierSlot:false,color:'#f97316'},
+    {label:'Basic Continue',          x:2, y:21,w:45,h:52,isTierSlot:true, color:'#60a5fa'},
+    {label:'Premium Continue ★',      x:52,y:21,w:46,h:52,isTierSlot:true, color:'#fbbf24'},
+    {label:'Watch Ad (free)',         x:5, y:77,w:42,h:9, isTierSlot:false,color:'#475569'},
+    {label:'No thanks',              x:53,y:77,w:42,h:9, isTierSlot:false,color:'#374151'},
+  ]},
+
+  // Lives Refill: 3 tiers, heart-themed, centre featured
+  // Monetisation principle: Segmented pricing — same UI, different tier sets per player segment.
+  lives_refill:{bg1:'#1a0a14',bg2:'#3b0b27',accent:'#ec4899',boxes:[
+    {label:'Refill your lives!',      x:5, y:1, w:90,h:9, isTierSlot:false,color:'#ec4899'},
+    {label:'Quick Refill',            x:2, y:12,w:30,h:56,isTierSlot:true, color:'#f472b6'},
+    {label:'Value Pack ★',            x:33,y:8, w:34,h:63,isTierSlot:true, color:'#fbbf24'},
+    {label:'Full Refill',             x:68,y:12,w:30,h:56,isTierSlot:true, color:'#a78bfa'},
+    {label:'Timer / Session end',     x:20,y:88,w:60,h:8, isTierSlot:false,color:'#475569'},
+  ]},
+
+  // ─── SHOP OFFERS ─────────────────────────────────────────────────────────────
+
+  // Coin Pack (single): coin icon, quantity prominent, first-purchase badge
+  regular:{bg1:'#1a1a2e',bg2:'#0f2b50',accent:'#6366f1',boxes:[
+    {label:'Pack Title / +Bonus %',   x:5, y:2, w:90,h:10,isTierSlot:false,color:'#fbbf24'},
+    {label:'🪙 Currency Icon',        x:28,y:14,w:44,h:28,isTierSlot:false,color:'#818cf8'},
+    {label:'Coin Quantity',           x:15,y:44,w:70,h:12,isTierSlot:false,color:'#fbbf24'},
+    {label:'FIRST PURCHASE badge',    x:50,y:10,w:44,h:12,isTierSlot:false,color:'#ef4444'},
+    {label:'Price CTA Button',        x:10,y:78,w:80,h:14,isTierSlot:false,color:'#4ade80'},
+  ]},
+
+  // Shop Bundle: 3 tiers side-by-side (e.g. Large Bundle in model: $15.99 / $49.99 + mid)
+  // Monetisation principle: Super-linear value scaling — higher tiers deliver disproportionate value/$.
+  shop_bundle:{bg1:'#0a1628',bg2:'#0d3057',accent:'#3b82f6',boxes:[
+    {label:'Limited Offer / Title',   x:5, y:1, w:90,h:9, isTierSlot:false,color:'#60a5fa'},
+    {label:'Starter Bundle',          x:2, y:12,w:30,h:56,isTierSlot:true, color:'#34d399'},
+    {label:'Value Bundle ★',          x:33,y:8, w:34,h:63,isTierSlot:true, color:'#fbbf24'},
+    {label:'Premium Bundle',          x:68,y:12,w:30,h:56,isTierSlot:true, color:'#818cf8'},
+    {label:'Timer / Expiry',          x:20,y:88,w:60,h:8, isTierSlot:false,color:'#475569'},
+  ]},
+
+  // Starter Pack: hero art, single price, one-time only badge
+  starter:{bg1:'#0e7490',bg2:'#134e4a',accent:'#4ade80',boxes:[
+    {label:'Hero Art / Illustration', x:5, y:2, w:90,h:34,isTierSlot:false,color:'#0ea5e9'},
+    {label:'FIRST TIME ONLY badge',   x:30,y:0, w:40,h:8, isTierSlot:false,color:'#ef4444'},
+    {label:'Offer Title',             x:10,y:37,w:80,h:9, isTierSlot:false,color:'#f0f9ff'},
+    {label:'Main Coin Quantity',      x:20,y:47,w:60,h:14,isTierSlot:false,color:'#fbbf24'},
+    {label:'Bonus Items Row',         x:5, y:63,w:90,h:14,isTierSlot:false,color:'#34d399'},
+    {label:'Price CTA Button',        x:10,y:80,w:80,h:13,isTierSlot:false,color:'#4ade80'},
+    {label:'Availability note',       x:22,y:94,w:56,h:5, isTierSlot:false,color:'#475569'},
+  ]},
+
+  // ─── PICK-ONE / BUY-ALL ───────────────────────────────────────────────────────
+
+  // Buy All: 3 tier options + Buy All CTA at bottom
+  // Monetisation principle: Anchoring + bundling — Buy All price set just above most expensive single tier.
+  buy_all:{bg1:'#0a1628',bg2:'#0d3b5e',accent:'#fbbf24',boxes:[
+    {label:'Pick One Title',          x:5, y:1, w:90,h:9, isTierSlot:false,color:'#818cf8'},
+    {label:'Tier 1 (small)',          x:2, y:12,w:30,h:58,isTierSlot:true, color:'#34d399'},
+    {label:'Tier 2 (featured ★)',     x:33,y:8, w:34,h:65,isTierSlot:true, color:'#fbbf24'},
+    {label:'Tier 3',                  x:68,y:12,w:30,h:58,isTierSlot:true, color:'#818cf8'},
+    {label:'BUY ALL Button',          x:5, y:80,w:90,h:13,isTierSlot:true, color:'#4ade80'},
+  ]},
+
+  // 1+1 Double: 2 options (or 3) + double CTA
+  double:{bg1:'#0a1628',bg2:'#0d3b5e',accent:'#f59e0b',boxes:[
+    {label:'Pick Your Pack',          x:5, y:1, w:90,h:9, isTierSlot:false,color:'#818cf8'},
+    {label:'Option A (small)',        x:2, y:12,w:30,h:58,isTierSlot:true, color:'#34d399'},
+    {label:'Option B (featured ★)',   x:33,y:8, w:34,h:65,isTierSlot:true, color:'#f59e0b'},
+    {label:'Option C',                x:68,y:12,w:30,h:58,isTierSlot:true, color:'#818cf8'},
+    {label:'Buy Both → Save X%',      x:5, y:80,w:90,h:13,isTierSlot:false,color:'#4ade80'},
+  ]},
+
+  // ─── PROGRESSIVE / LADDER ────────────────────────────────────────────────────
+
+  // Endless: 2×3 snaking grid (6 tiers), could be up to 8
+  endless:{bg1:'#1a1a2e',bg2:'#312e81',accent:'#818cf8',boxes:[
+    {label:'Offer Title / Timer',     x:5, y:1, w:90,h:8, isTierSlot:false,color:'#818cf8'},
+    {label:'Tier 1',                  x:2, y:11,w:45,h:20,isTierSlot:true, color:'#34d399'},
+    {label:'Tier 2',                  x:52,y:11,w:46,h:20,isTierSlot:true, color:'#34d399'},
+    {label:'Tier 3',                  x:2, y:33,w:45,h:20,isTierSlot:true, color:'#60a5fa'},
+    {label:'Tier 4',                  x:52,y:33,w:46,h:20,isTierSlot:true, color:'#60a5fa'},
+    {label:'Tier 5',                  x:2, y:55,w:45,h:20,isTierSlot:true, color:'#fbbf24'},
+    {label:'Tier 6 (featured)',       x:52,y:55,w:46,h:20,isTierSlot:true, color:'#fbbf24'},
+  ]},
+
+  // Rolling: 3 tiers side-by-side per cycle
+  rolling:{bg1:'#1a1a2e',bg2:'#16213e',accent:'#4ade80',boxes:[
+    {label:'Keep Rolling! (title)',   x:10,y:1, w:80,h:10,isTierSlot:false,color:'#fbbf24'},
+    {label:'Tier 1',                  x:2, y:13,w:30,h:54,isTierSlot:true, color:'#34d399'},
+    {label:'Tier 2 (featured)',       x:35,y:9, w:30,h:61,isTierSlot:true, color:'#4ade80'},
+    {label:'Tier 3',                  x:68,y:13,w:30,h:54,isTierSlot:true, color:'#60a5fa'},
+    {label:'Cooldown timer',          x:5, y:75,w:90,h:8, isTierSlot:false,color:'#475569'},
+  ]},
+
+  // ─── LOYALTY / ENGAGEMENT ────────────────────────────────────────────────────
+
+  // Piggy Bank: fill bar → unlock, single CTA
+  piggy:{bg1:'#92400e',bg2:'#7c2d12',accent:'#fbbf24',boxes:[
+    {label:'Piggy Bank Title',        x:5, y:1, w:90,h:9, isTierSlot:false,color:'#fbbf24'},
+    {label:'Countdown Timer',         x:22,y:11,w:56,h:7, isTierSlot:false,color:'#fed7aa'},
+    {label:'Piggy Art',               x:10,y:20,w:80,h:36,isTierSlot:false,color:'#fb923c'},
+    {label:'Fill Progress (250/250)', x:10,y:58,w:80,h:10,isTierSlot:false,color:'#ffffff'},
+    {label:'Reward Preview',          x:10,y:69,w:80,h:8, isTierSlot:false,color:'#fef3c7'},
+    {label:'Open! / Price CTA',       x:10,y:79,w:80,h:12,isTierSlot:false,color:'#4ade80'},
+    {label:'X/X remaining',           x:28,y:92,w:44,h:6, isTierSlot:false,color:'#fef3c7'},
+  ]},
+
+  // Season Pass: free track left, paid track right, premium full row at bottom
+  season:{bg1:'#1a1a2e',bg2:'#0f172a',accent:'#eab308',boxes:[
+    {label:'Season Pass Title',       x:5, y:1, w:90,h:9, isTierSlot:false,color:'#eab308'},
+    {label:'Progress Bar',            x:5, y:11,w:90,h:7, isTierSlot:false,color:'#818cf8'},
+    {label:'Free Reward 1',           x:2, y:20,w:46,h:22,isTierSlot:false,color:'#34d399'},
+    {label:'Paid Reward 1 🔒',        x:52,y:20,w:46,h:22,isTierSlot:false,color:'#eab308'},
+    {label:'Free Reward 2',           x:2, y:44,w:46,h:22,isTierSlot:false,color:'#34d399'},
+    {label:'Paid Reward 2 🔒',        x:52,y:44,w:46,h:22,isTierSlot:false,color:'#eab308'},
+    {label:'Unlock All Premium →',    x:2, y:68,w:96,h:24,isTierSlot:false,color:'#ef4444'},
+  ]},
+
+  // Milestone: triggered offer grid — free items + 1 paid unlock
+  milestone:{bg1:'#0f172a',bg2:'#1e1b4b',accent:'#06b6d4',boxes:[
+    {label:'Savings Title',           x:5, y:1, w:90,h:9, isTierSlot:false,color:'#06b6d4'},
+    {label:'Progress (0/10 levels)',  x:5, y:11,w:90,h:7, isTierSlot:false,color:'#818cf8'},
+    {label:'Free Item 1 ✓',          x:2, y:20,w:46,h:22,isTierSlot:false,color:'#34d399'},
+    {label:'Free Item 2 ✓',          x:52,y:20,w:46,h:22,isTierSlot:false,color:'#34d399'},
+    {label:'Free Item 3 ✓',          x:2, y:44,w:46,h:22,isTierSlot:false,color:'#34d399'},
+    {label:'Locked Premium 🔒',       x:52,y:44,w:46,h:22,isTierSlot:false,color:'#94a3b8'},
+    {label:'Unlock All → CTA',        x:2, y:68,w:96,h:24,isTierSlot:false,color:'#f59e0b'},
+  ]},
+
+  // ─── TARGETED ────────────────────────────────────────────────────────────────
+
+  // Personal / AI offer: hero art + single targeted price
+  personal:{bg1:'#3b0764',bg2:'#1e1b4b',accent:'#a855f7',boxes:[
+    {label:'Hero Art / Character',    x:5, y:2, w:90,h:32,isTierSlot:false,color:'#a855f7'},
+    {label:'Personalised Title',      x:10,y:35,w:80,h:9, isTierSlot:false,color:'#f5d0fe'},
+    {label:'Coin Quantity',           x:20,y:46,w:60,h:13,isTierSlot:false,color:'#fbbf24'},
+    {label:'Bonus Items',             x:5, y:61,w:90,h:13,isTierSlot:false,color:'#f472b6'},
+    {label:'Limited time label',      x:20,y:75,w:60,h:7, isTierSlot:false,color:'#475569'},
+    {label:'Price CTA Button',        x:10,y:83,w:80,h:12,isTierSlot:false,color:'#4ade80'},
+  ]},
+
+  // Timed Flash: countdown prominent, single offer
+  timed:{bg1:'#1a1a2e',bg2:'#7f1d1d',accent:'#ef4444',boxes:[
+    {label:'FLASH SALE Title',        x:5, y:1, w:90,h:9, isTierSlot:false,color:'#ef4444'},
+    {label:'Countdown Timer ⏱',       x:10,y:11,w:80,h:12,isTierSlot:false,color:'#f59e0b'},
+    {label:'Offer Art / Icon',        x:15,y:25,w:70,h:26,isTierSlot:false,color:'#fbbf24'},
+    {label:'Content Items Row',       x:5, y:53,w:90,h:14,isTierSlot:false,color:'#818cf8'},
+    {label:'Price CTA Button',        x:10,y:69,w:80,h:14,isTierSlot:false,color:'#4ade80'},
+    {label:'Was $X.XX — Save Y%',     x:20,y:84,w:60,h:7, isTierSlot:false,color:'#475569'},
+  ]},
+};
+function applyCanvasTemplate(k){
+  const ct=CANVAS_TEMPLATES[k];
+  if(!ct){alert('No template defined for this type yet.');return;}
+  if(!confirm('Reset colors and canvas boxes to the built-in template? Your current customizations will be replaced.'))return;
+  const tm2=tmpl(k);
+  if(ct.bg1)tm2.bg1=ct.bg1;if(ct.bg2)tm2.bg2=ct.bg2;if(ct.accent)tm2.accent=ct.accent;
+  tm2.canvasBoxes=ct.boxes.map(b=>({...b,id:uid()}));
+  save();setActiveType(k);
+}
+
+const SEGMENTS=[
+  {k:'NP',n:'NP/Dormant',cls:'seg-NP'},
+  {k:'Payers',n:'Payers',cls:'seg-Payers'},
+  {k:'5-10',n:'5-10 Purchases',cls:'seg-5-10'},
+  {k:'10+',n:'10+ Purchases',cls:'seg-10plus'},
+  {k:'Dormant30',n:'Dormant 30+',cls:'seg-Dormant30'},
+  {k:'All',n:'All Users',cls:'seg-All'},
+];
+const LOCATIONS=['Shop','Try Again','Revive','In Game','Home Screen','Post Level','Win Screen'];
+const PRICING_TYPES=[
+  {v:-1,lbl:'-1',desc:'Below comfort zone (loss leader)'},
+  {v:0,lbl:'0',desc:'At player comfort zone'},
+  {v:1,lbl:'+1',desc:'One step above comfort'},
+  {v:2,lbl:'+2',desc:'Two steps above comfort'},
+  {v:3,lbl:'+3',desc:'Premium / whale tier'},
+];
+const DEFAULT_SLOPE=[
+  {price:0.99,cpd:502.51},{price:1.99,cpd:502.51},{price:2.99,cpd:527.17},
+  {price:3.99,cpd:551.82},{price:4.99,cpd:576.47},{price:5.99,cpd:601.13},
+  {price:6.99,cpd:625.78},{price:7.99,cpd:625.78},{price:8.99,cpd:632.67},
+  {price:9.99,cpd:639.56},{price:10.99,cpd:646.45},{price:11.99,cpd:653.34},
+  {price:12.99,cpd:660.22},{price:13.99,cpd:667.11},{price:14.99,cpd:667.11},
+  {price:15.99,cpd:679.00},{price:16.99,cpd:690.90},{price:17.99,cpd:702.79},
+  {price:18.99,cpd:714.68},{price:19.99,cpd:726.58},{price:20.99,cpd:738.47},
+  {price:21.99,cpd:750.36},{price:22.99,cpd:762.25},{price:23.99,cpd:774.15},
+  {price:24.99,cpd:786.04},{price:25.99,cpd:797.93},{price:26.99,cpd:809.83},
+  {price:27.99,cpd:821.72},{price:28.99,cpd:833.61},{price:29.99,cpd:833.61},
+  {price:30.99,cpd:836.76},{price:31.99,cpd:839.91},{price:32.99,cpd:843.07},
+  {price:33.99,cpd:846.22},{price:34.99,cpd:849.37},{price:35.99,cpd:852.52},
+  {price:36.99,cpd:855.67},{price:37.99,cpd:858.83},{price:38.99,cpd:861.98},
+  {price:39.99,cpd:865.13},{price:40.99,cpd:868.28},{price:41.99,cpd:871.43},
+  {price:42.99,cpd:874.59},{price:43.99,cpd:877.74},{price:44.99,cpd:880.89},
+  {price:45.99,cpd:884.04},{price:46.99,cpd:887.19},{price:47.99,cpd:890.34},
+  {price:48.99,cpd:893.50},{price:49.99,cpd:896.65},{price:50.99,cpd:899.80},
+  {price:51.99,cpd:902.95},{price:52.99,cpd:906.10},{price:53.99,cpd:909.26},
+  {price:54.99,cpd:909.26},{price:55.99,cpd:911.32},{price:56.99,cpd:913.39},
+  {price:57.99,cpd:915.45},{price:58.99,cpd:917.51},{price:59.99,cpd:919.58},
+  {price:60.99,cpd:921.64},{price:61.99,cpd:923.71},{price:62.99,cpd:925.77},
+  {price:63.99,cpd:927.84},{price:64.99,cpd:929.90},{price:65.99,cpd:931.97},
+  {price:66.99,cpd:934.03},{price:67.99,cpd:936.10},{price:68.99,cpd:938.16},
+  {price:69.99,cpd:940.23},{price:70.99,cpd:942.29},{price:71.99,cpd:944.35},
+  {price:72.99,cpd:946.42},{price:73.99,cpd:948.48},{price:74.99,cpd:950.55},
+  {price:75.99,cpd:952.61},{price:76.99,cpd:954.68},{price:77.99,cpd:956.74},
+  {price:78.99,cpd:958.81},{price:79.99,cpd:960.87},{price:80.99,cpd:962.94},
+  {price:81.99,cpd:965.00},{price:82.99,cpd:967.07},{price:83.99,cpd:969.13},
+  {price:84.99,cpd:971.20},{price:85.99,cpd:973.26},{price:86.99,cpd:975.32},
+  {price:87.99,cpd:977.39},{price:88.99,cpd:979.45},{price:89.99,cpd:981.52},
+  {price:90.99,cpd:983.58},{price:91.99,cpd:985.65},{price:92.99,cpd:987.71},
+  {price:93.99,cpd:989.78},{price:94.99,cpd:991.84},{price:95.99,cpd:993.91},
+  {price:96.99,cpd:995.97},{price:97.99,cpd:998.04},{price:98.99,cpd:1000.10},
+  {price:99.99,cpd:1000.10},
+];
+const DEFAULT_CURRENCIES=[
+  {id:'coins',n:'Coins',e:'🪙',c:'#f59e0b',v:1,locked:true},
+  {id:'clear',n:'Clear Booster',e:'✨',c:'#60a5fa',v:180},
+  {id:'magnet',n:'Magnet Booster',e:'🧲',c:'#a78bfa',v:180},
+  {id:'shuffel',n:'Shuffel Booster',e:'🔀',c:'#34d399',v:180},
+  {id:'endless_lives',n:'Endless Lives (timed)',e:'♾️',c:'#f472b6',v:0.3},
+  {id:'slot',n:'1 Slot',e:'🎰',c:'#fb923c',v:270},
+  {id:'lives_refill',n:'Lives Refill',e:'❤️',c:'#f87171',v:270},
+];
+const SEG_COLORS={'seg-NP':'#fce7f3','seg-Payers':'#dbeafe','seg-5-10':'#e0f2fe','seg-10plus':'#dcfce7','seg-Dormant30':'#fef3c7','seg-All':'#fefce8'};
+
+// ── STATE ──────────────────────────────────────────────────────────────────────
+let ST={currencies:[],offers:[],priceSlope:[],customTypes:[],customSegs:[],typeTemplates:{},shop:null,customLocations:[],customTriggers:[],customPricingTypes:[],hiddenTypes:[],hiddenSegs:[],hiddenLocations:[],hiddenTriggers:[],ghToken:'',ghUser:'',ghRepo:'game-offers-tool',ghLastPush:''};
+let WZ={step:1,data:{},tiers:[],bonusContents:[],seasonFree:[],seasonPaid:[],editId:null};
+let slopeChart=null;
+
+// ── UTILS ──────────────────────────────────────────────────────────────────────
+const uid=()=>'id'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const fN=n=>typeof n==='number'&&!isNaN(n)?n.toLocaleString('en-US',{maximumFractionDigits:1}):'—';
+const fP=n=>n&&!isNaN(n)?'$'+parseFloat(n).toFixed(2):'—';
+const curById=id=>ST.currencies.find(c=>c.id===id);
+function allTypes(){const h=ST.hiddenTypes||[];return[...OFFER_TYPES,...(ST.customTypes||[])].filter(t=>!h.includes(t.k));}
+function allSegs(){const h=ST.hiddenSegs||[];return[...SEGMENTS,...(ST.customSegs||[])].filter(s=>!h.includes(s.k));}
+const tiOf=k=>allTypes().find(t=>t.k===k)||allTypes()[allTypes().length-1];
+function allLocations(){const h=ST.hiddenLocations||[];return[...LOCATIONS,...(ST.customLocations||[])].filter(l=>!h.includes(l));}
+function allTriggers(){const h=ST.hiddenTriggers||[];return['No trigger (manual)','App Open','Level Start','Level Fail','Level Win','Shop Open','Day 1','Day 3','Day 7',...(ST.customTriggers||[])].filter(t=>!h.includes(t));}
+function allPricingTypes(){return[...PRICING_TYPES,...(ST.customPricingTypes||[]).map((p,i)=>({v:10+i,lbl:p.lbl,desc:p.desc}))];}
+const siOf=k=>allSegs().find(s=>s.k===k);
+
+function storeCPD(price){
+  if(!price||price<=0)return 0;
+  const s=[...ST.priceSlope].sort((a,b)=>a.price-b.price);
+  if(!s.length)return 0;
+  if(price<=s[0].price)return s[0].cpd;
+  if(price>=s[s.length-1].price)return s[s.length-1].cpd;
+  for(let i=0;i<s.length-1;i++){
+    if(price>=s[i].price&&price<=s[i+1].price){
+      const t=(price-s[i].price)/(s[i+1].price-s[i].price);
+      return s[i].cpd+(s[i+1].cpd-s[i].cpd)*t;
+    }
+  }
+  return s[s.length-1].cpd;
+}
+
+function calcOffer(offer){
+  const price=parseFloat(offer.price)||0;
+  const addPct=parseFloat(offer.addPct)||0;
+  const sCPD=storeCPD(price);
+  const actualCPD=sCPD*(1+addPct/100);
+  const targetBudget=price*actualCPD;
+  let budgetCoins=0;
+  (offer.contents||[]).forEach(({cid,amt})=>{
+    const cur=curById(cid);if(cur)budgetCoins+=(parseFloat(amt)||0)*cur.v;
+  });
+  // For endless/rolling, also sum all tiers
+  if(offer.type==='endless'||offer.type==='rolling'){
+    budgetCoins=0;
+    (offer.tiers||[]).forEach(tier=>{
+      (tier.contents||[]).forEach(({cid,amt})=>{
+        const cur=curById(cid);if(cur)budgetCoins+=(parseFloat(amt)||0)*cur.v;
+      });
+    });
+  }
+  const budgetCPD=price>0?budgetCoins/price:0;
+  const gapCoins=budgetCoins-(price*sCPD);
+  const gapPct=sCPD>0?(budgetCPD-sCPD)/sCPD*100:0;
+  return{sCPD,actualCPD,targetBudget,budgetCoins,budgetCPD,gapCoins,gapPct};
+}
+
+// ── PERSIST ────────────────────────────────────────────────────────────────────
+function save(){
+  // Record undo snapshot before persisting new state
+  if(typeof _stateSnap==='function'){
+    const cur=_stateSnap();
+    if(_lastSnap!==null&&_lastSnap!==cur){
+      _pushHistSnap(_lastSnap);
+      REDO_STACK=[];
+    }
+    _lastSnap=cur;
+    _updateUndoUI();
+  }
+  try{localStorage.setItem('offerstool3',JSON.stringify({currencies:ST.currencies,offers:ST.offers,priceSlope:ST.priceSlope,customTypes:ST.customTypes,customSegs:ST.customSegs,typeTemplates:ST.typeTemplates,shop:ST.shop,customLocations:ST.customLocations,customTriggers:ST.customTriggers,customPricingTypes:ST.customPricingTypes,hiddenTypes:ST.hiddenTypes,hiddenSegs:ST.hiddenSegs,hiddenLocations:ST.hiddenLocations,hiddenTriggers:ST.hiddenTriggers,ghToken:ST.ghToken,ghUser:ST.ghUser,ghRepo:ST.ghRepo,ghLastPush:ST.ghLastPush}));}catch(e){}
+}
+function load(){
+  try{
+    const d=JSON.parse(localStorage.getItem('offerstool3')||'{}');
+    ST.currencies=d.currencies?.length?d.currencies:JSON.parse(JSON.stringify(DEFAULT_CURRENCIES));
+    ST.offers=d.offers||[];
+    ST.priceSlope=d.priceSlope?.length?d.priceSlope:JSON.parse(JSON.stringify(DEFAULT_SLOPE));
+    ST.customTypes=d.customTypes||[];ST.customSegs=d.customSegs||[];ST.typeTemplates=d.typeTemplates||{};ST.shop=d.shop||null;ST.customLocations=d.customLocations||[];ST.customTriggers=d.customTriggers||[];ST.customPricingTypes=d.customPricingTypes||[];ST.hiddenTypes=d.hiddenTypes||[];ST.hiddenSegs=d.hiddenSegs||[];ST.hiddenLocations=d.hiddenLocations||[];ST.hiddenTriggers=d.hiddenTriggers||[];ST.ghToken=d.ghToken||'';ST.ghUser=d.ghUser||'';ST.ghRepo=d.ghRepo||'game-offers-tool';ST.ghLastPush=d.ghLastPush||'';
+  }catch(e){
+    ST.currencies=JSON.parse(JSON.stringify(DEFAULT_CURRENCIES));
+    ST.offers=[];
+    ST.priceSlope=JSON.parse(JSON.stringify(DEFAULT_SLOPE));
+    ST.customTypes=[];ST.customSegs=[];ST.typeTemplates={};ST.shop=null;ST.customLocations=[];ST.customTriggers=[];ST.customPricingTypes=[];ST.hiddenTypes=[];ST.hiddenSegs=[];ST.hiddenLocations=[];ST.hiddenTriggers=[];
+  }
+}
+
+// ── UNDO / REDO ────────────────────────────────────────────────────────────────
+let HIST=[], REDO_STACK=[], _lastSnap=null;
+const MAX_HIST=30;
+function _stateSnap(){return JSON.stringify({currencies:ST.currencies,offers:ST.offers,priceSlope:ST.priceSlope,customTypes:ST.customTypes,customSegs:ST.customSegs,typeTemplates:ST.typeTemplates,shop:ST.shop,customLocations:ST.customLocations,customTriggers:ST.customTriggers,customPricingTypes:ST.customPricingTypes,hiddenTypes:ST.hiddenTypes,hiddenSegs:ST.hiddenSegs,hiddenLocations:ST.hiddenLocations,hiddenTriggers:ST.hiddenTriggers});}
+function _updateUndoUI(){
+  const ub=document.getElementById('undo-btn'),rb=document.getElementById('redo-btn');
+  if(ub){const ok=HIST.length>0;ub.disabled=!ok;ub.style.color=ok?'rgba(255,255,255,.85)':'rgba(255,255,255,.25)';ub.title='Undo (Ctrl+Z)'+(ok?' · '+HIST.length+' step'+(HIST.length!==1?'s':''):'');}
+  if(rb){const ok=REDO_STACK.length>0;rb.disabled=!ok;rb.style.color=ok?'rgba(255,255,255,.85)':'rgba(255,255,255,.25)';}
+}
+function _pushHistSnap(snap){if(HIST.length===0||HIST[HIST.length-1]!==snap){HIST.push(snap);if(HIST.length>MAX_HIST)HIST.shift();}}
+function _applySnap(snap){
+  const d=JSON.parse(snap);
+  ST.currencies=d.currencies||[];ST.offers=d.offers||[];ST.priceSlope=d.priceSlope||[];
+  ST.customTypes=d.customTypes||[];ST.customSegs=d.customSegs||[];ST.typeTemplates=d.typeTemplates||{};
+  ST.shop=d.shop||null;ST.customLocations=d.customLocations||[];ST.customTriggers=d.customTriggers||[];
+  ST.customPricingTypes=d.customPricingTypes||[];ST.hiddenTypes=d.hiddenTypes||[];
+  ST.hiddenSegs=d.hiddenSegs||[];ST.hiddenLocations=d.hiddenLocations||[];ST.hiddenTriggers=d.hiddenTriggers||[];
+  _lastSnap=snap;
+  try{localStorage.setItem('offerstool3',snap);}catch(e){}
+  const ap=document.querySelector('.panel.active');
+  if(ap){const pid=ap.id.replace('panel-','');({dashboard:renderDash,create:renderCreate,library:renderLib,compare:renderCmp,slope:renderSlope,shop:renderShop,settings:renderSettings})[pid]?.();}
+  _updateUndoUI();
+}
+function undo(){
+  if(HIST.length===0)return;
+  const cur=_stateSnap();
+  REDO_STACK.push(cur);
+  const prev=HIST.pop();
+  _applySnap(prev);
+  showToast('↩ Undone');
+}
+function redo(){
+  if(REDO_STACK.length===0)return;
+  const cur=_stateSnap();
+  _pushHistSnap(cur);
+  const nxt=REDO_STACK.pop();
+  _applySnap(nxt);
+  showToast('↪ Redone');
+}
+
+// ── GITHUB SYNC ────────────────────────────────────────────────────────────────
+function showGitPanel(){
+  const p=document.getElementById('git-panel');
+  if(!p)return;
+  const showing=p.style.display==='flex';
+  p.style.display=showing?'none':'flex';
+  if(!showing){
+    if(ST.ghToken)document.getElementById('gh-token').value=ST.ghToken;
+    if(ST.ghRepo)document.getElementById('gh-repo').value=ST.ghRepo;
+    if(ST.ghLastPush)document.getElementById('git-last-push').textContent='Last push: '+ST.ghLastPush;
+    if(ST.ghUser){const s=document.getElementById('gh-status');if(s)s.innerHTML='✅ Connected as <b>'+ST.ghUser+'</b>';s.style.color='var(--success)';}
+  }
+}
+async function ghVerifyToken(){
+  const token=(document.getElementById('gh-token').value||'').trim();
+  if(!token){alert('Paste your GitHub Personal Access Token.');return;}
+  const status=document.getElementById('gh-status');
+  status.textContent='⏳ Verifying…';status.style.color='var(--text2)';
+  try{
+    const r=await fetch('https://api.github.com/user',{headers:{'Authorization':'token '+token,'User-Agent':'offers-tool'}});
+    if(!r.ok)throw new Error('Invalid token (HTTP '+r.status+')');
+    const user=await r.json();
+    ST.ghToken=token;ST.ghUser=user.login;
+    if(!ST.ghRepo)ST.ghRepo='game-offers-tool';
+    document.getElementById('gh-repo').value=ST.ghRepo;
+    save();
+    status.innerHTML='✅ Connected as <b>'+user.login+'</b>';status.style.color='var(--success)';
+    document.getElementById('git-btn-label').textContent=user.login;
+  }catch(e){status.textContent='❌ '+e.message;status.style.color='var(--danger)';}
+}
+async function ghCreateRepo(){
+  if(!ST.ghToken){alert('Verify your token first.');return;}
+  const repoName=(document.getElementById('gh-repo').value||'game-offers-tool').trim().replace(/\s+/g,'-');
+  const status=document.getElementById('gh-status');
+  status.textContent='⏳ Creating repo…';status.style.color='var(--text2)';
+  try{
+    const r=await fetch('https://api.github.com/user/repos',{
+      method:'POST',
+      headers:{'Authorization':'token '+ST.ghToken,'Content-Type':'application/json','User-Agent':'offers-tool'},
+      body:JSON.stringify({name:repoName,description:'Game Monetization Offers Design Tool',private:false,auto_init:false})
+    });
+    const data=await r.json();
+    if(!r.ok)throw new Error(data.message||'Failed');
+    ST.ghRepo=repoName;document.getElementById('gh-repo').value=repoName;save();
+    status.innerHTML='🎉 Created! <a href="'+data.html_url+'" target="_blank" style="color:var(--accent)">'+data.full_name+' ↗</a>';
+    status.style.color='var(--success)';
+  }catch(e){status.textContent='❌ '+e.message;status.style.color='var(--danger)';}
+}
+async function _ghGetSha(headers,owner,repo,path){
+  try{const r=await fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path,{headers});return r.ok?(await r.json()).sha:null;}catch{return null;}
+}
+async function _ghPutFile(headers,owner,repo,path,b64,msg,sha){
+  return fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path,{
+    method:'PUT',headers,
+    body:JSON.stringify({message:msg,content:b64,...(sha?{sha}:{})})
+  });
+}
+async function ghPush(){
+  const token=ST.ghToken,owner=ST.ghUser,repo=(document.getElementById('gh-repo')?.value||ST.ghRepo||'').trim();
+  if(!token||!owner||!repo){alert('Connect your GitHub account first.');return;}
+  const status=document.getElementById('gh-status');
+  status.textContent='⏳ Pushing…';status.style.color='var(--text2)';
+  try{
+    const headers={'Authorization':'token '+token,'Content-Type':'application/json','User-Agent':'offers-tool'};
+    const ts=new Date().toLocaleString();
+    const msg='Save: '+ts+' · '+ST.offers.length+' offers';
+
+    // Build state JSON
+    const stJson=JSON.stringify({currencies:ST.currencies,offers:ST.offers,priceSlope:ST.priceSlope,customTypes:ST.customTypes,customSegs:ST.customSegs,typeTemplates:ST.typeTemplates,shop:ST.shop,customLocations:ST.customLocations,customTriggers:ST.customTriggers,customPricingTypes:ST.customPricingTypes,hiddenTypes:ST.hiddenTypes,hiddenSegs:ST.hiddenSegs,hiddenLocations:ST.hiddenLocations,hiddenTriggers:ST.hiddenTriggers},null,2);
+    const jsonB64=btoa(unescape(encodeURIComponent(stJson)));
+
+    // Build HTML with baked state
+    let html=document.documentElement.outerHTML;
+    html=html.replace(/
+
+
+<script id="baked-state">try{if(!localStorage.getItem("offerstool3"))localStorage.setItem("offerstool3","\"{\\n  \\\"currencies\\\": [\\n    {\\n      \\\"id\\\": \\\"coins\\\",\\n      \\\"n\\\": \\\"Coins\\\",\\n      \\\"e\\\": \\\"💰\\\",\\n      \\\"c\\\": \\\"#f59e0b\\\",\\n      \\\"v\\\": 1,\\n      \\\"locked\\\": true\\n    },\\n    {\\n      \\\"id\\\": \\\"clear\\\",\\n      \\\"n\\\": \\\"Clear Booster\\\",\\n      \\\"e\\\": \\\"✨\\\",\\n      \\\"c\\\": \\\"#60a5fa\\\",\\n      \\\"v\\\": 180\\n    },\\n    {\\n      \\\"id\\\": \\\"magnet\\\",\\n      \\\"n\\\": \\\"Magnet Booster\\\",\\n      \\\"e\\\": \\\"🧲\\\",\\n      \\\"c\\\": \\\"#a78bfa\\\",\\n      \\\"v\\\": 180\\n    },\\n    {\\n      \\\"id\\\": \\\"shuffel\\\",\\n      \\\"n\\\": \\\"Shuffel Booster\\\",\\n      \\\"e\\\": \\\"🔀\\\",\\n      \\\"c\\\": \\\"#34d399\\\",\\n      \\\"v\\\": 180\\n    },\\n    {\\n      \\\"id\\\": \\\"endless_lives\\\",\\n      \\\"n\\\": \\\"Endless Lives (timed)\\\",\\n      \\\"e\\\": \\\"♾️\\\",\\n      \\\"c\\\": \\\"#f472b6\\\",\\n      \\\"v\\\": 0.3\\n    },\\n    {\\n      \\\"id\\\": \\\"slot\\\",\\n      \\\"n\\\": \\\"1 Slot\\\",\\n      \\\"e\\\": \\\"🎰\\\",\\n      \\\"c\\\": \\\"#fb923c\\\",\\n      \\\"v\\\": 270\\n    },\\n    {\\n      \\\"id\\\": \\\"lives_refill\\\",\\n      \\\"n\\\": \\\"Lives Refill\\\",\\n      \\\"e\\\": \\\"❤️\\\",\\n      \\\"c\\\": \\\"#f87171\\\",\\n      \\\"v\\\": 270\\n    }\\n  ],\\n  \\\"offers\\\": [\\n    {\\n      \\\"name\\\": \\\"asdasdasd\\\",\\n      \\\"badge\\\": \\\"\\\",\\n      \\\"segment\\\": \\\"\\\",\\n      \\\"location\\\": \\\"\\\",\\n      \\\"notes\\\": \\\"\\\",\\n      \\\"price\\\": \\\"65.99\\\",\\n      \\\"pricingType\\\": \\\"-1\\\",\\n      \\\"addPct\\\": \\\"\\\",\\n      \\\"purchaseLimit\\\": \\\"1\\\",\\n      \\\"startLevel\\\": \\\"\\\",\\n      \\\"isFreeOffer\\\": false,\\n      \\\"duration\\\": \\\"\\\",\\n      \\\"trigger\\\": \\\"\\\",\\n      \\\"type\\\": \\\"endless\\\",\\n      \\\"tierCount\\\": 6,\\n      \\\"contents\\\": [\\n        {\\n          \\\"cid\\\": \\\"coins\\\",\\n          \\\"amt\\\": \\\"\\\"\\n        },\\n        {\\n          \\\"cid\\\": \\\"coins\\\",\\n          \\\"amt\\\": \\\"\\\"\\n        }\\n      ],\\n      \\\"crossCost\\\": \\\"\\\",\\n      \\\"personalHook\\\": \\\"\\\",\\n      \\\"personalNote\\\": \\\"\\\",\\n      \\\"piggyCapacity\\\": \\\"\\\",\\n      \\\"piggyRate\\\": \\\"\\\",\\n      \\\"piggyTrigger\\\": \\\"When Full\\\",\\n      \\\"tiers\\\": [\\n        {\\n          \\\"id\\\": \\\"idmpe4y9evf2zn\\\",\\n          \\\"name\\\": \\\"Tier 1\\\",\\n          \\\"isFree\\\": false,\\n          \\\"price\\\": \\\"\\\",\\n          \\\"badge\\\": \\\"\\\",\\n          \\\"contents\\\": []\\n        },\\n        {\\n          \\\"id\\\": \\\"idmpe4y9evjwru\\\",\\n          \\\"name\\\": \\\"Tier 2\\\",\\n          \\\"isFree\\\": false,\\n          \\\"price\\\": \\\"\\\",\\n          \\\"badge\\\": \\\"\\\",\\n          \\\"contents\\\": []\\n        },\\n        {\\n          \\\"id\\\": \\\"idmpe4y9evbisb\\\",\\n          \\\"name\\\": \\\"Tier 3\\\",\\n          \\\"isFree\\\": false,\\n          \\\"price\\\": \\\"\\\",\\n          \\\"badge\\\": \\\"\\\",\\n          \\\"contents\\\": []\\n        },\\n        {\\n          \\\"id\\\": \\\"idmpe4y9ev1wyr\\\",\\n          \\\"name\\\": \\\"Tier 4\\\",\\n          \\\"isFree\\\": true,\\n          \\\"price\\\": \\\"\\\",\\n          \\\"badge\\\": \\\"\\\",\\n          \\\"contents\\\": []\\n        },\\n        {\\n          \\\"id\\\": \\\"idmpe4y9evrnci\\\",\\n          \\\"name\\\": \\\"Tier 5\\\",\\n          \\\"isFree\\\": false,\\n          \\\"price\\\": \\\"\\\",\\n          \\\"badge\\\": \\\"\\\",\\n          \\\"contents\\\": []\\n        },\\n        {\\n          \\\"id\\\": \\\"idmpe4y9evend9\\\",\\n          \\\"name\\\": \\\"Tier 6\\\",\\n          \\\"isFree\\\": true,\\n          \\\"price\\\": \\\"\\\",\\n          \\\"badge\\\": \\\"\\\",\\n          \\\"contents\\\": []\\n        },\\n        {\\n          \\\"id\\\": \\\"idmpe50c0t0604\\\",\\n          \\\"name\\\": \\\"Tier 7\\\",\\n          \\\"isFree\\\": true,\\n          \\\"price\\\": \\\"\\\",\\n          \\\"badge\\\": \\\"\\\",\\n          \\\"contents\\\": []\\n        }\\n      ],\\n      \\\"id\\\": \\\"idmpe51ylydrld\\\",\\n      \\\"ts\\\": 1779286184566\\n    },\\n    {\\n      \\\"type\\\": \\\"buy_all\\\",\\n      \\\"name\\\": \\\"asdasd\\\",\\n      \\\"badge\\\": \\\"\\\",\\n      \\\"segment\\\": \\\"\\\",\\n      \\\"location\\\": \\\"\\\",\\n      \\\"notes\\\": \\\"\\\",\\n      \\\"price\\\": \\\"\\\",\\n      \\\"pricingType\\\": \\\"-1\\\",\\n      \\\"addPct\\\": \\\"\\\",\\n      \\\"purchaseLimit\\\": \\\"\\\",\\n      \\\"startLevel\\\": \\\"\\\",\\n      \\\"duration\\\": \\\"\\\",\\n      \\\"trigger\\\": \\\"\\\",\\n      \\\"isFreeOffer\\\": false,\\n      \\\"crossCost\\\": \\\"\\\",\\n      \\\"id\\\": \\\"idmpe525hfjabm\\\",\\n      \\\"ts\\\": 1779286193475\\n    },\\n    {\\n      \\\"type\\\": \\\"endless\\\",\\n      \\\"name\\\": \\\"1123123\\\",\\n      \\\"badge\\\": \\\"\\\",\\n      \\\"segment\\\": \\\"\\\",\\n      \\\"location\\\": \\\"\\\",\\n      \\\"notes\\\": \\\"\\\",\\n      \\\"price\\\": \\\"\\\",\\n      \\\"pricingType\\\": \\\"-1\\\",\\n      \\\"addPct\\\": \\\"\\\",\\n      \\\"purchaseLimit\\\": \\\"\\\",\\n      \\\"startLevel\\\": \\\"\\\",\\n      \\\"duration\\\": \\\"\\\",\\n      \\\"trigger\\\": \\\"\\\",\\n      \\\"tierCount\\\": 6,\\n      \\\"tiers\\\": [\\n        {\\n          \\\"id\\\": \\\"idmpe52bw1b3pz\\\",\\n          \\\"name\\\": \\\"Tier 1\\\",\\n          \\\"isFree\\\": false,\\n          \\\"price\\\": \\\"\\\",\\n          \\\"badge\\\": \\\"\\\",\\n          \\\"contents\\\": []\\n        },\\n        {\\n          \\\"id\\\": \\\"idmpe52bw1vhnk\\\",\\n          \\\"name\\\": \\\"Tier 2\\\",\\n          \\\"isFree\\\": false,\\n          \\\"price\\\": \\\"\\\",\\n          \\\"badge\\\": \\\"\\\",\\n          \\\"contents\\\": []\\n        },\\n        {\\n          \\\"id\\\": \\\"idmpe52bw1ju33\\\",\\n          \\\"name\\\": \\\"Tier 3\\\",\\n          \\\"isFree\\\": false,\\n          \\\"price\\\": \\\"\\\",\\n          \\\"badge\\\": \\\"\\\",\\n          \\\"contents\\\": []\\n        },\\n        {\\n          \\\"id\\\": \\\"idmpe52bw10r7j\\\",\\n          \\\"name\\\": \\\"Tier 4\\\",\\n          \\\"isFree\\\": false,\\n          \\\"price\\\": \\\"\\\",\\n          \\\"badge\\\": \\\"\\\",\\n          \\\"contents\\\": []\\n        },\\n        {\\n          \\\"id\\\": \\\"idmpe52bw1qws9\\\",\\n          \\\"name\\\": \\\"Tier 5\\\",\\n          \\\"isFree\\\": false,\\n          \\\"price\\\": \\\"\\\",\\n          \\\"badge\\\": \\\"\\\",\\n          \\\"contents\\\": []\\n        },\\n        {\\n          \\\"id\\\": \\\"idmpe52bw1zgby\\\",\\n          \\\"name\\\": \\\"Tier 6\\\",\\n          \\\"isFree\\\": false,\\n          \\\"price\\\": \\\"\\\",\\n          \\\"badge\\\": \\\"\\\",\\n          \\\"contents\\\": []\\n        }\\n      ],\\n      \\\"id\\\": \\\"idmpe52djhbjew\\\",\\n      \\\"ts\\\": 1779286203917\\n    }\\n  ],\\n  \\\"priceSlope\\\": [\\n    {\\n      \\\"price\\\": 0.99,\\n      \\\"cpd\\\": 502.51\\n    },\\n    {\\n      \\\"price\\\": 1.99,\\n      \\\"cpd\\\": 502.51\\n    },\\n    {\\n      \\\"price\\\": 2.99,\\n      \\\"cpd\\\": 527.17\\n    },\\n    {\\n      \\\"price\\\": 3.99,\\n      \\\"cpd\\\": 551.82\\n    },\\n    {\\n      \\\"price\\\": 4.99,\\n      \\\"cpd\\\": 576.47\\n    },\\n    {\\n      \\\"price\\\": 5.99,\\n      \\\"cpd\\\": 601.13\\n    },\\n    {\\n      \\\"price\\\": 6.99,\\n      \\\"cpd\\\": 625.78\\n    },\\n    {\\n      \\\"price\\\": 7.99,\\n      \\\"cpd\\\": 625.78\\n    },\\n    {\\n      \\\"price\\\": 8.99,\\n      \\\"cpd\\\": 632.67\\n    },\\n    {\\n      \\\"price\\\": 9.99,\\n      \\\"cpd\\\": 639.56\\n    },\\n    {\\n      \\\"price\\\": 10.99,\\n      \\\"cpd\\\": 646.45\\n    },\\n    {\\n      \\\"price\\\": 11.99,\\n      \\\"cpd\\\": 653.34\\n    },\\n    {\\n      \\\"price\\\": 12.99,\\n      \\\"cpd\\\": 660.22\\n    },\\n    {\\n      \\\"price\\\": 13.99,\\n      \\\"cpd\\\": 667.11\\n    },\\n    {\\n      \\\"price\\\": 14.99,\\n      \\\"cpd\\\": 667.11\\n    },\\n    {\\n      \\\"price\\\": 15.99,\\n      \\\"cpd\\\": 679\\n    },\\n    {\\n      \\\"price\\\": 16.99,\\n      \\\"cpd\\\": 690.9\\n    },\\n    {\\n      \\\"price\\\": 17.99,\\n      \\\"cpd\\\": 702.79\\n    },\\n    {\\n      \\\"price\\\": 18.99,\\n      \\\"cpd\\\": 714.68\\n    },\\n    {\\n      \\\"price\\\": 19.99,\\n      \\\"cpd\\\": 726.58\\n    },\\n    {\\n      \\\"price\\\": 20.99,\\n      \\\"cpd\\\": 738.47\\n    },\\n    {\\n      \\\"price\\\": 21.99,\\n      \\\"cpd\\\": 750.36\\n    },\\n    {\\n      \\\"price\\\": 22.99,\\n      \\\"cpd\\\": 762.25\\n    },\\n    {\\n      \\\"price\\\": 23.99,\\n      \\\"cpd\\\": 774.15\\n    },\\n    {\\n      \\\"price\\\": 24.99,\\n      \\\"cpd\\\": 786.04\\n    },\\n    {\\n      \\\"price\\\": 25.99,\\n      \\\"cpd\\\": 797.93\\n    },\\n    {\\n      \\\"price\\\": 26.99,\\n      \\\"cpd\\\": 809.83\\n    },\\n    {\\n      \\\"price\\\": 27.99,\\n      \\\"cpd\\\": 821.72\\n    },\\n    {\\n      \\\"price\\\": 28.99,\\n      \\\"cpd\\\": 833.61\\n    },\\n    {\\n      \\\"price\\\": 29.99,\\n      \\\"cpd\\\": 833.61\\n    },\\n    {\\n      \\\"price\\\": 30.99,\\n      \\\"cpd\\\": 836.76\\n    },\\n    {\\n      \\\"price\\\": 31.99,\\n      \\\"cpd\\\": 839.91\\n    },\\n    {\\n      \\\"price\\\": 32.99,\\n      \\\"cpd\\\": 843.07\\n    },\\n    {\\n      \\\"price\\\": 33.99,\\n      \\\"cpd\\\": 846.22\\n    },\\n    {\\n      \\\"price\\\": 34.99,\\n      \\\"cpd\\\": 849.37\\n    },\\n    {\\n      \\\"price\\\": 35.99,\\n      \\\"cpd\\\": 852.52\\n    },\\n    {\\n      \\\"price\\\": 36.99,\\n      \\\"cpd\\\": 855.67\\n    },\\n    {\\n      \\\"price\\\": 37.99,\\n      \\\"cpd\\\": 858.83\\n    },\\n    {\\n      \\\"price\\\": 38.99,\\n      \\\"cpd\\\": 861.98\\n    },\\n    {\\n      \\\"price\\\": 39.99,\\n      \\\"cpd\\\": 865.13\\n    },\\n    {\\n      \\\"price\\\": 40.99,\\n      \\\"cpd\\\": 868.28\\n    },\\n    {\\n      \\\"price\\\": 41.99,\\n      \\\"cpd\\\": 871.43\\n    },\\n    {\\n      \\\"price\\\": 42.99,\\n      \\\"cpd\\\": 874.59\\n    },\\n    {\\n      \\\"price\\\": 43.99,\\n      \\\"cpd\\\": 877.74\\n    },\\n    {\\n      \\\"price\\\": 44.99,\\n      \\\"cpd\\\": 880.89\\n    },\\n    {\\n      \\\"price\\\": 45.99,\\n      \\\"cpd\\\": 884.04\\n    },\\n    {\\n      \\\"price\\\": 46.99,\\n      \\\"cpd\\\": 887.19\\n    },\\n    {\\n      \\\"price\\\": 47.99,\\n      \\\"cpd\\\": 890.34\\n    },\\n    {\\n      \\\"price\\\": 48.99,\\n      \\\"cpd\\\": 893.5\\n    },\\n    {\\n      \\\"price\\\": 49.99,\\n      \\\"cpd\\\": 896.65\\n    },\\n    {\\n      \\\"price\\\": 50.99,\\n      \\\"cpd\\\": 899.8\\n    },\\n    {\\n      \\\"price\\\": 51.99,\\n      \\\"cpd\\\": 902.95\\n    },\\n    {\\n      \\\"price\\\": 52.99,\\n      \\\"cpd\\\": 906.1\\n    },\\n    {\\n      \\\"price\\\": 53.99,\\n      \\\"cpd\\\": 909.26\\n    },\\n    {\\n      \\\"price\\\": 54.99,\\n      \\\"cpd\\\": 909.26\\n    },\\n    {\\n      \\\"price\\\": 55.99,\\n      \\\"cpd\\\": 911.32\\n    },\\n    {\\n      \\\"price\\\": 56.99,\\n      \\\"cpd\\\": 913.39\\n    },\\n    {\\n      \\\"price\\\": 57.99,\\n      \\\"cpd\\\": 915.45\\n    },\\n    {\\n      \\\"price\\\": 58.99,\\n      \\\"cpd\\\": 917.51\\n    },\\n    {\\n      \\\"price\\\": 59.99,\\n      \\\"cpd\\\": 919.58\\n    },\\n    {\\n      \\\"price\\\": 60.99,\\n      \\\"cpd\\\": 921.64\\n    },\\n    {\\n      \\\"price\\\": 61.99,\\n      \\\"cpd\\\": 923.71\\n    },\\n    {\\n      \\\"price\\\": 62.99,\\n      \\\"cpd\\\": 925.77\\n    },\\n    {\\n      \\\"price\\\": 63.99,\\n      \\\"cpd\\\": 927.84\\n    },\\n    {\\n      \\\"price\\\": 64.99,\\n      \\\"cpd\\\": 929.9\\n    },\\n    {\\n      \\\"price\\\": 65.99,\\n      \\\"cpd\\\": 931.97\\n    },\\n    {\\n      \\\"price\\\": 66.99,\\n      \\\"cpd\\\": 934.03\\n    },\\n    {\\n      \\\"price\\\": 67.99,\\n      \\\"cpd\\\": 936.1\\n    },\\n    {\\n      \\\"price\\\": 68.99,\\n      \\\"cpd\\\": 938.16\\n    },\\n    {\\n      \\\"price\\\": 69.99,\\n      \\\"cpd\\\": 940.23\\n    },\\n    {\\n      \\\"price\\\": 70.99,\\n      \\\"cpd\\\": 942.29\\n    },\\n    {\\n      \\\"price\\\": 71.99,\\n      \\\"cpd\\\": 944.35\\n    },\\n    {\\n      \\\"price\\\": 72.99,\\n      \\\"cpd\\\": 946.42\\n    },\\n    {\\n      \\\"price\\\": 73.99,\\n      \\\"cpd\\\": 948.48\\n    },\\n    {\\n      \\\"price\\\": 74.99,\\n      \\\"cpd\\\": 950.55\\n    },\\n    {\\n      \\\"price\\\": 75.99,\\n      \\\"cpd\\\": 952.61\\n    },\\n    {\\n      \\\"price\\\": 76.99,\\n      \\\"cpd\\\": 954.68\\n    },\\n    {\\n      \\\"price\\\": 77.99,\\n      \\\"cpd\\\": 956.74\\n    },\\n    {\\n      \\\"price\\\": 78.99,\\n      \\\"cpd\\\": 958.81\\n    },\\n    {\\n      \\\"price\\\": 79.99,\\n      \\\"cpd\\\": 960.87\\n    },\\n    {\\n      \\\"price\\\": 80.99,\\n      \\\"cpd\\\": 962.94\\n    },\\n    {\\n      \\\"price\\\": 81.99,\\n      \\\"cpd\\\": 965\\n    },\\n    {\\n      \\\"price\\\": 82.99,\\n      \\\"cpd\\\": 967.07\\n    },\\n    {\\n      \\\"price\\\": 83.99,\\n      \\\"cpd\\\": 969.13\\n    },\\n    {\\n      \\\"price\\\": 84.99,\\n      \\\"cpd\\\": 971.2\\n    },\\n    {\\n      \\\"price\\\": 85.99,\\n      \\\"cpd\\\": 973.26\\n    },\\n    {\\n      \\\"price\\\": 86.99,\\n      \\\"cpd\\\": 975.32\\n    },\\n    {\\n      \\\"price\\\": 87.99,\\n      \\\"cpd\\\": 977.39\\n    },\\n    {\\n      \\\"price\\\": 88.99,\\n      \\\"cpd\\\": 979.45\\n    },\\n    {\\n      \\\"price\\\": 89.99,\\n      \\\"cpd\\\": 981.52\\n    },\\n    {\\n      \\\"price\\\": 90.99,\\n      \\\"cpd\\\": 983.58\\n    },\\n    {\\n      \\\"price\\\": 91.99,\\n      \\\"cpd\\\": 985.65\\n    },\\n    {\\n      \\\"price\\\": 92.99,\\n      \\\"cpd\\\": 987.71\\n    },\\n    {\\n      \\\"price\\\": 93.99,\\n      \\\"cpd\\\": 989.78\\n    },\\n    {\\n      \\\"price\\\": 94.99,\\n      \\\"cpd\\\": 991.84\\n    },\\n    {\\n      \\\"price\\\": 95.99,\\n      \\\"cpd\\\": 993.91\\n    },\\n    {\\n      \\\"price\\\": 96.99,\\n      \\\"cpd\\\": 995.97\\n    },\\n    {\\n      \\\"price\\\": 97.99,\\n      \\\"cpd\\\": 998.04\\n    },\\n    {\\n      \\\"price\\\": 98.99,\\n      \\\"cpd\\\": 1000.1\\n    },\\n    {\\n      \\\"price\\\": 99.99,\\n      \\\"cpd\\\": 1000.1\\n    }\\n  ],\\n  \\\"customTypes\\\": [\\n    {\\n      \\\"k\\\": \\\"custom_1779711550428\\\",\\n      \\\"n\\\": \\\"New Type\\\",\\n      \\\"i\\\": \\\"⭐\\\",\\n      \\\"c\\\": \\\"#6366f1\\\",\\n      \\\"d\\\": \\\"Custom type\\\",\\n      \\\"hasTiers\\\": false\\n    },\\n    {\\n      \\\"k\\\": \\\"custom_1779779531887\\\",\\n      \\\"n\\\": \\\"New Type\\\",\\n      \\\"i\\\": \\\"⭐\\\",\\n      \\\"c\\\": \\\"#6366f1\\\",\\n      \\\"d\\\": \\\"Custom type\\\",\\n      \\\"hasTiers\\\": false\\n    }\\n  ],\\n  \\\"customSegs\\\": [],\\n  \\\"typeTemplates\\\": {\\n    \\\"buy_all\\\": {\\n      \\\"layout\\\": \\\"popup\\\",\\n      \\\"struct\\\": {\\n        \\\"showCTA\\\": true,\\n        \\\"ctaStyle\\\": \\\"rounded\\\",\\n        \\\"ctaText\\\": \\\"asasd\\\"\\n      },\\n      \\\"bg1\\\": \\\"#0a1628\\\",\\n      \\\"bg2\\\": \\\"#0d3b5e\\\",\\n      \\\"accent\\\": \\\"#fbbf24\\\",\\n      \\\"canvasBoxes\\\": [\\n        {\\n          \\\"label\\\": \\\"Pick One Title\\\",\\n          \\\"x\\\": 5,\\n          \\\"y\\\": 1,\\n          \\\"w\\\": 90,\\n          \\\"h\\\": 10,\\n          \\\"color\\\": \\\"#818cf8\\\",\\n          \\\"id\\\": \\\"idmpe4v555rjpb\\\",\\n          \\\"isTierSlot\\\": false\\n        },\\n        {\\n          \\\"label\\\": \\\"Tier 1 (small)\\\",\\n          \\\"x\\\": 2,\\n          \\\"y\\\": 13,\\n          \\\"w\\\": 30,\\n          \\\"h\\\": 58,\\n          \\\"color\\\": \\\"#34d399\\\",\\n          \\\"id\\\": \\\"idmpe4v555g2wi\\\",\\n          \\\"isTierSlot\\\": true\\n        },\\n        {\\n          \\\"label\\\": \\\"Tier 2 (featured)\\\",\\n          \\\"x\\\": 34,\\n          \\\"y\\\": 9,\\n          \\\"w\\\": 32,\\n          \\\"h\\\": 64,\\n          \\\"color\\\": \\\"#fbbf24\\\",\\n          \\\"id\\\": \\\"idmpe4v5556umo\\\",\\n          \\\"isTierSlot\\\": true\\n        },\\n        {\\n          \\\"label\\\": \\\"Tier 3\\\",\\n          \\\"x\\\": 68,\\n          \\\"y\\\": 13,\\n          \\\"w\\\": 30,\\n          \\\"h\\\": 58,\\n          \\\"color\\\": \\\"#818cf8\\\",\\n          \\\"id\\\": \\\"idmpe4v5551awo\\\",\\n          \\\"isTierSlot\\\": true\\n        },\\n        {\\n          \\\"label\\\": \\\"Buy All CTA\\\",\\n          \\\"x\\\": 5,\\n          \\\"y\\\": 80,\\n          \\\"w\\\": 90,\\n          \\\"h\\\": 13,\\n          \\\"color\\\": \\\"#4ade80\\\",\\n          \\\"id\\\": \\\"idmpe4v5554y1o\\\",\\n          \\\"isTierSlot\\\": true\\n        }\\n      ],\\n      \\\"badgePresets\\\": []\\n    },\\n    \\\"undefined\\\": {\\n      \\\"struct\\\": {}\\n    },\\n    \\\"endless\\\": {\\n      \\\"struct\\\": {\\n        \\\"showBadge\\\": false,\\n        \\\"showTimer\\\": true,\\n        \\\"tierHeight\\\": \\\"xl\\\",\\n        \\\"showTierNum\\\": true,\\n        \\\"showArrows\\\": true,\\n        \\\"showCoinTotal\\\": false,\\n        \\\"showSegment\\\": false,\\n        \\\"showContents\\\": true\\n      },\\n      \\\"tierLayout\\\": \\\"snaking\\\",\\n      \\\"bg1\\\": \\\"#1a1a2e\\\",\\n      \\\"bg2\\\": \\\"#312e81\\\",\\n      \\\"accent\\\": \\\"#818cf8\\\",\\n      \\\"gridCols\\\": 2,\\n      \\\"canvasBoxes\\\": [\\n        {\\n          \\\"label\\\": \\\"Offer Title / Timer\\\",\\n          \\\"x\\\": 5,\\n          \\\"y\\\": 1,\\n          \\\"w\\\": 90,\\n          \\\"h\\\": 9,\\n          \\\"color\\\": \\\"#818cf8\\\",\\n          \\\"id\\\": \\\"idmpe7rwyobkpk\\\",\\n          \\\"isTierSlot\\\": false\\n        },\\n        {\\n          \\\"label\\\": \\\"Tier 1\\\",\\n          \\\"x\\\": 2,\\n          \\\"y\\\": 12,\\n          \\\"w\\\": 45,\\n          \\\"h\\\": 20,\\n          \\\"color\\\": \\\"#34d399\\\",\\n          \\\"id\\\": \\\"idmpe7rwyoj16b\\\",\\n          \\\"isTierSlot\\\": true\\n        },\\n        {\\n          \\\"label\\\": \\\"Tier 2\\\",\\n          \\\"x\\\": 52,\\n          \\\"y\\\": 12,\\n          \\\"w\\\": 46,\\n          \\\"h\\\": 20,\\n          \\\"color\\\": \\\"#34d399\\\",\\n          \\\"id\\\": \\\"idmpe7rwyovkiz\\\",\\n          \\\"isTierSlot\\\": true\\n        },\\n        {\\n          \\\"label\\\": \\\"Tier 3\\\",\\n          \\\"x\\\": 2,\\n          \\\"y\\\": 34,\\n          \\\"w\\\": 45,\\n          \\\"h\\\": 20,\\n          \\\"color\\\": \\\"#60a5fa\\\",\\n          \\\"id\\\": \\\"idmpe7rwyoq6bj\\\",\\n          \\\"isTierSlot\\\": true\\n        },\\n        {\\n          \\\"label\\\": \\\"Tier 4\\\",\\n          \\\"x\\\": 52,\\n          \\\"y\\\": 34,\\n          \\\"w\\\": 46,\\n          \\\"h\\\": 20,\\n          \\\"color\\\": \\\"#60a5fa\\\",\\n          \\\"id\\\": \\\"idmpe7rwyo1a4q\\\",\\n          \\\"isTierSlot\\\": true\\n        },\\n        {\\n          \\\"label\\\": \\\"Tier 5\\\",\\n          \\\"x\\\": 2,\\n          \\\"y\\\": 56,\\n          \\\"w\\\": 45,\\n          \\\"h\\\": 20,\\n          \\\"color\\\": \\\"#fbbf24\\\",\\n          \\\"id\\\": \\\"idmpe7rwyoymk4\\\",\\n          \\\"isTierSlot\\\": true\\n        },\\n        {\\n          \\\"label\\\": \\\"Tier 6 (featured)\\\",\\n          \\\"x\\\": 52,\\n          \\\"y\\\": 56,\\n          \\\"w\\\": 46,\\n          \\\"h\\\": 20,\\n          \\\"color\\\": \\\"#fbbf24\\\",\\n          \\\"id\\\": \\\"idmpe7rwyoo1gc\\\",\\n          \\\"isTierSlot\\\": true\\n        }\\n      ],\\n      \\\"badgePresets\\\": []\\n    },\\n    \\\"double\\\": {\\n      \\\"struct\\\": {\\n        \\\"showCTA\\\": false,\\n        \\\"showTimer\\\": true\\n      },\\n      \\\"layout\\\": \\\"banner\\\"\\n    },\\n    \\\"personal\\\": {\\n      \\\"struct\\\": {}\\n    },\\n    \\\"starter\\\": {\\n      \\\"struct\\\": {\\n        \\\"showCTA\\\": false\\n      },\\n      \\\"layout\\\": \\\"popup\\\"\\n    },\\n    \\\"piggy\\\": {\\n      \\\"struct\\\": {}\\n    },\\n    \\\"timed\\\": {\\n      \\\"struct\\\": {}\\n    },\\n    \\\"season\\\": {\\n      \\\"struct\\\": {\\n        \\\"showCTA\\\": false,\\n        \\\"ctaStyle\\\": \\\"pill\\\"\\n      },\\n      \\\"layout\\\": \\\"popup\\\",\\n      \\\"bg1\\\": \\\"#1a1a2e\\\",\\n      \\\"bg2\\\": \\\"#0f172a\\\",\\n      \\\"accent\\\": \\\"#eab308\\\",\\n      \\\"canvasBoxes\\\": [\\n        {\\n          \\\"label\\\": \\\"Season Pass Title\\\",\\n          \\\"x\\\": 5,\\n          \\\"y\\\": 1,\\n          \\\"w\\\": 90,\\n          \\\"h\\\": 9,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#eab308\\\",\\n          \\\"id\\\": \\\"idmpl7drfb255p\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Progress Bar\\\",\\n          \\\"x\\\": 5,\\n          \\\"y\\\": 11,\\n          \\\"w\\\": 90,\\n          \\\"h\\\": 7,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#818cf8\\\",\\n          \\\"id\\\": \\\"idmpl7drfbdc1k\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Free Reward 1\\\",\\n          \\\"x\\\": 2,\\n          \\\"y\\\": 20,\\n          \\\"w\\\": 46,\\n          \\\"h\\\": 22,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#34d399\\\",\\n          \\\"id\\\": \\\"idmpl7drfbbwhs\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Paid Reward 1 🔒\\\",\\n          \\\"x\\\": 52,\\n          \\\"y\\\": 20,\\n          \\\"w\\\": 46,\\n          \\\"h\\\": 22,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#eab308\\\",\\n          \\\"id\\\": \\\"idmpl7drfbbdmu\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Free Reward 2\\\",\\n          \\\"x\\\": 2,\\n          \\\"y\\\": 44,\\n          \\\"w\\\": 46,\\n          \\\"h\\\": 22,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#34d399\\\",\\n          \\\"id\\\": \\\"idmpl7drfbekxc\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Paid Reward 2 🔒\\\",\\n          \\\"x\\\": 52,\\n          \\\"y\\\": 44,\\n          \\\"w\\\": 46,\\n          \\\"h\\\": 22,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#eab308\\\",\\n          \\\"id\\\": \\\"idmpl7drfbipxf\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Unlock All Premium →\\\",\\n          \\\"x\\\": 2,\\n          \\\"y\\\": 68,\\n          \\\"w\\\": 96,\\n          \\\"h\\\": 24,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#ef4444\\\",\\n          \\\"id\\\": \\\"idmpl7drfbcf4u\\\"\\n        }\\n      ]\\n    },\\n    \\\"milestone\\\": {\\n      \\\"struct\\\": {},\\n      \\\"bg1\\\": \\\"#fce7f3\\\",\\n      \\\"bg2\\\": \\\"#f0fdf4\\\",\\n      \\\"accent\\\": \\\"#10b981\\\",\\n      \\\"canvasBoxes\\\": [\\n        {\\n          \\\"label\\\": \\\"Savings Title\\\",\\n          \\\"x\\\": 5,\\n          \\\"y\\\": 1,\\n          \\\"w\\\": 90,\\n          \\\"h\\\": 10,\\n          \\\"color\\\": \\\"#ec4899\\\",\\n          \\\"id\\\": \\\"idmpl6bd3006qg\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Progress Bar (0/10)\\\",\\n          \\\"x\\\": 5,\\n          \\\"y\\\": 12,\\n          \\\"w\\\": 90,\\n          \\\"h\\\": 7,\\n          \\\"color\\\": \\\"#818cf8\\\",\\n          \\\"id\\\": \\\"idmpl6bd30tzp8\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Free Item 1\\\",\\n          \\\"x\\\": 2,\\n          \\\"y\\\": 21,\\n          \\\"w\\\": 46,\\n          \\\"h\\\": 22,\\n          \\\"color\\\": \\\"#34d399\\\",\\n          \\\"id\\\": \\\"idmpl6bd306ua3\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Free Item 2\\\",\\n          \\\"x\\\": 52,\\n          \\\"y\\\": 21,\\n          \\\"w\\\": 46,\\n          \\\"h\\\": 22,\\n          \\\"color\\\": \\\"#34d399\\\",\\n          \\\"id\\\": \\\"idmpl6bd308iv3\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Free Item 3\\\",\\n          \\\"x\\\": 2,\\n          \\\"y\\\": 45,\\n          \\\"w\\\": 46,\\n          \\\"h\\\": 22,\\n          \\\"color\\\": \\\"#34d399\\\",\\n          \\\"id\\\": \\\"idmpl6bd301guw\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Free Item 4 (locked)\\\",\\n          \\\"x\\\": 52,\\n          \\\"y\\\": 45,\\n          \\\"w\\\": 46,\\n          \\\"h\\\": 22,\\n          \\\"color\\\": \\\"#94a3b8\\\",\\n          \\\"id\\\": \\\"idmpl6bd30g4jp\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Paid Unlock (full row)\\\",\\n          \\\"x\\\": 2,\\n          \\\"y\\\": 69,\\n          \\\"w\\\": 96,\\n          \\\"h\\\": 24,\\n          \\\"color\\\": \\\"#f59e0b\\\",\\n          \\\"id\\\": \\\"idmpl6bd30hgu3\\\"\\n        }\\n      ],\\n      \\\"layout\\\": \\\"popup\\\"\\n    },\\n    \\\"rolling\\\": {\\n      \\\"struct\\\": {\\n        \\\"showTimer\\\": false,\\n        \\\"showSegment\\\": true,\\n        \\\"showContents\\\": false,\\n        \\\"showArrows\\\": true,\\n        \\\"showTierNum\\\": true,\\n        \\\"showCoinTotal\\\": true,\\n        \\\"tierHeight\\\": \\\"sm\\\"\\n      },\\n      \\\"badgePresets\\\": [],\\n      \\\"tierLayout\\\": \\\"grid\\\"\\n    },\\n    \\\"regular\\\": {\\n      \\\"struct\\\": {}\\n    },\\n    \\\"custom_1779711550428\\\": {\\n      \\\"struct\\\": {\\n        \\\"showCTA\\\": true\\n      }\\n    },\\n    \\\"lives_refill\\\": {\\n      \\\"bg1\\\": \\\"#1a0a14\\\",\\n      \\\"bg2\\\": \\\"#3b0b27\\\",\\n      \\\"accent\\\": \\\"#ec4899\\\",\\n      \\\"canvasBoxes\\\": [\\n        {\\n          \\\"label\\\": \\\"Refill your lives!\\\",\\n          \\\"x\\\": 5,\\n          \\\"y\\\": 1,\\n          \\\"w\\\": 90,\\n          \\\"h\\\": 9,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#ec4899\\\",\\n          \\\"id\\\": \\\"idmpl7d2aoxk54\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Quick Refill\\\",\\n          \\\"x\\\": 2,\\n          \\\"y\\\": 12,\\n          \\\"w\\\": 30,\\n          \\\"h\\\": 56,\\n          \\\"isTierSlot\\\": true,\\n          \\\"color\\\": \\\"#f472b6\\\",\\n          \\\"id\\\": \\\"idmpl7d2ao5g0c\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Value Pack ★\\\",\\n          \\\"x\\\": 33,\\n          \\\"y\\\": 8,\\n          \\\"w\\\": 34,\\n          \\\"h\\\": 63,\\n          \\\"isTierSlot\\\": true,\\n          \\\"color\\\": \\\"#fbbf24\\\",\\n          \\\"id\\\": \\\"idmpl7d2aoebry\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Full Refill\\\",\\n          \\\"x\\\": 68,\\n          \\\"y\\\": 12,\\n          \\\"w\\\": 30,\\n          \\\"h\\\": 56,\\n          \\\"isTierSlot\\\": true,\\n          \\\"color\\\": \\\"#a78bfa\\\",\\n          \\\"id\\\": \\\"idmpl7d2aov9qx\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Timer / Session end\\\",\\n          \\\"x\\\": 20,\\n          \\\"y\\\": 88,\\n          \\\"w\\\": 60,\\n          \\\"h\\\": 8,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#475569\\\",\\n          \\\"id\\\": \\\"idmpl7d2aomfya\\\"\\n        }\\n      ],\\n      \\\"struct\\\": {}\\n    },\\n    \\\"play_on\\\": {\\n      \\\"bg1\\\": \\\"#1a0a0a\\\",\\n      \\\"bg2\\\": \\\"#2d0808\\\",\\n      \\\"accent\\\": \\\"#ef4444\\\",\\n      \\\"canvasBoxes\\\": [\\n        {\\n          \\\"label\\\": \\\"Continue playing?\\\",\\n          \\\"x\\\": 5,\\n          \\\"y\\\": 1,\\n          \\\"w\\\": 90,\\n          \\\"h\\\": 8,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#ef4444\\\",\\n          \\\"id\\\": \\\"idmpl7d2mok07d\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Lives counter / timer\\\",\\n          \\\"x\\\": 25,\\n          \\\"y\\\": 10,\\n          \\\"w\\\": 50,\\n          \\\"h\\\": 9,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#f97316\\\",\\n          \\\"id\\\": \\\"idmpl7d2mor8w3\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Basic Continue\\\",\\n          \\\"x\\\": 2,\\n          \\\"y\\\": 21,\\n          \\\"w\\\": 45,\\n          \\\"h\\\": 52,\\n          \\\"isTierSlot\\\": true,\\n          \\\"color\\\": \\\"#60a5fa\\\",\\n          \\\"id\\\": \\\"idmpl7d2mopwvo\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Premium Continue ★\\\",\\n          \\\"x\\\": 52,\\n          \\\"y\\\": 21,\\n          \\\"w\\\": 46,\\n          \\\"h\\\": 52,\\n          \\\"isTierSlot\\\": true,\\n          \\\"color\\\": \\\"#fbbf24\\\",\\n          \\\"id\\\": \\\"idmpl7d2molyzi\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Watch Ad (free)\\\",\\n          \\\"x\\\": 5,\\n          \\\"y\\\": 77,\\n          \\\"w\\\": 42,\\n          \\\"h\\\": 9,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#475569\\\",\\n          \\\"id\\\": \\\"idmpl7d2mo9pym\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"No thanks\\\",\\n          \\\"x\\\": 53,\\n          \\\"y\\\": 77,\\n          \\\"w\\\": 42,\\n          \\\"h\\\": 9,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#374151\\\",\\n          \\\"id\\\": \\\"idmpl7d2mogqdg\\\"\\n        }\\n      ],\\n      \\\"struct\\\": {}\\n    },\\n    \\\"ooc\\\": {\\n      \\\"bg1\\\": \\\"#0d1b2a\\\",\\n      \\\"bg2\\\": \\\"#1a2e44\\\",\\n      \\\"accent\\\": \\\"#f59e0b\\\",\\n      \\\"canvasBoxes\\\": [\\n        {\\n          \\\"label\\\": \\\"You ran out of coins!\\\",\\n          \\\"x\\\": 5,\\n          \\\"y\\\": 1,\\n          \\\"w\\\": 90,\\n          \\\"h\\\": 9,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#f59e0b\\\",\\n          \\\"id\\\": \\\"idmpl7d4td2q5r\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Small Pack\\\",\\n          \\\"x\\\": 2,\\n          \\\"y\\\": 11,\\n          \\\"w\\\": 30,\\n          \\\"h\\\": 57,\\n          \\\"isTierSlot\\\": true,\\n          \\\"color\\\": \\\"#60a5fa\\\",\\n          \\\"id\\\": \\\"idmpl7d4tda8s0\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Best Value ★\\\",\\n          \\\"x\\\": 33,\\n          \\\"y\\\": 7,\\n          \\\"w\\\": 34,\\n          \\\"h\\\": 65,\\n          \\\"isTierSlot\\\": true,\\n          \\\"color\\\": \\\"#fbbf24\\\",\\n          \\\"id\\\": \\\"idmpl7d4tdx5gs\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"Big Pack\\\",\\n          \\\"x\\\": 68,\\n          \\\"y\\\": 11,\\n          \\\"w\\\": 30,\\n          \\\"h\\\": 57,\\n          \\\"isTierSlot\\\": true,\\n          \\\"color\\\": \\\"#818cf8\\\",\\n          \\\"id\\\": \\\"idmpl7d4tdoawy\\\"\\n        },\\n        {\\n          \\\"label\\\": \\\"No thanks (close)\\\",\\n          \\\"x\\\": 30,\\n          \\\"y\\\": 88,\\n          \\\"w\\\": 40,\\n          \\\"h\\\": 8,\\n          \\\"isTierSlot\\\": false,\\n          \\\"color\\\": \\\"#475569\\\",\\n          \\\"id\\\": \\\"idmpl7d4tdw4zd\\\"\\n        }\\n      ],\\n      \\\"struct\\\": {}\\n    },\\n    \\\"custom_1779779531887\\\": {\\n      \\\"struct\\\": {}\\n    }\\n  },\\n  \\\"shop\\\": {\\n    \\\"enabled\\\": {\\n      \\\"special\\\": true,\\n      \\\"bundles\\\": true,\\n      \\\"coinPacks\\\": true,\\n      \\\"removeAds\\\": true\\n    },\\n    \\\"specialOfferIds\\\": [\\n      \\\"idmpe51ylydrld\\\"\\n    ],\\n    \\\"bundles\\\": [\\n      {\\n        \\\"id\\\": \\\"b1\\\",\\n        \\\"name\\\": \\\"Small Bundle\\\",\\n        \\\"icon\\\": \\\"💰\\\",\\n        \\\"qty\\\": 2000,\\n        \\\"bonusPct\\\": 25,\\n        \\\"duration\\\": \\\"2H\\\",\\n        \\\"price\\\": 9.99,\\n        \\\"badge\\\": \\\"FIRST TIME BONUS +25% MORE\\\"\\n      },\\n      {\\n        \\\"id\\\": \\\"b2\\\",\\n        \\\"name\\\": \\\"Big Bundle\\\",\\n        \\\"icon\\\": \\\"💰\\\",\\n        \\\"qty\\\": 5000,\\n        \\\"bonusPct\\\": 13,\\n        \\\"duration\\\": \\\"4H\\\",\\n        \\\"price\\\": 20.99,\\n        \\\"badge\\\": \\\"FIRST TIME BONUS +25% MORE\\\"\\n      },\\n      {\\n        \\\"id\\\": \\\"b3\\\",\\n        \\\"name\\\": \\\"Giant Bundle\\\",\\n        \\\"icon\\\": \\\"💰\\\",\\n        \\\"qty\\\": 12000,\\n        \\\"bonusPct\\\": 25,\\n        \\\"duration\\\": \\\"6H\\\",\\n        \\\"price\\\": 35.99,\\n        \\\"badge\\\": \\\"BEST OFFER\\\"\\n      }\\n    ],\\n    \\\"coinPacks\\\": [\\n      {\\n        \\\"id\\\": \\\"c2\\\",\\n        \\\"tier\\\": 2,\\n        \\\"icon\\\": \\\"$\\\",\\n        \\\"qty\\\": 12121,\\n        \\\"bonusPct\\\": 50,\\n        \\\"price\\\": 8.49,\\n        \\\"badge\\\": \\\"\\\"\\n      },\\n      {\\n        \\\"id\\\": \\\"c3\\\",\\n        \\\"tier\\\": 3,\\n        \\\"icon\\\": \\\"$$\\\",\\n        \\\"qty\\\": 10000,\\n        \\\"bonusPct\\\": 50,\\n        \\\"price\\\": 15.99,\\n        \\\"badge\\\": \\\"POPULAR\\\"\\n      },\\n      {\\n        \\\"id\\\": \\\"c4\\\",\\n        \\\"tier\\\": 4,\\n        \\\"icon\\\": \\\"$\\\",\\n        \\\"qty\\\": 25000,\\n        \\\"bonusPct\\\": 50,\\n        \\\"price\\\": 30.99,\\n        \\\"badge\\\": \\\"\\\"\\n      },\\n      {\\n        \\\"id\\\": \\\"c5\\\",\\n        \\\"tier\\\": 5,\\n        \\\"icon\\\": \\\"$\\\",\\n        \\\"qty\\\": 50000,\\n        \\\"bonusPct\\\": 50,\\n        \\\"price\\\": 54.99,\\n        \\\"badge\\\": \\\"\\\"\\n      },\\n      {\\n        \\\"id\\\": \\\"c6\\\",\\n        \\\"tier\\\": 6,\\n        \\\"icon\\\": \\\"$$\\\",\\n        \\\"qty\\\": 100000,\\n        \\\"bonusPct\\\": 50,\\n        \\\"price\\\": 104.99,\\n        \\\"badge\\\": \\\"\\\"\\n      },\\n      {\\n        \\\"id\\\": \\\"c1779277285852\\\",\\n        \\\"tier\\\": 6,\\n        \\\"icon\\\": \\\"$\\\",\\n        \\\"qty\\\": 1000,\\n        \\\"bonusPct\\\": 50,\\n        \\\"price\\\": 7.99,\\n        \\\"badge\\\": \\\"\\\"\\n      }\\n    ],\\n    \\\"removeAds\\\": [\\n      {\\n        \\\"id\\\": \\\"ra1\\\",\\n        \\\"name\\\": \\\"Remove Ads\\\",\\n        \\\"icon\\\": \\\"ADS\\\",\\n        \\\"price\\\": 9.49,\\n        \\\"badge\\\": \\\"\\\"\\n      },\\n      {\\n        \\\"id\\\": \\\"ra2\\\",\\n        \\\"name\\\": \\\"No Ads Bundle\\\",\\n        \\\"icon\\\": \\\"$\\\",\\n        \\\"qty\\\": 15000,\\n        \\\"price\\\": 12.99,\\n        \\\"badge\\\": \\\"\\\"\\n      }\\n    ]\\n  },\\n  \\\"customLocations\\\": [],\\n  \\\"customTriggers\\\": [],\\n  \\\"customPricingTypes\\\": [],\\n  \\\"hiddenTypes\\\": [],\\n  \\\"hiddenSegs\\\": [],\\n  \\\"hiddenLocations\\\": [],\\n  \\\"hiddenTriggers\\\": []\\n}\"");}catch(e){}</script>
+</body></html>
