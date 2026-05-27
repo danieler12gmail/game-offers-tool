@@ -734,9 +734,9 @@
         },
         {
           "label": "Tier 1",
-          "x": 2,
+          "x": 1.8977505112474446,
           "y": 12,
-          "w": 45,
+          "w": 45.102249488752555,
           "h": 20,
           "color": "#34d399",
           "id": "idmpe7rwyoj16b",
@@ -803,7 +803,59 @@
       },
       "layout": "banner",
       "tierLayout": "grid",
-      "gridCols": 2
+      "gridCols": 2,
+      "canvasBoxes": [
+        {
+          "label": "Title Banner",
+          "x": 2,
+          "y": 1,
+          "w": 96,
+          "h": 13,
+          "isTierSlot": false,
+          "color": "#f59e0b",
+          "id": "idmpo7arnqtfnt"
+        },
+        {
+          "label": "Paid Box",
+          "x": 2,
+          "y": 16,
+          "w": 44,
+          "h": 62,
+          "isTierSlot": false,
+          "color": "#f59e0b",
+          "id": "idmpo7arnqxi95"
+        },
+        {
+          "label": "+",
+          "x": 47,
+          "y": 38,
+          "w": 6,
+          "h": 18,
+          "isTierSlot": false,
+          "color": "#fbbf24",
+          "id": "idmpo7arnqdrlm"
+        },
+        {
+          "label": "Free Box",
+          "x": 54,
+          "y": 16,
+          "w": 44,
+          "h": 62,
+          "isTierSlot": false,
+          "color": "#a855f7",
+          "id": "idmpo7arnqrjm2"
+        },
+        {
+          "label": "Footer / Timer",
+          "x": 2,
+          "y": 80,
+          "w": 96,
+          "h": 11,
+          "isTierSlot": false,
+          "color": "#64748b",
+          "id": "idmpo7arnqx1oh"
+        }
+      ]
     },
     "personal": {
       "struct": {}
