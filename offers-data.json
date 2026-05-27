@@ -635,24 +635,7 @@
       "cpd": 1000.1
     }
   ],
-  "customTypes": [
-    {
-      "k": "custom_1779711550428",
-      "n": "New Type",
-      "i": "⭐",
-      "c": "#6366f1",
-      "d": "Custom type",
-      "hasTiers": false
-    },
-    {
-      "k": "custom_1779779531887",
-      "n": "New Type",
-      "i": "⭐",
-      "c": "#6366f1",
-      "d": "Custom type",
-      "hasTiers": false
-    }
-  ],
+  "customTypes": [],
   "customSegs": [],
   "typeTemplates": {
     "buy_all": {
@@ -689,9 +672,9 @@
         {
           "label": "Tier 2 (featured)",
           "x": 34,
-          "y": 9,
-          "w": 32,
-          "h": 64,
+          "y": 13.392764857881136,
+          "w": 30.97750511247444,
+          "h": 59.60723514211887,
           "color": "#fbbf24",
           "id": "idmpe4v5556umo",
           "isTierSlot": true
@@ -708,9 +691,9 @@
         },
         {
           "label": "Buy All CTA",
-          "x": 5,
+          "x": 1.7280163599182,
           "y": 80,
-          "w": 90,
+          "w": 96.03271983640082,
           "h": 13,
           "color": "#4ade80",
           "id": "idmpe4v5554y1o",
@@ -815,9 +798,12 @@
     "double": {
       "struct": {
         "showCTA": false,
-        "showTimer": true
+        "showTimer": true,
+        "showCoinTotal": true
       },
-      "layout": "banner"
+      "layout": "banner",
+      "tierLayout": "grid",
+      "gridCols": 2
     },
     "personal": {
       "struct": {}
@@ -826,7 +812,82 @@
       "struct": {
         "showCTA": false
       },
-      "layout": "popup"
+      "layout": "banner",
+      "bg1": "#0e7490",
+      "bg2": "#134e4a",
+      "accent": "#4ade80",
+      "canvasBoxes": [
+        {
+          "label": "Hero Art / Illustration",
+          "x": 5,
+          "y": 2,
+          "w": 90,
+          "h": 34,
+          "isTierSlot": false,
+          "color": "#0ea5e9",
+          "id": "idmpnva8ymhyzm"
+        },
+        {
+          "label": "FIRST TIME ONLY badge",
+          "x": 30,
+          "y": 0,
+          "w": 40,
+          "h": 8,
+          "isTierSlot": false,
+          "color": "#ef4444",
+          "id": "idmpnva8ymknce"
+        },
+        {
+          "label": "Offer Title",
+          "x": 10,
+          "y": 37,
+          "w": 80,
+          "h": 9,
+          "isTierSlot": false,
+          "color": "#f0f9ff",
+          "id": "idmpnva8ymki2f"
+        },
+        {
+          "label": "Main Coin Quantity",
+          "x": 20,
+          "y": 47,
+          "w": 60,
+          "h": 14,
+          "isTierSlot": false,
+          "color": "#fbbf24",
+          "id": "idmpnva8ymna5o"
+        },
+        {
+          "label": "Bonus Items Row",
+          "x": 5,
+          "y": 63,
+          "w": 90,
+          "h": 14,
+          "isTierSlot": false,
+          "color": "#34d399",
+          "id": "idmpnva8ymcd1n"
+        },
+        {
+          "label": "Price CTA Button",
+          "x": 10,
+          "y": 80,
+          "w": 80,
+          "h": 13,
+          "isTierSlot": false,
+          "color": "#4ade80",
+          "id": "idmpnva8yma3al"
+        },
+        {
+          "label": "Availability note",
+          "x": 22,
+          "y": 94,
+          "w": 56,
+          "h": 5,
+          "isTierSlot": false,
+          "color": "#475569",
+          "id": "idmpnva8ymggvy"
+        }
+      ]
     },
     "piggy": {
       "struct": {}
@@ -1003,11 +1064,6 @@
     },
     "regular": {
       "struct": {}
-    },
-    "custom_1779711550428": {
-      "struct": {
-        "showCTA": true
-      }
     },
     "lives_refill": {
       "bg1": "#1a0a14",
@@ -1193,8 +1249,64 @@
       ],
       "struct": {}
     },
-    "custom_1779779531887": {
-      "struct": {}
+    "shop_bundle": {
+      "bg1": "#0a1628",
+      "bg2": "#0d3057",
+      "accent": "#3b82f6",
+      "canvasBoxes": [
+        {
+          "label": "Limited Offer / Title",
+          "x": 5,
+          "y": 1,
+          "w": 90,
+          "h": 9,
+          "isTierSlot": false,
+          "color": "#60a5fa",
+          "id": "idmpnxx8u9x7rf"
+        },
+        {
+          "label": "Starter Bundle",
+          "x": 2,
+          "y": 12,
+          "w": 30,
+          "h": 56,
+          "isTierSlot": true,
+          "color": "#34d399",
+          "id": "idmpnxx8u9aei6"
+        },
+        {
+          "label": "Value Bundle ★",
+          "x": 33,
+          "y": 8,
+          "w": 34,
+          "h": 63,
+          "isTierSlot": true,
+          "color": "#fbbf24",
+          "id": "idmpnxx8u94pv1"
+        },
+        {
+          "label": "Premium Bundle",
+          "x": 68,
+          "y": 12,
+          "w": 30,
+          "h": 56,
+          "isTierSlot": true,
+          "color": "#818cf8",
+          "id": "idmpnxx8u961ke"
+        },
+        {
+          "label": "Timer / Expiry",
+          "x": 20,
+          "y": 88,
+          "w": 60,
+          "h": 8,
+          "isTierSlot": false,
+          "color": "#475569",
+          "id": "idmpnxx8u9tgxx"
+        }
+      ],
+      "struct": {},
+      "tierLayout": "list"
     }
   },
   "shop": {
