@@ -700,7 +700,8 @@
           "isTierSlot": true
         }
       ],
-      "badgePresets": []
+      "badgePresets": [],
+      "tierLayout": "snaking"
     },
     "undefined": {
       "struct": {}
@@ -858,7 +859,8 @@
       ]
     },
     "personal": {
-      "struct": {}
+      "struct": {},
+      "layout": "popup"
     },
     "starter": {
       "struct": {
@@ -945,7 +947,14 @@
       "struct": {}
     },
     "timed": {
-      "struct": {}
+      "struct": {
+        "showCTA": true,
+        "showContents": true,
+        "showSegment": false,
+        "showBadge": false,
+        "ctaStyle": "pill"
+      },
+      "layout": "card"
     },
     "season": {
       "struct": {
@@ -1173,7 +1182,8 @@
           "id": "idmpl7d2aomfya"
         }
       ],
-      "struct": {}
+      "struct": {},
+      "tierLayout": "snaking"
     },
     "play_on": {
       "bg1": "#1a0a0a",
@@ -1299,7 +1309,9 @@
           "id": "idmpl7d4tdw4zd"
         }
       ],
-      "struct": {}
+      "struct": {
+        "showTimer": false
+      }
     },
     "shop_bundle": {
       "bg1": "#0a1628",
