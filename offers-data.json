@@ -860,7 +860,72 @@
     },
     "personal": {
       "struct": {},
-      "layout": "popup"
+      "layout": "popup",
+      "bg1": "#3b0764",
+      "bg2": "#1e1b4b",
+      "accent": "#a855f7",
+      "canvasBoxes": [
+        {
+          "label": "Hero Art / Character",
+          "x": 7.137014314928425,
+          "y": 0.17708333333333393,
+          "w": 90,
+          "h": 32,
+          "isTierSlot": false,
+          "color": "#a855f7",
+          "id": "idmpvbdr34znrm"
+        },
+        {
+          "label": "Personalised Title",
+          "x": 10,
+          "y": 35,
+          "w": 80,
+          "h": 9,
+          "isTierSlot": false,
+          "color": "#f5d0fe",
+          "id": "idmpvbdr34gct0"
+        },
+        {
+          "label": "Coin Quantity",
+          "x": 20,
+          "y": 46,
+          "w": 60,
+          "h": 13,
+          "isTierSlot": false,
+          "color": "#fbbf24",
+          "id": "idmpvbdr340elv"
+        },
+        {
+          "label": "Bonus Items",
+          "x": 5,
+          "y": 61,
+          "w": 90,
+          "h": 13,
+          "isTierSlot": false,
+          "color": "#f472b6",
+          "id": "idmpvbdr34bwq4"
+        },
+        {
+          "label": "Limited time label",
+          "x": 20,
+          "y": 75,
+          "w": 60,
+          "h": 7,
+          "isTierSlot": false,
+          "color": "#475569",
+          "id": "idmpvbdr34rjpg"
+        },
+        {
+          "label": "Price CTA Button",
+          "x": 10,
+          "y": 83,
+          "w": 80,
+          "h": 12,
+          "isTierSlot": false,
+          "color": "#4ade80",
+          "id": "idmpvbdr34mx36"
+        }
+      ]
     },
     "starter": {
       "struct": {
@@ -1381,7 +1446,8 @@
       "removeAds": true
     },
     "specialOfferIds": [
-      "idmpe51ylydrld"
+      "idmpe51ylydrld",
+      "idmpe525hfjabm"
     ],
     "bundles": [
       {
@@ -1392,7 +1458,8 @@
         "bonusPct": 25,
         "duration": "2H",
         "price": 9.99,
-        "badge": "FIRST TIME BONUS +25% MORE"
+        "badge": "FIRST TIME BONUS +25% MORE",
+        "contents": []
       },
       {
         "id": "b2",
@@ -1402,7 +1469,8 @@
         "bonusPct": 13,
         "duration": "4H",
         "price": 20.99,
-        "badge": "FIRST TIME BONUS +25% MORE"
+        "badge": "FIRST TIME BONUS +25% MORE",
+        "contents": []
       },
       {
         "id": "b3",
@@ -1412,7 +1480,8 @@
         "bonusPct": 25,
         "duration": "6H",
         "price": 35.99,
-        "badge": "BEST OFFER"
+        "badge": "BEST OFFER",
+        "contents": []
       }
     ],
     "coinPacks": [
