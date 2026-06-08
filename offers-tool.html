@@ -100,7 +100,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <body>
 <div class="topbar">
   <div class="topbar-logo">🎮 Offers Tool</div>
-  <div id="nav-tabs" style="display:contents"><button class="nb" onclick="nav('dashboard')" ondblclick="startTabRename('dashboard',this)" title="Double-click to rename" id="nav-btn-dashboard" style="position:relative;user-select:none">📊 <span id="nav-lbl-dashboard">Dashboard</span></button><button class="nb active" onclick="nav('create')" ondblclick="startTabRename('create',this)" title="Double-click to rename" id="nav-btn-create" style="position:relative;user-select:none">➕ <span id="nav-lbl-create">Create</span></button><button class="nb" onclick="nav('library')" ondblclick="startTabRename('library',this)" title="Double-click to rename" id="nav-btn-library" style="position:relative;user-select:none">📚 <span id="nav-lbl-library">Library</span></button><button class="nb" onclick="nav('compare')" ondblclick="startTabRename('compare',this)" title="Double-click to rename" id="nav-btn-compare" style="position:relative;user-select:none">🔢 <span id="nav-lbl-compare">Compare</span></button><button class="nb" onclick="nav('slope')" ondblclick="startTabRename('slope',this)" title="Double-click to rename" id="nav-btn-slope" style="position:relative;user-select:none">📈 <span id="nav-lbl-slope">Price Slope</span></button><button class="nb" onclick="nav('shop')" ondblclick="startTabRename('shop',this)" title="Double-click to rename" id="nav-btn-shop" style="position:relative;user-select:none">🛍️ <span id="nav-lbl-shop">Shop</span></button><button class="nb" onclick="nav('settings')" ondblclick="startTabRename('settings',this)" title="Double-click to rename" id="nav-btn-settings" style="position:relative;user-select:none">⚙️ <span id="nav-lbl-settings">Settings</span></button></div>
+  <div id="nav-tabs" style="display:contents"><button class="nb active" onclick="nav('dashboard')" ondblclick="startTabRename('dashboard',this)" title="Double-click to rename" id="nav-btn-dashboard" style="position:relative;user-select:none">📊 <span id="nav-lbl-dashboard">Dashboard</span></button><button class="nb" onclick="nav('create')" ondblclick="startTabRename('create',this)" title="Double-click to rename" id="nav-btn-create" style="position:relative;user-select:none">➕ <span id="nav-lbl-create">Create</span></button><button class="nb" onclick="nav('library')" ondblclick="startTabRename('library',this)" title="Double-click to rename" id="nav-btn-library" style="position:relative;user-select:none">📚 <span id="nav-lbl-library">Library</span></button><button class="nb" onclick="nav('compare')" ondblclick="startTabRename('compare',this)" title="Double-click to rename" id="nav-btn-compare" style="position:relative;user-select:none">🔢 <span id="nav-lbl-compare">Compare</span></button><button class="nb" onclick="nav('slope')" ondblclick="startTabRename('slope',this)" title="Double-click to rename" id="nav-btn-slope" style="position:relative;user-select:none">📈 <span id="nav-lbl-slope">Price Slope</span></button><button class="nb" onclick="nav('shop')" ondblclick="startTabRename('shop',this)" title="Double-click to rename" id="nav-btn-shop" style="position:relative;user-select:none">🛍️ <span id="nav-lbl-shop">Shop</span></button><button class="nb" onclick="nav('settings')" ondblclick="startTabRename('settings',this)" title="Double-click to rename" id="nav-btn-settings" style="position:relative;user-select:none">⚙️ <span id="nav-lbl-settings">Settings</span></button></div>
   <div style="margin-left:auto;display:flex;align-items:center;gap:2px;padding-left:10px;border-left:1px solid rgba(255,255,255,.15);flex-shrink:0">
     <button id="undo-btn" onclick="undo()" title="Undo (Ctrl+Z)" style="background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; color: rgba(255, 255, 255, 0.25); padding: 8px 10px; cursor: pointer; font-size: 16px; border-radius: 6px; transition: 0.15s;" disabled="">↩</button>
     <button id="redo-btn" onclick="redo()" title="Redo (Ctrl+Shift+Z)" style="background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; color: rgba(255, 255, 255, 0.25); padding: 8px 10px; cursor: pointer; font-size: 16px; border-radius: 6px; transition: 0.15s;" disabled="">↪</button>
@@ -139,7 +139,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div id="git-last-push" style="font-size:10px;color:var(--text2);text-align:center;min-height:14px"></div>
   <div id="git-auto-status" style="font-size:10px;color:var(--text2);text-align:center;min-height:12px"></div>
 </div>
-<div id="panel-dashboard" class="panel">
+<div id="panel-dashboard" class="panel active">
 <div class="prow"><div><div class="page-title">📊 Dashboard</div><div class="page-sub">All your game offer intelligence in one place</div></div><button class="btn btn-primary" onclick="nav('create')">➕ New Offer</button></div>
 <div class="stats-row">
   <div class="stat-card"><div class="stat-val">3</div><div class="stat-lbl">Total Offers</div></div>
@@ -180,171 +180,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       
     </div>
   </div></div></div>
-<div id="panel-create" class="panel active"><div style="max-width:1440px;margin:0 auto;padding-bottom:40px">
-  <div class="prow" style="margin-bottom:14px">
-    <div><div class="page-title">➕ Create Offer</div><div class="page-sub">Fill in details · preview updates live on the right</div></div>
-    <div style="display:flex;gap:8px">
-      <button class="btn btn-sm btn-secondary" onclick="collectAll();resetWizard();nav('library')">✕ Cancel</button>
-      <button class="btn btn-primary" style="padding:8px 22px" onclick="saveOffer()">💾 Save</button>
-    </div>
-  </div>
-  <div style="display:grid;grid-template-columns:minmax(0,58fr) minmax(0,42fr);gap:20px;align-items:start">
-    <div>
-      <div class="card" style="margin-bottom:16px">
-    <div class="section-h">🎮 Offer Type</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:8px">
-      <div onclick="selectType('ooc')" style="border:2.5px solid var(--border);border-radius:12px;padding:10px 6px;cursor:pointer;background:var(--surface);text-align:center;user-select:none;transition:all .15s" onmouseover="if(WZ.data.type!=='ooc'){this.style.borderColor='#f59e0b';this.style.background='#f59e0b11';}" onmouseout="if(WZ.data.type!=='ooc'){this.style.borderColor='var(--border)';this.style.background='var(--surface)';}"><div style="font-size:24px;margin-bottom:4px">🪙</div><div style="font-size:11px;font-weight:800;color:var(--text);">Out of Coins</div></div><div onclick="selectType('play_on')" style="border:2.5px solid var(--border);border-radius:12px;padding:10px 6px;cursor:pointer;background:var(--surface);text-align:center;user-select:none;transition:all .15s" onmouseover="if(WZ.data.type!=='play_on'){this.style.borderColor='#ef4444';this.style.background='#ef444411';}" onmouseout="if(WZ.data.type!=='play_on'){this.style.borderColor='var(--border)';this.style.background='var(--surface)';}"><div style="font-size:24px;margin-bottom:4px">▶️</div><div style="font-size:11px;font-weight:800;color:var(--text);">Play On</div></div><div onclick="selectType('lives_refill')" style="border:2.5px solid var(--border);border-radius:12px;padding:10px 6px;cursor:pointer;background:var(--surface);text-align:center;user-select:none;transition:all .15s" onmouseover="if(WZ.data.type!=='lives_refill'){this.style.borderColor='#ec4899';this.style.background='#ec489911';}" onmouseout="if(WZ.data.type!=='lives_refill'){this.style.borderColor='var(--border)';this.style.background='var(--surface)';}"><div style="font-size:24px;margin-bottom:4px">❤️</div><div style="font-size:11px;font-weight:800;color:var(--text);">Lives Refill</div></div><div onclick="selectType('shop_bundle')" style="border:2.5px solid var(--border);border-radius:12px;padding:10px 6px;cursor:pointer;background:var(--surface);text-align:center;user-select:none;transition:all .15s" onmouseover="if(WZ.data.type!=='shop_bundle'){this.style.borderColor='#3b82f6';this.style.background='#3b82f611';}" onmouseout="if(WZ.data.type!=='shop_bundle'){this.style.borderColor='var(--border)';this.style.background='var(--surface)';}"><div style="font-size:24px;margin-bottom:4px">🛍️</div><div style="font-size:11px;font-weight:800;color:var(--text);">Shop Bundle</div></div><div onclick="selectType('starter')" style="border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 12px; padding: 10px 6px; cursor: pointer; background: var(--surface); text-align: center; user-select: none; transition: 0.15s;" onmouseover="if(WZ.data.type!=='starter'){this.style.borderColor='#10b981';this.style.background='#10b98111';}" onmouseout="if(WZ.data.type!=='starter'){this.style.borderColor='var(--border)';this.style.background='var(--surface)';}"><div style="font-size:24px;margin-bottom:4px">🎁</div><div style="font-size:11px;font-weight:800;color:var(--text);">Starter Pack</div></div><div onclick="selectType('buy_all')" style="border:2.5px solid var(--border);border-radius:12px;padding:10px 6px;cursor:pointer;background:var(--surface);text-align:center;user-select:none;transition:all .15s" onmouseover="if(WZ.data.type!=='buy_all'){this.style.borderColor='#0ea5e9';this.style.background='#0ea5e911';}" onmouseout="if(WZ.data.type!=='buy_all'){this.style.borderColor='var(--border)';this.style.background='var(--surface)';}"><div style="font-size:24px;margin-bottom:4px">🛒</div><div style="font-size:11px;font-weight:800;color:var(--text);">Buy All</div></div><div onclick="selectType('double')" style="border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 12px; padding: 10px 6px; cursor: pointer; background: var(--surface); text-align: center; user-select: none; transition: 0.15s;" onmouseover="if(WZ.data.type!=='double'){this.style.borderColor='#f59e0b';this.style.background='#f59e0b11';}" onmouseout="if(WZ.data.type!=='double'){this.style.borderColor='var(--border)';this.style.background='var(--surface)';}"><div style="font-size:24px;margin-bottom:4px">2️⃣</div><div style="font-size:11px;font-weight:800;color:var(--text);">1+1 Double</div></div><div onclick="selectType('endless')" style="border:2.5px solid var(--border);border-radius:12px;padding:10px 6px;cursor:pointer;background:var(--surface);text-align:center;user-select:none;transition:all .15s" onmouseover="if(WZ.data.type!=='endless'){this.style.borderColor='#8b5cf6';this.style.background='#8b5cf611';}" onmouseout="if(WZ.data.type!=='endless'){this.style.borderColor='var(--border)';this.style.background='var(--surface)';}"><div style="font-size:24px;margin-bottom:4px">♾️</div><div style="font-size:11px;font-weight:800;color:var(--text);">Endless</div></div><div onclick="selectType('piggy')" style="border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 12px; padding: 10px 6px; cursor: pointer; background: var(--surface); text-align: center; user-select: none; transition: 0.15s;" onmouseover="if(WZ.data.type!=='piggy'){this.style.borderColor='#f97316';this.style.background='#f9731611';}" onmouseout="if(WZ.data.type!=='piggy'){this.style.borderColor='var(--border)';this.style.background='var(--surface)';}"><div style="font-size:24px;margin-bottom:4px">🐷</div><div style="font-size:11px;font-weight:800;color:var(--text);">Piggy Bank</div></div><div onclick="selectType('season')" style="border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 12px; padding: 10px 6px; cursor: pointer; background: var(--surface); text-align: center; user-select: none; transition: 0.15s;" onmouseover="if(WZ.data.type!=='season'){this.style.borderColor='#eab308';this.style.background='#eab30811';}" onmouseout="if(WZ.data.type!=='season'){this.style.borderColor='var(--border)';this.style.background='var(--surface)';}"><div style="font-size:24px;margin-bottom:4px">🏆</div><div style="font-size:11px;font-weight:800;color:var(--text);">Season Pass</div></div><div onclick="selectType('personal')" style="border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 12px; padding: 10px 6px; cursor: pointer; background: var(--surface); text-align: center; user-select: none; transition: 0.15s;" onmouseover="if(WZ.data.type!=='personal'){this.style.borderColor='#a855f7';this.style.background='#a855f711';}" onmouseout="if(WZ.data.type!=='personal'){this.style.borderColor='var(--border)';this.style.background='var(--surface)';}"><div style="font-size:24px;margin-bottom:4px">👤</div><div style="font-size:11px;font-weight:800;color:var(--text);">Personal</div></div><div onclick="selectType('timed')" style="border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 12px; padding: 10px 6px; cursor: pointer; background: var(--surface); text-align: center; user-select: none; transition: 0.15s;" onmouseover="if(WZ.data.type!=='timed'){this.style.borderColor='#dc2626';this.style.background='#dc262611';}" onmouseout="if(WZ.data.type!=='timed'){this.style.borderColor='var(--border)';this.style.background='var(--surface)';}"><div style="font-size:24px;margin-bottom:4px">⏰</div><div style="font-size:11px;font-weight:800;color:var(--text);">Timed Flash</div></div>
-    </div>
-  </div><div class="card" style="margin-bottom:12px;padding:12px 14px">
-    <div class="section-h" style="font-size:11px;margin-bottom:10px">📋 Offer Setup </div>
-    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:8px;margin-bottom:8px">
-      <div><label class="flabel" style="font-size:10px;margin-bottom:3px">Offer Name *</label><input class="fi" id="w-name" placeholder="e.g. Weekend Mega Bundle" value="" oninput="refreshOfferPreview()" style="padding:6px 9px;font-size:12px"></div>
-      <div><label class="flabel" style="font-size:10px;margin-bottom:3px">Badge / Tag</label><input class="fi" id="w-badge" placeholder="BEST VALUE 🔥" value="" oninput="refreshOfferPreview()" list="badge-presets-list" style="padding:6px 9px;font-size:12px"><datalist id="badge-presets-list"><option value="HOT DEAL"></option><option value="BEST VALUE"></option><option value="POPULAR"></option><option value="LIMITED TIME"></option><option value="FIRST TIME"></option></datalist></div>
-      <div><label class="flabel" style="font-size:10px;margin-bottom:3px">Segment</label><select class="fs" id="w-segment" style="padding:6px 9px;font-size:12px"><option value="NP">NP/Dormant</option><option value="Payers">Payers</option><option value="5-10">5-10 Purchases</option><option value="10+">10+ Purchases</option><option value="Dormant30">Dormant 30+</option><option value="All" selected="">All Users</option></select></div>
-      <div><label class="flabel" style="font-size:10px;margin-bottom:3px">Location</label><select class="fs" id="w-location" style="padding:6px 9px;font-size:12px"><option value="">— location —</option><option value="Shop">Shop</option><option value="Try Again">Try Again</option><option value="Revive">Revive</option><option value="In Game">In Game</option><option value="Home Screen">Home Screen</option><option value="Post Level">Post Level</option><option value="Win Screen">Win Screen</option></select></div>
-    </div>
-    
-    <div><label class="flabel" style="font-size:10px;margin-bottom:3px">Notes</label><input class="fi" id="w-notes" placeholder="Internal notes…" value="" style="padding:6px 9px;font-size:12px"></div>
-  </div>
-    <div class="card" style="margin-bottom:16px">
-      <div class="section-h">💰 Pricing</div>
-      <div class="frow">
-    <div class="fg"><label class="flabel">Price ($)</label>
-      <div style="display:flex;align-items:center;gap:4px">
-        <button type="button" class="btn btn-xs btn-secondary" style="padding:5px 10px;font-size:15px;font-weight:800" onclick="const inp=document.getElementById('w-price');const v=Math.max(0,(parseFloat(inp.value)||0)-1);inp.value=v;liveCalc()">−</button>
-        <input class="fi" id="w-price" type="number" step="1" min="0" placeholder="e.g. 7.99" value="" oninput="liveCalc()" style="text-align:center">
-        <button type="button" class="btn btn-xs btn-secondary" style="padding:5px 10px;font-size:15px;font-weight:800" onclick="const inp=document.getElementById('w-price');const v=(parseFloat(inp.value)||0)+1;inp.value=v;liveCalc()">+</button>
-      </div>
-    </div>
-    <div class="fg"><label class="flabel">Pricing Type</label><select class="fs" id="w-ptype">
-      <option value="-1">-1 — Below comfort zone (loss leader)</option><option value="0">0 — At player comfort zone</option><option value="1">+1 — One step above comfort</option><option value="2">+2 — Two steps above comfort</option><option value="3">+3 — Premium / whale tier</option>
-    </select></div>
-  </div>
-  <div class="frow">
-    <div class="fg"><label class="flabel">Additional Coins/$ %</label>
-      <input class="fi" id="w-addpct" type="number" step="1" min="0" placeholder="e.g. 15" value="" oninput="liveCalc()">
-      <div class="hint">How much MORE value vs. store rate</div>
-    </div>
-    <div class="fg"><label class="flabel">Live Metrics</label>
-      <div id="live-calc" style="background:var(--bg);padding:10px;border-radius:8px;font-size:12px;line-height:1.9">
-        Enter price to see metrics
-      </div>
-    </div>
-  </div>
-  <div class="frow">
-    <div class="fg"><label class="flabel">Purchase Limit (0=unlimited)</label><input class="fi" id="w-limit" type="number" min="0" placeholder="0" value=""></div>
-    <div class="fg"><label class="flabel">Start Level</label><input class="fi" id="w-startlvl" type="number" min="0" placeholder="e.g. 5" value=""></div>
-  </div>
-  <div class="fg"><label class="toggle-wrap"><span class="toggle-switch"><input type="checkbox" id="w-free"><span class="tslider"></span></span><span class="flabel" style="margin:0">This is a FREE offer (no charge)</span></label></div>
-    </div>
-    <div class="card" id="sc-type" style="margin-bottom:16px">
-      <div class="section-h">⏰ Timed Flash — Details</div>
-      <div class="info-box">No special configuration needed for this offer type. Add contents in the section below.</div>
-    </div>
-    <div class="card" style="margin-bottom:16px"><div class="section-h">🎁 Contents &amp; Budget</div>
-<div id="c-slots"></div>
-<button class="btn btn-sm btn-ghost" onclick="addCSlot()">＋ Add Currency</button>
-<div class="divider"></div>
-<div class="frow3" style="margin-top:10px">
-  <div class="card" style="text-align:center"><div style="font-size:20px;font-weight:800;color:var(--accent)" id="s4-total">0</div><div style="font-size:11px;color:var(--text2)">Total Coins</div></div>
-  <div class="card" style="text-align:center"><div style="font-size:20px;font-weight:800;color:var(--success)" id="s4-cpd">0</div><div style="font-size:11px;color:var(--text2)">Coins/$</div></div>
-  <div class="card" style="text-align:center"><div style="font-size:20px;font-weight:800;color:#10b981" id="s4-gap">+0%</div><div style="font-size:11px;color:var(--text2)">Gap vs Store</div></div>
-</div></div>
-  
-      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:8px">
-        <button class="btn btn-secondary" onclick="collectAll();resetWizard();nav('library')">✕ Cancel</button>
-        <button class="btn btn-primary" style="padding:10px 32px;font-size:14px" onclick="saveOffer()">💾 Save Offer</button>
-      </div>
-    </div>
-    <div style="position:sticky;top:62px">
-      <div style="background:rgba(0,0,0,.6);border-radius:14px;padding:14px;border:1px solid rgba(255,255,255,.08)">
-        <div id="overlay-zone" ondragover="event.preventDefault();document.getElementById('overlay-zone').style.borderColor='#818cf8'" ondragleave="document.getElementById('overlay-zone').style.borderColor='rgba(255,255,255,.2)'" ondrop="handleOverlayDrop(event)" style="border:2px dashed rgba(255,255,255,.2);border-radius:10px;padding:10px;margin-bottom:10px;cursor:pointer;transition:border-color .15s;background:rgba(255,255,255,.03)" onclick="document.getElementById('overlay-file').click()">
-    <div style="text-align:center;padding:6px 0">
-          <div style="font-size:22px;margin-bottom:3px">🎨</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.7);font-weight:600;margin-bottom:3px">Drop or paste a game screenshot</div>
-          <div style="font-size:11px;color:rgba(255,255,255,.4);line-height:1.4">It becomes the offer visual backdrop —<br>tier boxes float on top of your actual game UI</div>
-        </div>
-    <input type="file" id="overlay-file" accept="image/*,video/*" style="display:none" onchange="handleOverlayFile(this.files[0])">
-  </div>
-        
-  <div style="position:relative;width:min(240px,100%);margin:0 auto">
-    <!-- Phone shell with metallic titanium finish — 9:19.5 iPhone proportion -->
-    <div id="offer-preview-wrap" style="position:relative;border-radius:48px;background:linear-gradient(160deg,#383838 0%,#1c1c1e 45%,#2a2a2a 100%);padding:9px;box-shadow:0 0 0 1.5px #0a0a0a,0 0 0 3px rgba(255,255,255,.10),0 70px 160px rgba(0,0,0,.92),inset 0 1.5px 0 rgba(255,255,255,.22);overflow:visible">
-      <!-- Silent toggle (left, near top) -->
-      <div style="position:absolute;left:-4px;top:96px;width:4px;height:26px;background:linear-gradient(180deg,#555,#2e2e2e);border-radius:3px 0 0 3px;box-shadow:-1px 0 4px rgba(0,0,0,.6)"></div>
-      <!-- Volume Up (left) -->
-      <div style="position:absolute;left:-4px;top:136px;width:4px;height:56px;background:linear-gradient(180deg,#555,#2e2e2e);border-radius:3px 0 0 3px;box-shadow:-1px 0 4px rgba(0,0,0,.6)"></div>
-      <!-- Volume Down (left) -->
-      <div style="position:absolute;left:-4px;top:204px;width:4px;height:56px;background:linear-gradient(180deg,#555,#2e2e2e);border-radius:3px 0 0 3px;box-shadow:-1px 0 4px rgba(0,0,0,.6)"></div>
-      <!-- Power button (right) — taller, vertically centred on the phone -->
-      <div style="position:absolute;right:-4px;top:180px;width:4px;height:80px;background:linear-gradient(180deg,#555,#2e2e2e);border-radius:0 3px 3px 0;box-shadow:1px 0 4px rgba(0,0,0,.6)"></div>
-
-      <!-- Screen glass — aspect-ratio 9:19.5 = true iPhone proportion -->
-      <div style="background:linear-gradient(160deg,#1e1b4b 0%,#0f3460 100%);border-radius:40px;overflow:hidden;display:flex;flex-direction:column;aspect-ratio:9/19.5;border:1px solid rgba(255,255,255,.07);position:relative">
-        
-
-        <!-- Dynamic Island -->
-        <div style="background:#000;padding:12px 0 0;display:flex;justify-content:center;flex-shrink:0;position:relative;z-index:2">
-          <div style="width:100px;height:31px;background:#0a0a0a;border-radius:18px;border:1px solid rgba(255,255,255,.07)"></div>
-        </div>
-
-        <!-- Status bar -->
-        <div style="padding:4px 20px 4px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;position:relative;z-index:2">
-          <span style="font-size:11px;font-weight:700;color:white;letter-spacing:-.4px">9:41</span>
-          <div style="display:flex;align-items:center;gap:5px">
-            <!-- Cellular signal -->
-            <svg width="17" height="12" viewBox="0 0 17 12" fill="white"><rect x="0" y="8" width="3" height="4" rx="1" opacity=".4"></rect><rect x="4.5" y="5.5" width="3" height="6.5" rx="1" opacity=".6"></rect><rect x="9" y="3" width="3" height="9" rx="1" opacity=".85"></rect><rect x="13.5" y="0" width="3" height="12" rx="1"></rect></svg>
-            <!-- WiFi -->
-            <svg width="15" height="11" viewBox="0 0 15 11" fill="white"><circle cx="7.5" cy="9.8" r="1.5"></circle><path d="M4.6 6.9c.77-.77 1.82-1.25 2.9-1.25s2.13.48 2.9 1.25l1.2-1.2C10.3 4.3 9 3.65 7.5 3.65S4.7 4.3 3.4 5.7l1.2 1.2z" opacity=".75"></path><path d="M1.8 4.1C3.3 2.6 5.3 1.7 7.5 1.7s4.2.9 5.7 2.4l1.2-1.2C12.6 1.1 10.2 0 7.5 0S2.4 1.1.6 2.9l1.2 1.2z" opacity=".45"></path></svg>
-            <!-- Battery -->
-            <div style="display:flex;align-items:center">
-              <div style="width:22px;height:11px;border:1.5px solid rgba(255,255,255,.72);border-radius:3px;padding:2px;display:flex;align-items:center">
-                <div style="width:76%;height:100%;background:white;border-radius:1px"></div>
-              </div>
-              <div style="width:2px;height:5px;background:rgba(255,255,255,.55);border-radius:0 1.5px 1.5px 0;margin-left:-1px"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- App bar: type label + tier page controls -->
-        <div style="padding:3px 12px 4px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;background:rgba(0,0,0,.38);backdrop-filter:blur(10px);position:relative;z-index:1">
-          <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,.48);display:flex;align-items:center;gap:5px">
-            <span style="width:16px;height:16px;border-radius:4px;background:#dc2626;color:white;font-size:9px;display:inline-flex;align-items:center;justify-content:center">⏰</span>
-            Live Preview
-          </div>
-          <span id="preview-tier-count" style="font-size:10px;color:rgba(255,255,255,.4)">Timed Flash</span>
-        </div>
-
-        <!-- Offer content (scrollable) -->
-        <div style="overflow-y:auto;flex:1;min-height:0;padding:12px;position:relative;z-index:1;display:flex;flex-direction:column">
-          <div id="offer-card-preview" style="flex:1;display:flex;flex-direction:column;min-height:0"><div style="border:3px solid #dc2626;border-radius:16px;overflow:hidden;position:relative;flex:1;display:flex;flex-direction:column">
-    <div style="background:linear-gradient(175deg,#1a1a2e 0%,#0f3460 60%);;padding:16px 14px 14px;color:white;position:relative;overflow:hidden;flex:1">
-      <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,#dc262644 0%,transparent 60%);pointer-events:none"></div>
-      <div style="position:relative;height:100%;display:flex;flex-direction:column">
-        
-        <div style="font-size:11px;opacity:.55;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px">⏰ Timed Flash</div>
-        <div style="font-size:17px;font-weight:800;line-height:1.2;margin-bottom:10px">Untitled Offer</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:6px;flex:1;align-content:center"><div style="font-size:12px;opacity:.35;color:white">No contents configured</div></div>
-        
-      </div>
-    </div>
-    <div style="background:linear-gradient(180deg,#1a6e1a,#0f4d0f);padding:8px 12px;flex-shrink:0">
-      <div style="background:linear-gradient(135deg,#5cd45c,#2ea82e);color:white;text-align:center;padding:9px 0;border-radius:10px;font-size:15px;font-weight:900">—</div>
-    </div>
-  </div></div>
-        </div>
-
-        <!-- Home indicator (swipe bar) -->
-        <div style="background:rgba(0,0,0,.18);padding:6px 0 10px;display:flex;justify-content:center;flex-shrink:0;position:relative;z-index:2">
-          <div style="width:120px;height:5px;background:rgba(255,255,255,.28);border-radius:3px"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-      </div>
-    </div>
-  </div>
-</div></div>
+<div id="panel-create" class="panel"></div>
 <div id="panel-library" class="panel"></div>
 <div id="panel-compare" class="panel"></div>
 <div id="panel-currencies" class="panel"></div>
