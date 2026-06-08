@@ -1465,7 +1465,8 @@
   "customPricingTypes": [],
   "hiddenTypes": [
     "milestone",
-    "rolling"
+    "rolling",
+    "regular"
   ],
   "hiddenSegs": [],
   "hiddenLocations": [],
